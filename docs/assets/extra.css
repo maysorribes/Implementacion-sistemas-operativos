@@ -1,0 +1,7 @@
+.md-typeset p {
+  text-align: justify;
+}
+
+.md-sidebar--secondary {
+  display: none;
+}

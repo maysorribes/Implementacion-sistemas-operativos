@@ -1,0 +1,18 @@
+site_name: Implementación de Sistemas Operativos
+theme:
+  name: material
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+
+nav:
+  - Inicio: index.md
+  - UT1. Introducción a los sistemas informáticos:
+      - "1.1 El sistema informático (hardware)": iso-ut1.1-sistema-informatico-hardware.md
+      - "1.2 Componentes software: el SO": iso-ut1.2-componentes-software.md
+      - "1.3 Estructura del SO: procesos y memoria": iso-ut1.3-estructura-so-procesos-memoria.md
+      - "1.4 Estructura del SO: E/S y archivos": iso-ut1.4-estructura-so-es-archivos.md
+
+extra_css:
+  - assets/extra.css
