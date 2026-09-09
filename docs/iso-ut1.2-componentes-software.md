@@ -4,7 +4,7 @@ Material elaborado para el módulo **Implementación de Sistemas Operativos**
 
 # UT1.2. Componentes software: el sistema operativo
 
-*Segundo bloque de la UT1 "Introducción a los sistemas informáticos" (25 horas totales). Este bloque ocupa 4 de esas 14 horas.*
+*Segundo bloque de la UT1 "Introducción a los sistemas informáticos" (25 horas totales). Este bloque ocupa 4 de esas 25 horas.*
 
 ## Programación de Aula
 
