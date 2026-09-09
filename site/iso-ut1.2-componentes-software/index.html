@@ -1,0 +1,1497 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../iso-ut1.1-sistema-informatico-hardware/">
+      
+      
+        <link rel="next" href="../iso-ut1.3-estructura-so-procesos-memoria/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>1.2 Componentes software: el SO - Implementación de Sistemas Operativos</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ut12-componentes-software-el-sistema-operativo" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Implementación de Sistemas Operativos" class="md-header__button md-logo" aria-label="Implementación de Sistemas Operativos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Implementación de Sistemas Operativos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1.2 Componentes software: el SO
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Implementación de Sistemas Operativos" class="md-nav__button md-logo" aria-label="Implementación de Sistemas Operativos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Implementación de Sistemas Operativos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT1. Introducción a los sistemas informáticos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT1. Introducción a los sistemas informáticos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.1-sistema-informatico-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.1 El sistema informático (hardware)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.2 Componentes software: el SO
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.2 Componentes software: el SO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#programacion-de-aula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Programación de Aula
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Programación de Aula">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resultados-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultados de Aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planificacion-temporal-2-sesiones-4-horas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planificación Temporal (2 sesiones / 4 horas)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-sistema-operativo-y-aplicaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Sistema operativo y aplicaciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Sistema operativo y aplicaciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-software-de-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Software de sistema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-software-de-aplicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Software de aplicación
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-los-lenguajes-de-programacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Los lenguajes de programación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-clasificacion-del-software-segun-su-licencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Clasificación del software según su licencia
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Clasificación del software según su licencia">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-comercializacion-de-productos-con-licencias-propietarias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Comercialización de productos con licencias propietarias
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-sistemas-operativos-actuales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Sistemas operativos actuales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-sistemas-operativos-libres-y-propietarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Sistemas operativos libres y propietarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Sistemas operativos libres y propietarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-microsoft-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Microsoft Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-ubuntu-linux-y-gnulinux-en-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Ubuntu Linux (y GNU/Linux en general)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-ventajas-y-desventajas-de-linux-y-del-software-libre-en-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Ventajas y desventajas de Linux y del software libre en general
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-instalacion-de-sistemas-operativos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Instalación de sistemas operativos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Instalación de sistemas operativos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-planificacion-de-la-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Planificación de la instalación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-parametros-basicos-de-la-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Parámetros básicos de la instalación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-requisitos-tecnicos-del-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Requisitos técnicos del sistema operativo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-particiones-y-sistema-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Particiones y sistema de archivos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-instalacion-del-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Instalación del sistema
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-interaccion-con-el-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Interacción con el sistema operativo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Interacción con el sistema operativo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-origen-de-las-interfaces-graficas-de-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Origen de las interfaces gráficas de usuario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-uso-del-raton-en-las-interfaces-graficas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Uso del ratón en las interfaces gráficas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-interfaces-graficas-de-usuario-actuales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Interfaces gráficas de usuario actuales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-interfaz-de-texto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Interfaz de texto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-la-interfaz-de-texto-de-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 La interfaz de texto de Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#76-powershell-la-interfaz-de-texto-avanzada-para-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6 PowerShell, la interfaz de texto avanzada para Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#77-la-interfaz-de-texto-de-gnulinux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.7 La interfaz de texto de GNU/Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#78-despues-de-instalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.8 Después de instalar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#79-el-gestor-de-arranque-en-sistemas-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.9 El gestor de arranque en sistemas Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#710-el-gestor-de-arranque-en-sistemas-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.10 El gestor de arranque en sistemas Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-elaboracion-de-la-documentacion-sobre-la-instalacion-e-incidencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Elaboración de la documentación sobre la instalación e incidencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios-practicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios prácticos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.3-estructura-so-procesos-memoria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.3 Estructura del SO: procesos y memoria
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.4-estructura-so-es-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.4 Estructura del SO: E/S y archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#programacion-de-aula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Programación de Aula
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Programación de Aula">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resultados-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultados de Aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planificacion-temporal-2-sesiones-4-horas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planificación Temporal (2 sesiones / 4 horas)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-sistema-operativo-y-aplicaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Sistema operativo y aplicaciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Sistema operativo y aplicaciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-software-de-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Software de sistema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-software-de-aplicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Software de aplicación
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-los-lenguajes-de-programacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Los lenguajes de programación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-clasificacion-del-software-segun-su-licencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Clasificación del software según su licencia
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Clasificación del software según su licencia">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-comercializacion-de-productos-con-licencias-propietarias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Comercialización de productos con licencias propietarias
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-sistemas-operativos-actuales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Sistemas operativos actuales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-sistemas-operativos-libres-y-propietarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Sistemas operativos libres y propietarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Sistemas operativos libres y propietarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-microsoft-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Microsoft Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-ubuntu-linux-y-gnulinux-en-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Ubuntu Linux (y GNU/Linux en general)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-ventajas-y-desventajas-de-linux-y-del-software-libre-en-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Ventajas y desventajas de Linux y del software libre en general
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-instalacion-de-sistemas-operativos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Instalación de sistemas operativos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Instalación de sistemas operativos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-planificacion-de-la-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Planificación de la instalación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-parametros-basicos-de-la-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Parámetros básicos de la instalación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-requisitos-tecnicos-del-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Requisitos técnicos del sistema operativo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-particiones-y-sistema-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Particiones y sistema de archivos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-instalacion-del-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Instalación del sistema
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-interaccion-con-el-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Interacción con el sistema operativo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Interacción con el sistema operativo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-origen-de-las-interfaces-graficas-de-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Origen de las interfaces gráficas de usuario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-uso-del-raton-en-las-interfaces-graficas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Uso del ratón en las interfaces gráficas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-interfaces-graficas-de-usuario-actuales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Interfaces gráficas de usuario actuales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-interfaz-de-texto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Interfaz de texto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-la-interfaz-de-texto-de-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 La interfaz de texto de Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#76-powershell-la-interfaz-de-texto-avanzada-para-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6 PowerShell, la interfaz de texto avanzada para Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#77-la-interfaz-de-texto-de-gnulinux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.7 La interfaz de texto de GNU/Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#78-despues-de-instalar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.8 Después de instalar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#79-el-gestor-de-arranque-en-sistemas-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.9 El gestor de arranque en sistemas Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#710-el-gestor-de-arranque-en-sistemas-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.10 El gestor de arranque en sistemas Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-elaboracion-de-la-documentacion-sobre-la-instalacion-e-incidencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Elaboración de la documentación sobre la instalación e incidencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios-practicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios prácticos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p style="font-size: 1.3em;"><strong>CFGS Administración de Sistemas Informáticos en Red (1º curso)</strong></p>
+
+<p>Material elaborado para el módulo <strong>Implementación de Sistemas Operativos</strong></p>
+<h1 id="ut12-componentes-software-el-sistema-operativo">UT1.2. Componentes software: el sistema operativo</h1>
+<p><em>Segundo bloque de la UT1 "Introducción a los sistemas informáticos" (14 horas totales). Este bloque ocupa 4 de esas 14 horas.</em></p>
+<h2 id="programacion-de-aula">Programación de Aula</h2>
+<h3 id="resultados-de-aprendizaje">Resultados de Aprendizaje</h3>
+<p>Esta unidad continúa trabajando el <strong>Resultado de Aprendizaje 1 (RA1)</strong> del módulo (ver UT1.1 para el texto completo del RA), centrándose especialmente en los criterios:</p>
+<ul>
+<li><strong>CE1.2.</strong> Se han identificado las características, funciones y arquitectura de un sistema operativo.</li>
+<li><strong>CE1.3.</strong> Se han comparado diferentes sistemas operativos, sus versiones y licencias de uso, en función de sus requisitos, características y campos de aplicación.</li>
+<li><strong>CE1.4.</strong> Se han realizado instalaciones de diferentes sistemas operativos.</li>
+<li><strong>CE1.8.</strong> Se ha elaborado documentación de soporte relativa a las instalaciones efectuadas y a las incidencias detectadas.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Lectura recomendada</p>
+<p>Este material amplía y complementa (sin reproducirlo) el contenido del <strong>Capítulo 3</strong> del libro <em><a href="https://somebooks.es/conceptos-basicos-sobre-sistemas-operativos/">Conceptos básicos sobre sistemas operativos</a></em> de SomeBooks.es (P. Ruiz).</p>
+</div>
+<h3 id="planificacion-temporal-2-sesiones-4-horas">Planificación Temporal (2 sesiones / 4 horas)</h3>
+<table>
+<thead>
+<tr>
+<th>Sesión</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Software de sistema/aplicación, lenguajes y licencias</td>
+</tr>
+<tr>
+<td>2</td>
+<td>SO libres y propietarios. Instalación e interacción con el sistema</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-sistema-operativo-y-aplicaciones">1. Sistema operativo y aplicaciones</h2>
+<h3 id="11-software-de-sistema">1.1 Software de sistema</h3>
+<p>El <strong>software de sistema</strong> es el conjunto de programas que gestionan directamente el hardware y sirven de plataforma para el resto del software. El más importante es el <strong>sistema operativo</strong>, pero también se incluyen aquí los controladores (drivers) y las utilidades básicas del sistema.</p>
+<h3 id="12-software-de-aplicacion">1.2 Software de aplicación</h3>
+<p>El <strong>software de aplicación</strong> son los programas que un usuario ejecuta para realizar una tarea concreta (escribir un documento, navegar por internet, editar una imagen). Se apoya siempre en el software de sistema para poder acceder al hardware.</p>
+<h2 id="2-los-lenguajes-de-programacion">2. Los lenguajes de programación</h2>
+<p>Todo software, ya sea de sistema o de aplicación, se escribe en un <strong>lenguaje de programación</strong>: un conjunto de reglas y sintaxis que permite a una persona expresar instrucciones que, tras un proceso de traducción (compilación o interpretación), el procesador puede ejecutar. Existen lenguajes de muy distinto nivel: desde el lenguaje máquina (las instrucciones binarias que entiende directamente el procesador) hasta lenguajes de alto nivel, mucho más cercanos al lenguaje humano y por tanto más fáciles de escribir y mantener.</p>
+<h2 id="3-clasificacion-del-software-segun-su-licencia">3. Clasificación del software según su licencia</h2>
+<p>La <strong>licencia</strong> de un programa establece los términos bajo los que se puede usar, copiar, modificar o redistribuir.</p>
+<h3 id="31-comercializacion-de-productos-con-licencias-propietarias">3.1 Comercialización de productos con licencias propietarias</h3>
+<p>Dentro del software propietario (de pago), existen distintas modalidades de comercialización:</p>
+<table>
+<thead>
+<tr>
+<th>Modalidad</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Retail o FPP (Full Packaged Product)</td>
+<td>Versión completa, en caja, pensada para la venta individual al usuario final</td>
+</tr>
+<tr>
+<td>OEM (Original Equipment Manufacturer)</td>
+<td>Versión más económica, vendida junto con un equipo nuevo, vinculada a ese hardware concreto</td>
+</tr>
+<tr>
+<td>Licencias por volumen</td>
+<td>Contrato único que permite instalar el software en muchos equipos de una organización, sin necesidad de gestionar una clave por unidad</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-sistemas-operativos-actuales">4. Sistemas operativos actuales</h2>
+<p>Un <strong>sistema operativo</strong> es el software que gestiona los recursos del hardware (procesador, memoria, dispositivos) y ofrece una plataforma común sobre la que se ejecutan las aplicaciones. En el panorama actual, conviven distintas familias de sistemas operativos según el tipo de dispositivo (escritorio, servidor, móvil), y dentro de cada familia, distintas versiones que van sucediéndose con el tiempo, cada una con sus propios requisitos de hardware y ciclo de soporte.</p>
+<h2 id="5-sistemas-operativos-libres-y-propietarios">5. Sistemas operativos libres y propietarios</h2>
+<h3 id="51-microsoft-windows">5.1 Microsoft Windows</h3>
+<p><strong>Windows</strong> es el sistema operativo propietario más extendido en equipos de escritorio a nivel mundial. Se distribuye bajo licencia comercial, con distintas ediciones según el uso (doméstico, profesional, servidor), y su código fuente no es público.</p>
+<h3 id="52-ubuntu-linux-y-gnulinux-en-general">5.2 Ubuntu Linux (y GNU/Linux en general)</h3>
+<p><strong>Linux</strong> no es en sí mismo un sistema operativo completo, sino el <strong>núcleo (kernel)</strong> sobre el que se construyen numerosas <strong>distribuciones</strong> (Ubuntu, Fedora, Debian...), cada una añadiendo su propio conjunto de programas, entorno gráfico y herramientas de gestión. La mayoría de estas distribuciones son software libre, con su código fuente disponible públicamente.</p>
+<h3 id="53-ventajas-y-desventajas-de-linux-y-del-software-libre-en-general">5.3 Ventajas y desventajas de Linux y del software libre en general</h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Software libre</th>
+<th>Software propietario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coste</td>
+<td>Habitualmente gratuito</td>
+<td>Requiere licencia de pago</td>
+</tr>
+<tr>
+<td>Código fuente</td>
+<td>Accesible, se puede auditar y modificar</td>
+<td>No accesible</td>
+</tr>
+<tr>
+<td>Soporte</td>
+<td>Comunitario (foros, documentación colaborativa), aunque existen empresas que ofrecen soporte comercial</td>
+<td>Soporte oficial del fabricante</td>
+</tr>
+<tr>
+<td>Compatibilidad de software</td>
+<td>Puede haber menos programas comerciales o de terceros adaptados</td>
+<td>Mayor disponibilidad de software comercial específico</td>
+</tr>
+<tr>
+<td>Seguridad</td>
+<td>El código auditable por cualquiera facilita detectar y corregir vulnerabilidades rápidamente</td>
+<td>Depende exclusivamente del fabricante para publicar parches</td>
+</tr>
+<tr>
+<td>Curva de aprendizaje</td>
+<td>Puede requerir más familiarización, según la distribución</td>
+<td>Suele estar más orientado a la facilidad de uso inmediata</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-instalacion-de-sistemas-operativos">6. Instalación de sistemas operativos</h2>
+<h3 id="61-planificacion-de-la-instalacion">6.1 Planificación de la instalación</h3>
+<p>Antes de instalar un sistema operativo conviene planificar: qué edición o distribución instalar, cómo se va a particionar el disco, qué configuración de red se necesita, y si la instalación será individual o desatendida (para varios equipos).</p>
+<h3 id="62-parametros-basicos-de-la-instalacion">6.2 Parámetros básicos de la instalación</h3>
+<p>Durante el proceso de instalación se suelen definir, como mínimo: el idioma y la configuración regional, la zona horaria, el nombre del equipo, la cuenta de usuario inicial y su contraseña, y el particionado del disco.</p>
+<h3 id="63-requisitos-tecnicos-del-sistema-operativo">6.3 Requisitos técnicos del sistema operativo</h3>
+<p>Cada sistema operativo publica unos <strong>requisitos mínimos</strong> de hardware (procesador, memoria RAM, espacio en disco) necesarios para poder instalarse y funcionar correctamente, que deben comprobarse antes de iniciar la instalación.</p>
+<h3 id="64-particiones-y-sistema-de-archivos">6.4 Particiones y sistema de archivos</h3>
+<p>El disco de destino debe estar particionado, y cada partición debe formatearse con un <strong>sistema de archivos</strong> compatible con el sistema operativo a instalar (por ejemplo, NTFS para Windows, ext4 para muchas distribuciones Linux).</p>
+<h3 id="65-instalacion-del-sistema">6.5 Instalación del sistema</h3>
+<p>El proceso de instalación en sí copia los archivos del sistema operativo al disco, configura el gestor de arranque y aplica los parámetros indicados durante la planificación.</p>
+<h2 id="7-interaccion-con-el-sistema-operativo">7. Interacción con el sistema operativo</h2>
+<h3 id="71-origen-de-las-interfaces-graficas-de-usuario">7.1 Origen de las interfaces gráficas de usuario</h3>
+<p>Las primeras interfaces de los ordenadores eran puramente textuales. La <strong>interfaz gráfica de usuario (GUI)</strong>, con ventanas, iconos y un puntero controlado por un dispositivo señalador, surgió para hacer la interacción más intuitiva y accesible, generalizándose desde los años 80 en adelante.</p>
+<h3 id="72-uso-del-raton-en-las-interfaces-graficas">7.2 Uso del ratón en las interfaces gráficas</h3>
+<p>El ratón (u otros dispositivos señaladores, como el trackpad) permite señalar y manipular directamente los elementos que aparecen en pantalla, complementando o sustituyendo a los comandos escritos.</p>
+<h3 id="73-interfaces-graficas-de-usuario-actuales">7.3 Interfaces gráficas de usuario actuales</h3>
+<p>Los sistemas operativos actuales ofrecen interfaces gráficas ricas, con soporte para gestos táctiles, múltiples escritorios virtuales y personalización avanzada, aunque mantienen los mismos principios básicos de ventanas, iconos y menús.</p>
+<h3 id="74-interfaz-de-texto">7.4 Interfaz de texto</h3>
+<p>Junto a la interfaz gráfica, los sistemas operativos mantienen una <strong>interfaz de texto</strong> (línea de comandos), donde las órdenes se escriben directamente como texto. Aunque tiene una curva de aprendizaje mayor, resulta mucho más potente para tareas de automatización, administración remota o scripts.</p>
+<h3 id="75-la-interfaz-de-texto-de-windows">7.5 La interfaz de texto de Windows</h3>
+<p>Tradicionalmente el símbolo del sistema (CMD), heredero de MS-DOS, con una sintaxis de comandos relativamente limitada.</p>
+<h3 id="76-powershell-la-interfaz-de-texto-avanzada-para-windows">7.6 PowerShell, la interfaz de texto avanzada para Windows</h3>
+<p><strong>PowerShell</strong> es la interfaz de texto avanzada de Microsoft, mucho más potente que CMD. A diferencia de un shell tradicional (que solo maneja texto), PowerShell trabaja internamente con <strong>objetos</strong>, lo que facilita enormemente la automatización y administración de sistemas Windows.</p>
+<h3 id="77-la-interfaz-de-texto-de-gnulinux">7.7 La interfaz de texto de GNU/Linux</h3>
+<p>El shell (como <strong>Bash</strong>) es fundamental en la administración de sistemas Linux, siendo el mecanismo habitual para automatizar tareas mediante scripts.</p>
+<h3 id="78-despues-de-instalar">7.8 Después de instalar</h3>
+<p>Tras completar la instalación, es habitual: instalar los controladores específicos del hardware, aplicar las actualizaciones disponibles, y configurar las opciones básicas del sistema antes de empezar a usarlo en producción.</p>
+<h3 id="79-el-gestor-de-arranque-en-sistemas-windows">7.9 El gestor de arranque en sistemas Windows</h3>
+<p>El gestor de arranque (Boot Manager) es el responsable de cargar el sistema operativo al encender el equipo, y de gestionar el arranque dual si hay más de un sistema instalado.</p>
+<h3 id="710-el-gestor-de-arranque-en-sistemas-linux">7.10 El gestor de arranque en sistemas Linux</h3>
+<p>El gestor de arranque habitual es <strong>GRUB</strong>, que además de arrancar Linux, puede detectar y ofrecer el arranque de otros sistemas operativos instalados en el mismo equipo.</p>
+<h2 id="8-elaboracion-de-la-documentacion-sobre-la-instalacion-e-incidencias">8. Elaboración de la documentación sobre la instalación e incidencias</h2>
+<p>Como recoge el criterio CE1.8, toda instalación debe quedar <strong>documentada</strong>: parámetros aplicados, incidencias surgidas durante el proceso, y soluciones adoptadas. Esta documentación es esencial en un entorno profesional, tanto para el propio historial del equipo como para facilitar el trabajo de otros técnicos en el futuro.</p>
+<h2 id="ejercicios-practicos">Ejercicios prácticos</h2>
+<div class="admonition task">
+<p class="admonition-title">Tarea</p>
+<p><strong>Ejercicio 1</strong>. Explica la diferencia entre software de sistema y software de aplicación, poniendo dos ejemplos de cada uno.</p>
+<p><strong>Ejercicio 2</strong>. Explica la diferencia entre una licencia OEM y una licencia Retail/FPP. ¿Cuál sería más adecuada para una empresa que compra 100 ordenadores nuevos?</p>
+<p><strong>Ejercicio 3</strong>. Compara Windows y una distribución Linux (por ejemplo, Ubuntu) señalando al menos dos ventajas y dos inconvenientes de cada uno.</p>
+<p><strong>Ejercicio 4</strong>. Enumera, en orden, los parámetros básicos que se suelen definir durante la instalación de un sistema operativo.</p>
+<p><strong>Ejercicio 5</strong>. Explica la diferencia entre CMD y PowerShell en Windows. ¿Por qué se dice que PowerShell trabaja con "objetos" y no solo con texto?</p>
+<p><strong>Ejercicio 6</strong>. ¿Qué es un gestor de arranque y qué diferencia hay entre el de Windows y GRUB (Linux)?</p>
+<p><strong>Ejercicio 7 (práctica en el aula)</strong>. Instala un sistema operativo (en una máquina virtual) documentando cada parámetro que configures durante el proceso, siguiendo el esquema del punto 8.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

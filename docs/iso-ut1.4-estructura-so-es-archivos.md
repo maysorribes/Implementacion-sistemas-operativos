@@ -4,7 +4,7 @@ Material elaborado para el módulo **Implementación de Sistemas Operativos**
 
 # UT1.4. Estructura del sistema operativo: entrada/salida y archivos
 
-*Cuarto y último bloque de la UT1 "Introducción a los sistemas informáticos" (14 horas totales). Este bloque ocupa las 3 horas restantes.*
+*Cuarto bloque de la UT1 "Introducción a los sistemas informáticos" (25 horas totales). Este bloque ocupa 3 horas.*
 
 ## Programación de Aula
 

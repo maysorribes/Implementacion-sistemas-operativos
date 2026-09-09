@@ -1,0 +1,1372 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../iso-ut1.2-componentes-software/">
+      
+      
+        <link rel="next" href="../iso-ut1.4-estructura-so-es-archivos/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>1.3 Estructura del SO: procesos y memoria - Implementación de Sistemas Operativos</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ut13-estructura-del-sistema-operativo-procesos-y-memoria" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Implementación de Sistemas Operativos" class="md-header__button md-logo" aria-label="Implementación de Sistemas Operativos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Implementación de Sistemas Operativos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1.3 Estructura del SO: procesos y memoria
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Implementación de Sistemas Operativos" class="md-nav__button md-logo" aria-label="Implementación de Sistemas Operativos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Implementación de Sistemas Operativos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT1. Introducción a los sistemas informáticos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT1. Introducción a los sistemas informáticos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.1-sistema-informatico-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.1 El sistema informático (hardware)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.2-componentes-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.2 Componentes software: el SO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.3 Estructura del SO: procesos y memoria
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.3 Estructura del SO: procesos y memoria
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#programacion-de-aula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Programación de Aula
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Programación de Aula">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resultados-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultados de Aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planificacion-temporal-15-sesiones-3-horas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planificación Temporal (1,5 sesiones / 3 horas)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-el-sistema-operativo-como-software-de-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. El sistema operativo como software de base
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-elementos-y-estructura-de-un-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Elementos y estructura de un sistema operativo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Elementos y estructura de un sistema operativo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-elementos-de-un-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Elementos de un sistema operativo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-estructura-de-un-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Estructura de un sistema operativo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-funciones-del-sistema-operativo-recursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Funciones del sistema operativo. Recursos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-gestion-de-procesos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Gestión de procesos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Gestión de procesos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-como-se-ejecuta-un-proceso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 ¿Cómo se ejecuta un proceso?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-como-se-intercalan-los-procesos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 ¿Cómo se intercalan los procesos?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-cuando-acaba-un-proceso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 ¿Cuándo acaba un proceso?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-planificacion-de-procesos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Planificación de procesos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-comunicacion-entre-procesos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Comunicación entre procesos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-procesos-y-servicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Procesos y servicios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-administracion-de-procesos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7 Administración de procesos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-gestion-de-memoria-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Gestión de memoria principal
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Gestión de memoria principal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-gestion-de-memoria-para-un-solo-proceso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Gestión de memoria para un solo proceso
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-gestion-de-memoria-con-particiones-fijas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Gestión de memoria con particiones fijas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-gestion-de-memoria-con-particiones-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Gestión de memoria con particiones variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-reubicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Reubicación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-paginacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Paginación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5 Paginación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#otras-consideraciones-a-tener-en-cuenta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otras consideraciones a tener en cuenta
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-segmentacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 Segmentación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-paginacion-y-segmentacion-combinadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 Paginación y segmentación combinadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#58-memoria-virtual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.8 Memoria virtual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#59-administracion-de-la-memoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.9 Administración de la memoria
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios-practicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios prácticos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.4-estructura-so-es-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.4 Estructura del SO: E/S y archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#programacion-de-aula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Programación de Aula
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Programación de Aula">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resultados-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resultados de Aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planificacion-temporal-15-sesiones-3-horas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planificación Temporal (1,5 sesiones / 3 horas)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-el-sistema-operativo-como-software-de-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. El sistema operativo como software de base
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-elementos-y-estructura-de-un-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Elementos y estructura de un sistema operativo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Elementos y estructura de un sistema operativo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-elementos-de-un-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Elementos de un sistema operativo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-estructura-de-un-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Estructura de un sistema operativo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-funciones-del-sistema-operativo-recursos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Funciones del sistema operativo. Recursos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-gestion-de-procesos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Gestión de procesos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Gestión de procesos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-como-se-ejecuta-un-proceso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 ¿Cómo se ejecuta un proceso?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-como-se-intercalan-los-procesos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 ¿Cómo se intercalan los procesos?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-cuando-acaba-un-proceso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 ¿Cuándo acaba un proceso?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-planificacion-de-procesos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Planificación de procesos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-comunicacion-entre-procesos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Comunicación entre procesos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-procesos-y-servicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Procesos y servicios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-administracion-de-procesos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7 Administración de procesos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-gestion-de-memoria-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Gestión de memoria principal
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Gestión de memoria principal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-gestion-de-memoria-para-un-solo-proceso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Gestión de memoria para un solo proceso
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-gestion-de-memoria-con-particiones-fijas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Gestión de memoria con particiones fijas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-gestion-de-memoria-con-particiones-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Gestión de memoria con particiones variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-reubicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Reubicación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-paginacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Paginación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5 Paginación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#otras-consideraciones-a-tener-en-cuenta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otras consideraciones a tener en cuenta
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-segmentacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 Segmentación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-paginacion-y-segmentacion-combinadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 Paginación y segmentación combinadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#58-memoria-virtual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.8 Memoria virtual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#59-administracion-de-la-memoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.9 Administración de la memoria
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios-practicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicios prácticos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p style="font-size: 1.3em;"><strong>CFGS Administración de Sistemas Informáticos en Red (1º curso)</strong></p>
+
+<p>Material elaborado para el módulo <strong>Implementación de Sistemas Operativos</strong></p>
+<h1 id="ut13-estructura-del-sistema-operativo-procesos-y-memoria">UT1.3. Estructura del sistema operativo: procesos y memoria</h1>
+<p><em>Tercer bloque de la UT1 "Introducción a los sistemas informáticos" (14 horas totales). Este bloque ocupa 3 de esas 14 horas.</em></p>
+<h2 id="programacion-de-aula">Programación de Aula</h2>
+<h3 id="resultados-de-aprendizaje">Resultados de Aprendizaje</h3>
+<p>Esta unidad continúa trabajando el <strong>Resultado de Aprendizaje 1 (RA1)</strong> del módulo (ver UT1.1 para el texto completo del RA), centrándose especialmente en el criterio:</p>
+<ul>
+<li><strong>CE1.2.</strong> Se han identificado las características, funciones y arquitectura de un sistema operativo.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Lectura recomendada</p>
+<p>Este material amplía y complementa (sin reproducirlo) el contenido del <strong>Capítulo 4</strong> del libro <em><a href="https://somebooks.es/conceptos-basicos-sobre-sistemas-operativos/">Conceptos básicos sobre sistemas operativos</a></em> de SomeBooks.es (P. Ruiz).</p>
+</div>
+<h3 id="planificacion-temporal-15-sesiones-3-horas">Planificación Temporal (1,5 sesiones / 3 horas)</h3>
+<table>
+<thead>
+<tr>
+<th>Sesión</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Elementos y estructura de un SO. Gestión de procesos</td>
+</tr>
+<tr>
+<td>2 (media sesión)</td>
+<td>Planificación de procesos y gestión de memoria</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-el-sistema-operativo-como-software-de-base">1. El sistema operativo como software de base</h2>
+<p>Todo sistema informático necesita un <strong>software de base</strong> que actúe como intermediario entre el hardware y el resto de aplicaciones. Ese software de base es, principalmente, el sistema operativo, que se sitúa justo por encima del hardware y por debajo de las aplicaciones de usuario, ocultando la complejidad técnica del hardware y ofreciendo una interfaz común y estable sobre la que programar.</p>
+<h2 id="2-elementos-y-estructura-de-un-sistema-operativo">2. Elementos y estructura de un sistema operativo</h2>
+<h3 id="21-elementos-de-un-sistema-operativo">2.1 Elementos de un sistema operativo</h3>
+<p>Un sistema operativo se compone, principalmente, de:</p>
+<ul>
+<li><strong>Núcleo (kernel)</strong>: el corazón del sistema operativo, encargado de las funciones más básicas (gestión de procesos, memoria y dispositivos), con acceso directo al hardware.</li>
+<li><strong>Servicios y demonios</strong>: programas que se ejecutan en segundo plano, ofreciendo funcionalidades al resto del sistema.</li>
+<li><strong>Intérprete de comandos (shell)</strong>: la interfaz que permite al usuario o a otros programas comunicarse con el sistema operativo.</li>
+<li><strong>Utilidades del sistema</strong>: herramientas básicas de gestión y mantenimiento que acompañan al sistema operativo.</li>
+</ul>
+<h3 id="22-estructura-de-un-sistema-operativo">2.2 Estructura de un sistema operativo</h3>
+<p>Según cómo se organiza internamente el núcleo, se distinguen varios modelos de arquitectura:</p>
+<table>
+<thead>
+<tr>
+<th>Estructura</th>
+<th>Características</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monolítica</td>
+<td>Todo el sistema operativo (gestión de procesos, memoria, dispositivos, sistema de archivos...) se ejecuta como un único programa grande, con acceso directo entre sus componentes internos. Ofrece buen rendimiento, pero un fallo en cualquier parte puede afectar a todo el sistema</td>
+</tr>
+<tr>
+<td>Micronúcleo (microkernel)</td>
+<td>Solo las funciones más esenciales (comunicación entre procesos, gestión básica) se ejecutan en el núcleo; el resto de servicios se ejecutan como procesos independientes fuera de él. Más robusto ante fallos, pero con mayor sobrecarga de comunicación</td>
+</tr>
+<tr>
+<td>Núcleo híbrido</td>
+<td>Combina características de ambos modelos: mantiene en el núcleo ciertos servicios por rendimiento, mientras separa otros como en un micronúcleo. Es el enfoque más habitual en los sistemas operativos actuales (Windows, macOS)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-funciones-del-sistema-operativo-recursos">3. Funciones del sistema operativo. Recursos</h2>
+<p>El sistema operativo gestiona los distintos <strong>recursos</strong> del sistema, entendiendo por recurso cualquier elemento (físico o lógico) que un proceso puede necesitar para ejecutarse: el procesador, la memoria, los dispositivos de E/S, o los propios archivos. Las principales funciones del sistema operativo se organizan en torno a la gestión de estos recursos: gestión de procesos, gestión de memoria (vistas en este bloque) y gestión de entrada/salida y de archivos (que se estudiarán en el bloque UT1.4).</p>
+<h2 id="4-gestion-de-procesos">4. Gestión de procesos</h2>
+<p>Un <strong>proceso</strong> es un programa en ejecución: no es lo mismo el archivo del programa guardado en disco (algo estático) que la instancia de ese programa corriendo en memoria, con sus propios recursos asignados (memoria, tiempo de CPU...).</p>
+<h3 id="41-como-se-ejecuta-un-proceso">4.1 ¿Cómo se ejecuta un proceso?</h3>
+<p>Cuando se lanza un programa, el sistema operativo crea un proceso: reserva memoria para él, carga su código, y lo añade a la cola de procesos listos para ejecutarse, esperando su turno de acceso al procesador.</p>
+<h3 id="42-como-se-intercalan-los-procesos">4.2 ¿Cómo se intercalan los procesos?</h3>
+<p>Un procesador (o cada uno de sus núcleos) solo puede ejecutar realmente un proceso a la vez en cada instante. Sin embargo, el sistema operativo da la sensación de que varios procesos se ejecutan simultáneamente gracias a la <strong>multitarea</strong>: va asignando pequeños intervalos de tiempo de CPU a cada proceso, alternando entre ellos tan rápido que, para el usuario, parece que ocurren de forma simultánea.</p>
+<h3 id="43-cuando-acaba-un-proceso">4.3 ¿Cuándo acaba un proceso?</h3>
+<p>Un proceso finaliza cuando termina su ejecución de forma normal, cuando el usuario o el sistema lo cancela, o cuando se produce un error grave que impide continuar (lo que suele mostrarse como un cierre inesperado de la aplicación).</p>
+<h3 id="44-planificacion-de-procesos">4.4 Planificación de procesos</h3>
+<p>Cuando hay varios procesos esperando usar el procesador, el sistema operativo necesita un criterio para decidir a cuál atender primero: esto es la <strong>planificación de procesos</strong>. Existen distintos algoritmos de planificación, cada uno con sus ventajas e inconvenientes:</p>
+<table>
+<thead>
+<tr>
+<th>Algoritmo</th>
+<th>Sigla</th>
+<th>Funcionamiento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primero en llegar, primero en ser servido</td>
+<td>FCFS (<em>First Come First Served</em>)</td>
+<td>Los procesos se atienden estrictamente en el orden en que llegaron, como una cola de un solo carril</td>
+</tr>
+<tr>
+<td>Primero el más corto</td>
+<td>SJF (<em>Shortest Job First</em>)</td>
+<td>Se da prioridad al proceso que necesite menos tiempo de ejecución, minimizando el tiempo medio de espera</td>
+</tr>
+<tr>
+<td>Por turnos</td>
+<td>RR (<em>Round Robin</em>)</td>
+<td>Cada proceso recibe un pequeño intervalo fijo de tiempo (<em>quantum</em>), y si no termina, vuelve al final de la cola, cediendo el turno al siguiente</td>
+</tr>
+<tr>
+<td>Por prioridad</td>
+<td>—</td>
+<td>Cada proceso tiene asignado un nivel de prioridad, y se atiende primero a los de mayor prioridad</td>
+</tr>
+<tr>
+<td>Reparto equitativo</td>
+<td>FSS (<em>Fair-share Scheduling</em>)</td>
+<td>Reparte el tiempo de CPU de forma equitativa entre distintos usuarios o grupos, no solo entre procesos individuales</td>
+</tr>
+<tr>
+<td>Colas múltiples</td>
+<td>MQS (<em>Multilevel Queue Scheduling</em>)</td>
+<td>Los procesos se clasifican en distintas colas según su tipo (interactivos, en segundo plano...), aplicando una política de planificación distinta a cada cola</td>
+</tr>
+</tbody>
+</table>
+<h3 id="45-comunicacion-entre-procesos">4.5 Comunicación entre procesos</h3>
+<p>Los procesos, aunque se ejecutan de forma independiente, a menudo necesitan intercambiar información entre sí (por ejemplo, cuando un programa envía datos a otro). El sistema operativo ofrece mecanismos de <strong>comunicación entre procesos (IPC)</strong> para permitir este intercambio de forma controlada y segura.</p>
+<h3 id="46-procesos-y-servicios">4.6 Procesos y servicios</h3>
+<p>Un <strong>servicio</strong> (o demonio, en terminología Unix/Linux) es un tipo especial de proceso que se ejecuta en segundo plano, generalmente iniciado automáticamente por el sistema, sin interacción directa del usuario, ofreciendo una función continua (por ejemplo, un servicio de impresión o de red).</p>
+<h3 id="47-administracion-de-procesos">4.7 Administración de procesos</h3>
+<p>El sistema operativo ofrece herramientas (gráficas o de línea de comandos) que permiten al usuario o al administrador consultar qué procesos están en ejecución, su consumo de recursos, y actuar sobre ellos (finalizarlos, cambiar su prioridad...) cuando sea necesario.</p>
+<h2 id="5-gestion-de-memoria-principal">5. Gestión de memoria principal</h2>
+<p>La <strong>gestión de memoria</strong> es la función del sistema operativo encargada de repartir la memoria RAM disponible entre los distintos procesos que se están ejecutando, garantizando que cada uno tenga el espacio que necesita sin interferir con los demás.</p>
+<h3 id="51-gestion-de-memoria-para-un-solo-proceso">5.1 Gestión de memoria para un solo proceso</h3>
+<p>En los sistemas más simples (o en sus primeras etapas históricas), toda la memoria disponible se dedicaba a un único proceso en ejecución cada vez, sin necesidad de repartirla entre varios.</p>
+<h3 id="52-gestion-de-memoria-con-particiones-fijas">5.2 Gestión de memoria con particiones fijas</h3>
+<p>Un enfoque más avanzado divide la memoria en <strong>particiones de tamaño fijo</strong>, predefinidas de antemano, asignando cada proceso a la partición que mejor se ajusta a su tamaño. Es sencillo de gestionar, pero desperdicia memoria cuando un proceso es más pequeño que la partición que ocupa.</p>
+<h3 id="53-gestion-de-memoria-con-particiones-variables">5.3 Gestión de memoria con particiones variables</h3>
+<p>Para reducir ese desperdicio, las <strong>particiones variables</strong> se ajustan al tamaño exacto de cada proceso en el momento de crearlas. Sin embargo, con el tiempo, la memoria libre puede quedar fragmentada en pequeños huecos no contiguos, difíciles de aprovechar.</p>
+<h3 id="54-reubicacion">5.4 Reubicación</h3>
+<p>La <strong>reubicación</strong> consiste en poder mover un proceso de una zona de memoria a otra mientras se ejecuta (o entre ejecuciones), reorganizando el espacio disponible para reducir la fragmentación y aprovechar mejor la memoria.</p>
+<h3 id="55-paginacion">5.5 Paginación</h3>
+<p>La <strong>paginación</strong> divide tanto la memoria física como el espacio de direcciones de cada proceso en bloques de tamaño fijo, llamados <strong>páginas</strong>. De esta forma, un proceso no necesita ocupar un bloque contiguo de memoria: sus páginas pueden estar repartidas en cualquier posición libre, eliminando el problema de la fragmentación externa.</p>
+<h4 id="otras-consideraciones-a-tener-en-cuenta">Otras consideraciones a tener en cuenta</h4>
+<p>La paginación introduce cierta sobrecarga adicional: el sistema necesita mantener una <strong>tabla de páginas</strong> que traduzca las direcciones lógicas de cada proceso a direcciones físicas reales de memoria, lo que consume tiempo y espacio adicional.</p>
+<h3 id="56-segmentacion">5.6 Segmentación</h3>
+<p>La <strong>segmentación</strong> divide la memoria de un proceso según su estructura lógica (por ejemplo, un segmento para el código, otro para los datos, otro para la pila), en lugar de bloques de tamaño fijo. Esto se ajusta mejor a cómo está organizado realmente un programa, aunque puede volver a introducir el problema de la fragmentación.</p>
+<h3 id="57-paginacion-y-segmentacion-combinadas">5.7 Paginación y segmentación combinadas</h3>
+<p>Muchos sistemas modernos combinan ambas técnicas: organizan la memoria de un proceso en segmentos lógicos, y cada segmento, a su vez, se divide en páginas, aprovechando las ventajas de los dos enfoques.</p>
+<h3 id="58-memoria-virtual">5.8 Memoria virtual</h3>
+<p>La <strong>memoria virtual</strong> permite que el sistema operativo utilice espacio del disco como si fuera una extensión de la memoria RAM, "intercambiando" (swap) páginas de memoria poco usadas al disco para liberar espacio en la RAM real. Esto permite ejecutar más procesos, o procesos más grandes, de los que cabrían físicamente en la memoria RAM instalada, a costa de una pérdida de rendimiento si se recurre a ella con demasiada frecuencia.</p>
+<h3 id="59-administracion-de-la-memoria">5.9 Administración de la memoria</h3>
+<p>El sistema operativo mantiene un control constante de qué zonas de memoria están libres, cuáles están ocupadas y por qué proceso, liberando automáticamente la memoria cuando un proceso termina, para que pueda ser reutilizada por otros.</p>
+<h2 id="ejercicios-practicos">Ejercicios prácticos</h2>
+<div class="admonition task">
+<p class="admonition-title">Tarea</p>
+<p><strong>Ejercicio 1</strong>. Explica la diferencia entre una estructura de sistema operativo monolítica y una de micronúcleo. ¿Cuál dirías que prioriza más la robustez del sistema?</p>
+<p><strong>Ejercicio 2</strong>. Explica con tus palabras la diferencia entre un programa y un proceso.</p>
+<p><strong>Ejercicio 3</strong>. Explica cómo consigue un sistema operativo que parezca que varios programas se ejecutan "a la vez" en un ordenador con un único núcleo de procesador.</p>
+<p><strong>Ejercicio 4</strong>. Compara los algoritmos de planificación FCFS y Round Robin: ¿cuál sería más adecuado para un sistema interactivo (donde el usuario espera respuesta inmediata) y por qué?</p>
+<p><strong>Ejercicio 5</strong>. Explica la diferencia entre gestión de memoria con particiones fijas y con particiones variables, y qué problema resuelve la paginación respecto a ambas.</p>
+<p><strong>Ejercicio 6</strong>. ¿Qué es la memoria virtual y qué ventaja aporta? ¿Qué inconveniente tiene usarla en exceso?</p>
+<p><strong>Ejercicio 7 (práctica en el aula)</strong>. Abre el administrador de tareas (o el comando <code>top</code>/<code>htop</code> en Linux) de un equipo y observa los procesos en ejecución. Identifica al menos 3 procesos de sistema y 2 procesos de aplicaciones de usuario, anotando su consumo de CPU y memoria.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -4,7 +4,7 @@ Material elaborado para el módulo **Implementación de Sistemas Operativos**
 
 # UT1.1. El sistema informático: hardware
 
-*Primer bloque de la UT1 "Introducción a los sistemas informáticos" (14 horas totales). Este bloque ocupa 4 de esas 14 horas.*
+*Primer bloque de la UT1 "Introducción a los sistemas informáticos" (25 horas totales). Este bloque ocupa 4 de esas 25 horas.*
 
 ## Programación de Aula
 
@@ -144,10 +144,5 @@ La placa base tiene un **formato** (o factor de forma) normalizado —ATX, Micro
 
     **Ejercicio 3**. ¿Qué es una interrupción y por qué es un mecanismo fundamental para que el ordenador pueda responder a eventos externos con rapidez?
 
-    **Ejercicio 4**. Explica qué es la memoria caché y por qué existe, si el procesador ya tiene acceso a la memoria RAM. ¿Por qué está organizada en varios niveles (L1, L2, L3)?
+    **Ejercicio 4**. Clasifica estos dispositivos según el tipo de ordenador al que corresponden: un cajero automático, el ordenador de un centro de investigación meteorológica, tu propio smartphone, un servidor de correo de una empresa.
 
-    **Ejercicio 5**. Clasifica estos dispositivos según el tipo de ordenador al que corresponden: un cajero automático, el ordenador de un centro de investigación meteorológica, tu propio smartphone, un servidor de correo de una empresa.
-
-    **Ejercicio 6**. Investiga las características técnicas (frecuencia, núcleos, socket, nivel de integración) de un procesador actual concreto y compáralas con las explicadas en esta unidad.
-
-    **Ejercicio 7**. Enumera al menos 6 elementos de la placa base explicados en el anexo, indicando la función de cada uno.
