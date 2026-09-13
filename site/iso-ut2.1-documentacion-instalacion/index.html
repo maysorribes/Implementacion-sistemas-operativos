@@ -1,0 +1,800 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../iso-ut1.4-estructura-so-es-archivos/">
+      
+      
+        <link rel="next" href="../iso-ut2.2-proceso-arranque/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>2.1 Documentación de los procesos de instalación - Implementación de Sistemas Operativos</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#21-documentacion-de-los-procesos-de-instalacion" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Implementación de Sistemas Operativos" class="md-header__button md-logo" aria-label="Implementación de Sistemas Operativos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Implementación de Sistemas Operativos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.1 Documentación de los procesos de instalación
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Implementación de Sistemas Operativos" class="md-nav__button md-logo" aria-label="Implementación de Sistemas Operativos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Implementación de Sistemas Operativos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT1. Introducción a los sistemas informáticos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT1. Introducción a los sistemas informáticos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.1-sistema-informatico-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.1 El sistema informático (hardware)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.2-componentes-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.2 Componentes software: el SO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.3-estructura-so-procesos-memoria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.3 Estructura del SO: procesos y memoria
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.4-estructura-so-es-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.4 Estructura del SO: E/S y archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT2. Instalación y primeros pasos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT2. Instalación y primeros pasos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1 Documentación de los procesos de instalación
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1 Documentación de los procesos de instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elaboracion-de-la-documentacion-sobre-la-instalacion-e-incidencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elaboración de la documentación sobre la instalación e incidencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.2-proceso-arranque/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2 Proceso de arranque de un sistema operativo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.3-particionado-discos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.3 Particionado de discos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.4-instalacion-so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.4 Instalación de sistemas operativos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.5-instalacion-multiples-so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.5 Instalación de múltiples sistemas operativos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elaboracion-de-la-documentacion-sobre-la-instalacion-e-incidencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elaboración de la documentación sobre la instalación e incidencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="21-documentacion-de-los-procesos-de-instalacion">2.1 Documentación de los procesos de instalación</h1>
+<h2 id="elaboracion-de-la-documentacion-sobre-la-instalacion-e-incidencias">Elaboración de la documentación sobre la instalación e incidencias</h2>
+<p>Uno de los aspectos que más se descuidan cuando se procede a implantar una infraestructura <em>cliente</em> es la documentación del proceso. Sin embargo, debemos pensar que un sistema operativo es algo vivo que irá creciendo y adaptándose a las necesidades del entorno en el que se encuentra. Por este motivo, no debemos pensar en la instalación como algo que haremos una vez y de lo que nos podemos olvidar, sino que realizaremos diferentes modificaciones a lo largo del tiempo.</p>
+<p>De lo dicho anteriormente, se puede deducir que, cuanto mas precisa sea la documentación que generemos, menos problemas tendremos para retomar el trabajo de instalación o configuración un tiempo después de haberlo dado por concluido.</p>
+<p>En este sentido, una de las primeras cuestiones a las que debemos enfrentarnos es a la nomenclatura. Es buena idea asignar a cada equipo de nuestra red un identificativo único, que puede estar relacionado, por ejemplo, con la función que realiza, su ubicación dentro de la empresa, área en la que se emplea, etc. El objetivo es poder referirnos a cada elemento de la red de una forma abreviada y cómoda. Por ejemplo, un servidor podría tener asignado un identificador como CLI01-INF (Cliente nº 1 del departamento de Informática).</p>
+<p>La idea es disponer de un documento con el perfil de la instalación para cada uno de los equipos incluidos en nuestra infraestructura (sean servidores o no).</p>
+<p>En este sentido, cada uno de estos documentos debería tener, además del identificador, los siguientes datos:</p>
+<ul>
+<li><strong><em>Datos de hardware</em>:</strong> Deberán describir, de una forma precisa, las características del ordenador que estamos definiendo. Incluirá su ubicación, el tipo de procesador que incorpora, el tipo y cantidad de memoria, su disco duro, su tarjeta de red, tarjeta gráfica, etc. También debemos dejar constancia de los dispositivos conectados al ordenador, como impresoras, faxes, escáneres, etc.</li>
+</ul>
+<p><strong>1. Identificador del equipo</strong></p>
+<p><a href="../images/sor0104.png"><img alt="" src="../images/sor0104.1.png" /></a></p>
+<ul>
+<li>Datos sobre las impresoras de red que estarán accesibles desde el equipo. Al menos deberemos contemplar su dirección IP, su nombre y su ubicación física.</li>
+</ul>
+<p><strong>2.Impresoras en red</strong></p>
+<p><a href="../images/sor0105.png"><img alt="" src="../images/sor0105.png" /></a></p>
+<ul>
+<li>La descripción del sistema operativo instalado. Debe ser lo más detallada posible y, como mínimo, incluirá su nombre y versión, la fecha y la hora de instalación, el usuario que actúa como administrador y su contraseña, las licencias instaladas, etc. Cuando instalamos sistemas operativo privativos, como es el caso de Windows, un dato que no siempre se incluye en la documentación, pero que es muy importante para futuras operaciones de actualización es la clave de producto (Product Key, en inglés). Se trata de la secuencia de números y letras, normalmente organizadas en grupos y separadas por guiones, que suele venir adherida al embalaje del medio de almacenamiento en el que se distribuye el producto.</li>
+</ul>
+<p><strong>3. Descripción del Sistema Operativo instalado</strong></p>
+<p><a href="../images/sor0106.png"><img alt="" src="../images/sor0106.png" /></a></p>
+<ul>
+<li><strong><em>Parches</em> y <em>actualizaciones</em> que se hayan instalado:</strong> Anotaremos el nombre de cada parche o actualización que instalemos en el sistema operativo, con la fecha de la instalación y una descripción de su objetivo.</li>
+</ul>
+<p><strong>4. Parches y actualizaciones</strong></p>
+<p><a href="../images/sor0107.png"><img alt="" src="../images/sor0107.png" /></a></p>
+<ul>
+<li>Si instalamos cualquier programa <em>complementario</em>, como antivirus, cortafuegos, programa de cifrado, etc., deberemos dejar constancia de ello, indicando el nombre del programa (preferiblemente con la versión), la fecha en la que lo hemos instalado y una descripción.</li>
+</ul>
+<p><strong>5. Otro software instalado</strong></p>
+<p><a href="../images/sor0108.png"><img alt="" src="../images/sor0108.png" /></a></p>
+<ul>
+<li>Otro aspecto que será muy importante documentar es la <strong><em>configuración de la red</em>.</strong> Es frecuente que los clientes dispongan de una dirección <em>IP dinámica (en algunos casos puede ser estática)</em>, por lo que procederemos a anotar dicha dirección IP y máscara de subred, así como la puerta de enlace, el servidor DNS que estamos utilizando y, en su caso, el nombre del dominio o grupo de trabajo en el que se integra el equipo.</li>
+</ul>
+<p><strong>6. Configuración de la red</strong></p>
+<p><a href="../images/sor0109.png"><img alt="" src="../images/sor0109.png" /></a></p>
+<ul>
+<li>Es común que un equipo cliente se conecte a algún servidor de la red para autentificarse, acceder a ficheros, etc.. (por ejemplo, servidores de datos o servidores de impresión). Por lo tanto, anotaremos qué servidores se utilizan y describiremos los motivos.</li>
+</ul>
+<p><strong>7. Conexión a servidores</strong></p>
+<p><a href="../images/sor0111.png"><img alt="" src="../images/sor0111.png" /></a></p>
+<p>Es importante que pensemos en este documento como algo orientativo, que deberá adecuarse a las características de la instalación concreta que se esté realizando, incluyendo o eliminando cualquier dato necesario.</p>
+<p>Además, aunque no lo hemos dicho de forma expresa, podría deducirse que hemos hablado de un documento impreso en papel. Sin embargo, sería interesante contemplar la posibilidad de convertirlo en un documento electrónico de forma que, por ejemplo, toda la información de la implementación esté, en realidad, contenida en una base de datos.</p>
+<p>Con el fin de que la explicación sea más clara, se ha ido fragmentando en diferentes apartados, pero no debemos olvidar que se tratará de un documento único, que en nuestro caso tendrá que ser algún artefacto TIC, a saber:</p>
+<ul>
+<li>Hoja de cálculo en Google Docs compartida con el profesor.</li>
+<li>Base de datos (Base): Formularios para la entrada de datos y exportación a report.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -190,6 +190,8 @@ Para instalar Windows 10, simplemente hay que tener en cuenta los siguientes asp
 
 El resto de aspectos, los puedes visualizar en el siguiente vídeo donde se describe el proceso completo de la instalación de Windows 10. El vídeo no contempla todo el proceso, es decir, se han realizado pausas en momentos como: copia de ficheros masiva, descarga de ficheros, etc.., todo lo relacionado al progreso de acciones donde no hay interacción con el usuario.
 
+[▶ Ver vídeo: Instalación de Windows 10](https://www.youtube.com/watch?v=LdhX7PLBlIk)
+
 ***Video 1.** Instalación de Windows 10.*
 
 ### **2. Partición reservada de Windows**
@@ -288,6 +290,8 @@ Para instalar [Ubuntu 16.04.5 LTS (Xenial Xerus)](http://releases.ubuntu.com/16.
 * Datos del usuario  (Nombre, user, password).
 
 El resto de aspectos, los puedes visualizar en el siguiente vídeo donde se describe el proceso completo de la instalación de Ubuntu Server. El vídeo no contempla todo el proceso, es decir, se han realizado pausas en momentos como: copia de ficheros masiva, descarga de ficheros, etcétera, todo lo relacionado al progreso de acciones donde no hay interacción con el usuario.
+
+[▶ Ver vídeo: Instalación de Ubuntu 20.04 LTS Server](https://www.youtube.com/watch?v=QEl11yiBSWY)
 
 ***Vídeo 1.** Instalación de Ubuntu 20.04 LTS Server.*
 

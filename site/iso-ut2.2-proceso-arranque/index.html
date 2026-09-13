@@ -1,0 +1,1381 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../iso-ut2.1-documentacion-instalacion/">
+      
+      
+        <link rel="next" href="../iso-ut2.3-particionado-discos/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>2.2 Proceso de arranque de un sistema operativo - Implementación de Sistemas Operativos</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#22-proceso-de-arranque-de-un-sistema-operativo" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Implementación de Sistemas Operativos" class="md-header__button md-logo" aria-label="Implementación de Sistemas Operativos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Implementación de Sistemas Operativos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.2 Proceso de arranque de un sistema operativo
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Implementación de Sistemas Operativos" class="md-nav__button md-logo" aria-label="Implementación de Sistemas Operativos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Implementación de Sistemas Operativos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT1. Introducción a los sistemas informáticos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT1. Introducción a los sistemas informáticos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.1-sistema-informatico-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.1 El sistema informático (hardware)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.2-componentes-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.2 Componentes software: el SO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.3-estructura-so-procesos-memoria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.3 Estructura del SO: procesos y memoria
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.4-estructura-so-es-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.4 Estructura del SO: E/S y archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT2. Instalación y primeros pasos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT2. Instalación y primeros pasos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.1-documentacion-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1 Documentación de los procesos de instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2 Proceso de arranque de un sistema operativo
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2 Proceso de arranque de un sistema operativo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#221-el-sector-de-arranque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1 El sector de arranque
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#222-proceso-de-arranque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2 Proceso de arranque
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.2 Proceso de arranque">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-la-biosuefi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. La BIOS/UEFI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. La BIOS/UEFI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-bios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. BIOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-uefi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. UEFI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2. UEFI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-instalaciones-uefi-consideraciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1 Instalaciones UEFI. Consideraciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-secure-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2 Secure Boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-gpt-vs-mbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. GPT vs MBR
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#223-eleccion-y-arranque-del-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3 Elección y arranque del Sistema Operativo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#224-organizacion-logica-del-disco-duro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4 Organización lógica del disco duro
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.4 Organización lógica del disco duro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-introduccion_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-disco-mbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Disco MBR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-disco-gpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Disco GPT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#225-gestores-de-arranque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.5 Gestores de arranque
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.5 Gestores de arranque">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-introduccion_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-algunos-archivos-y-directorios-de-grub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Algunos archivos y directorios de GRUB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algunos-comandos-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algunos comandos útiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variables-en-etcdefaultgrub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variables en /etc/default/grub
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.3-particionado-discos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.3 Particionado de discos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.4-instalacion-so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.4 Instalación de sistemas operativos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.5-instalacion-multiples-so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.5 Instalación de múltiples sistemas operativos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#221-el-sector-de-arranque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1 El sector de arranque
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#222-proceso-de-arranque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2 Proceso de arranque
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.2 Proceso de arranque">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-la-biosuefi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. La BIOS/UEFI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. La BIOS/UEFI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-bios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. BIOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-uefi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. UEFI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2. UEFI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-instalaciones-uefi-consideraciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1 Instalaciones UEFI. Consideraciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-secure-boot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2 Secure Boot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-gpt-vs-mbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. GPT vs MBR
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#223-eleccion-y-arranque-del-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3 Elección y arranque del Sistema Operativo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#224-organizacion-logica-del-disco-duro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4 Organización lógica del disco duro
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.4 Organización lógica del disco duro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-introduccion_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-disco-mbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Disco MBR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-disco-gpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Disco GPT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#225-gestores-de-arranque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.5 Gestores de arranque
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.5 Gestores de arranque">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-introduccion_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-algunos-archivos-y-directorios-de-grub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Algunos archivos y directorios de GRUB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algunos-comandos-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algunos comandos útiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variables-en-etcdefaultgrub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variables en /etc/default/grub
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="22-proceso-de-arranque-de-un-sistema-operativo">2.2 Proceso de arranque de un sistema operativo</h1>
+<p>El <strong><em>hardware</em></strong>, por si solo es totalmente incapaz de realizar ninguna acción, necesita un software que le indique que tiene que hacer. Cuando encendemos un sistema informático, estamos poniendo en marcha <strong><em>hardware</em></strong>, por lo que se necesitan medios especiales para hacer que se cargue un primer software.</p>
+<h2 id="221-el-sector-de-arranque">2.2.1 El sector de arranque</h2>
+<p>En el <strong><em>sector de arranque</em></strong> se almacena tanto la tabla de particiones como la partición desde la cual se debe inicializar el sistema operativo. Si el sector de arranque se daña, puede perderse o bien la tabla de particiones (quedando inaccesible la información del disco), el gestor de arranque o ambos. Afortunadamente existen herramientas que permiten reconstruir la tabla de particiones y el gestor de arranque.</p>
+<p><img alt="" src="../images/02-01.png" /></p>
+<p><em><strong>Figura 2.1.1.</strong> Estructura de un disco.</em></p>
+<p>Para instalar Windows 10/11 en modo UEFI con Secure Boot activado se utiliza particionado GPT y tanto la BIOS como el disco o medio de instalación deberán estar configurados para UEFI.</p>
+<h2 id="222-proceso-de-arranque">2.2.2 Proceso de arranque</h2>
+<h3 id="1-introduccion">1. Introducción</h3>
+<p>Una de las cuestiones más importantes a la hora de instalar sistemas operativos en una máquina es controlar el arranque del sistema.</p>
+<h3 id="2-la-biosuefi">2. La BIOS/UEFI</h3>
+<h4 id="21-bios">2.1. BIOS</h4>
+<p>La BIOS es un componente de la placa base que controla la máquina durante las primeras fases del arranque, concretamente el POST.</p>
+<p><img alt="" src="../images/04-02.png" /></p>
+<p><em><strong>Figura 1.</strong> Post - proceso de arranque.</em></p>
+<p>Desde el punto de vista práctico, el programa de configuración de la BIOS se utiliza para decidir el orden de los dispositivos desde los que se puede arrancar el sistema.</p>
+<p>La <strong><em>BIOS</em></strong> es un <strong><em>sistema anticuado</em></strong>, sin cambio desde la aparición de los primeros IBM PC a principios de la década de los 80. En la actualidad se está produciendo el cambio a la nueva tecnología denominada UEFI.</p>
+<p>Desde la aparición de de Windows 8, Microsoft obliga a los fabricantes a implantar UEFI en sus placas base para certificarlas. Con anterioridad, existía un problema de compatibilidad con los sistemas de 32 bits de la compañía y esta tecnología, por lo que no era admitida en Windows Vista o 7 (versiones de 32 bits).</p>
+<h4 id="22-uefi">2.2. UEFI</h4>
+<p>UEFI (Unified Extensible Firmware Interface) es una interfaz estándar impulsada por la mayoría de fabricantes de PC y diseñada para reemplazar la histórica BIOS de IBM. Es mucho mas amigable que la BIOS tradicional, soporta un entorno gráfico de mayor calidad, multilenguaje, pre-carga de aplicaciones, gestión LAN, etc.</p>
+<p>No se limita a arquitecturas de 32 bits sino que también puede manejar arquitecturas de 64 bit, permitiendo que las aplicaciones en pre-boot puedan direccionar 64 bits. Una de sus características principales es la posibilidad de ser ampliado (extensible) usando extensiones del fabricante.</p>
+<p><img alt="" src="../images/04-03.png" /></p>
+<p><em><strong>Figura 2.</strong> Estratos UEFI.</em></p>
+<p><img alt="" src="../images/uefi-sample.jpg" /></p>
+<p><em><strong>Figura 3.</strong> Ejemplo de UEFI.</em></p>
+<p>Las principales mejoras respecto a BIOS son:</p>
+<ul>
+<li>Inicios más rápidos.</li>
+<li>Al usar particiones GPT (GUID Partition Table) en lugar del clásico MBR1, se supera la limitación de 4 particiones y discos de más de 2TB.</li>
+<li>Se permiten 128 particiones por disco de un máximo de 18 EB cada una.</li>
+<li>El acceso a todos los recursos del sistema permite utilidades de configuración más completas.</li>
+<li>Aumento de velocidades de transferencia sobre todo de múltiples archivos.</li>
+<li>Compatible con controladores de dispositivos modernos (firmware 64 bits).</li>
+<li>SecureBoot (protección del inicio frente a bootkits).</li>
+</ul>
+<p>Un <strong><em>bootkit</em></strong> es un programa malicioso que infecta el MBR. Es difícil de detectar porque su código esta fuera del sistema de archivos del Sistema Operativo. Además algunos bootkits esconden al MBR infectado devolviendo un MBR limpio cuando se intenta leer esta zona. El objetivo final es infectar el Sistema dirigiendo su ataque sobre el o sobre ciertas aplicaciones con fines variados, malware, agujeros de seguridad, ...</p>
+<h5 id="221-instalaciones-uefi-consideraciones">2.2.1 Instalaciones UEFI. Consideraciones</h5>
+<ul>
+<li>En Bios UEFI solo podemos instalar Sistemas Operativos de 64 bits.</li>
+<li>No se puede instalar un Sistema Operativo desde un Pendrive en modo UEFI, excepto que la BIOS permita arranque USB en modo UEFI y casi ninguna lo hace.</li>
+<li>El disco donde instalemos tiene que ser GPT (no MBR).</li>
+<li>Requiere una partición adicional para el Boot.</li>
+</ul>
+<p><strong>MBR:</strong> El Master Boot Recrod, es un registro de arranque principal, conocido también como registro de arranque maestro.</p>
+<p><img alt="" src="../images/2-2-01.gif" /></p>
+<p><em><strong>Figura 4.</strong> Particiones predeterminadas del disco de BIOS.</em></p>
+<p><strong><em><img alt="" src="../images/2-2-02.gif" /></em></strong></p>
+<p><em><strong>Figura 5.</strong> Particiones predeterminadas del disco de UEFI.</em></p>
+<p>La mayor parte de las BIOS nuevas tienen los dos modos:</p>
+<ul>
+<li>Legacy Mode (Bios normal).</li>
+<li>UEFI Mode.</li>
+</ul>
+<p><img alt="" src="../images/2-2-03.jpg" /><br />
+<em><strong>Figura 6.</strong> Ejemplo en BIOS AMI.</em></p>
+<p>Para instalar Windows 10/11 en modo UEFI con Secure Boot activado se utiliza particionado GPT y tanto la BIOS como el disco o medio de instalación deberán estar configurados para UEFI.</p>
+<h5 id="222-secure-boot">2.2.2 Secure Boot</h5>
+<p>Se trata de un firmware propio de UEFI embebido en la máquina que exige que el Sistema Operativo y sus drivers estén firmados digitalmente y que dicha firma concuerde con el firmware embebido. Microsoft implementa en la propia arquitectura de su nuevo Windows 8, el arranque seguro obligando a que el Sistema Operativo y sus drivers estén firmados digitalmente. Además para que los equipos comercializados con Windows 8 puedan tener la pegatina oficial tienen que implementar arranque seguro UEFI.</p>
+<p>Según Microsoft en la configuración del firmware se incluye una opción para que sea el usuario el que decida desactivar esta opción, pero si los fabricantes se sienten presionados por el gigante sería muy fácil dejar de incluir esa opción con tal de poder seguir vendiendo máquinas con la pegatina oficial de Microsoft y las repercusiones de esto podrían ser bastante nefastas para el usuario final, que con la excusa de la seguridad podría tener serios problemas para bootear un USB o un DVD con un Sistema Operativo no certificado, por poner un ejemplo Windows 7 o las distribuciones Linux.</p>
+<ul>
+<li>¿Estaría garantizado poder instalar el Sistema Operativo que el usuario decidiese?</li>
+<li>¿Que ocurriría con los equipos a medio plazo?</li>
+<li>¿Quien sería la autoridad de certificación central para firmar otros Sistemas Operativos?</li>
+<li>¿El resto de Sistemas Operativos tendrían que negociar con Microsoft?</li>
+</ul>
+<p><img alt="" src="../images/2-2-04.jpg" /></p>
+<p><em><strong>Figura 7.</strong> Opción Secure Boot.</em></p>
+<h3 id="3-gpt-vs-mbr">3. GPT vs MBR</h3>
+<p>El sistema <strong>GPT</strong> se creó para UEFI con la idea de modernizar el proceso de arranque. <strong>GPT</strong> puede manejar discos mayores de 2TB y permite una cantidad teórica ilimitada de particiones.</p>
+<p>Ofrece muchas ventajas para servidores que usan sistemas avanzados que requieren grandes cantidades de espacio.</p>
+<p>El problema es que un disco duro no puede tener particiones de ambos tipos y la solución pasa por eliminar la partición GPT, sin embargo el administrador de discos o el instalador de Windows no las eliminan y habrá que recurrir a la consola de Windows para su borrado o bien a través de utilidades externas.</p>
+<h2 id="223-eleccion-y-arranque-del-sistema-operativo">2.2.3 Elección y arranque del Sistema Operativo</h2>
+<p>Desde la BIOS vemos cómo podemos indicar de qué dispositivo queremos arrancar. Podemos indicar normalmente si queremos arrancar desde el disco duro, desde el CD, USB, etc.</p>
+<p>Hay BIOS desde donde se puede indicar incluso desde cuál de los discos duros queremos arrancar (HDD- 0, HDD-1, etc.) Hay que tener en cuenta que en algunas BIOS esta facilidad para distinguir entre los distintos discos duros no está presente, o no funciona bien. En los casos en que esto ocurra, tendremos que introducirnos en la BIOS y desactivar los discos duros de los que no queremos que arranque. Así, por ejemplo, en un sistema informático de dos discos duros si queremos arrancar desde el primer disco duro no tenemos que hacer nada pero si queremos arrancar desde el segundo disco duro desactivaremos el primero en la BIOS.</p>
+<p>Para desactivar los discos duros, hay que entrar en la primera opción de la BIOS y poner None, not instaled, o algo parecido en el tipo de disco duro que queremos desactivar. Esto no quiere decir que dichos discos duros no se usarán durante el funcionamiento normal de la máquina, sino que no se usarán en el proceso de arranque.</p>
+<p><img alt="" src="../images/2-3-1.png" /></p>
+<p><em><strong>Figura 1.</strong> Proceso de selección disco de arranque.</em></p>
+<p>Pero con esto conseguimos indicar al sistema informático que disco duro quiero utilizar para el arranque del sistema... pero resulta que en un solo disco duro puedo tener instalado más de un sistema operativo.</p>
+<p><strong><em>¿Cómo se le indica al sistema que quiero arrancar con Windows 7, Windows 10, o GNU/Linux si todos estos Sistemas Operativos están instalados en el mismo disco duro?</em></strong></p>
+<p><img alt="" src="../images/2-3-2.png" /></p>
+<p><em><strong>Figura 2.</strong> Proceso de selección de Sistema Operativo.</em></p>
+<p>Para entender esto tenemos que comprender bien como está organizado un disco duro y esto, lo vemos en el <strong><em>capítulo 6.2.4</em></strong>.</p>
+<h2 id="224-organizacion-logica-del-disco-duro">2.2.4 Organización lógica del disco duro</h2>
+<h3 id="1-introduccion_1">1. Introducción</h3>
+<p>Vamos a ver cómo se organiza un disco duro a alto nivel, donde las particiones, son divisiones lógicas efectuadas en el disco duro. Estas particiones responden a una necesidad muy importante en informática: compartir un mismo disco duro para varios sistemas operativos o varios espacios de almacenamiento.</p>
+<p>Cada partición tiene la estructura lógica correspondiente a su sistema operativo, ejemplo: El diseño de partición predeterminado para las PC's basados en UEFI es:</p>
+<ul>
+<li>Una partición del sistema.</li>
+<li>Un MSR.</li>
+<li>Una partición de Windows.</li>
+<li>Una partición de herramientas de recuperación.</li>
+</ul>
+<p><img alt="" src="../images/2-4-1.png" /></p>
+<p><img alt="" src="../images/particines.png" /></p>
+<p><em><strong>Figura 1.</strong> Esquema de particionado en sistema UEFI con Windows 10.</em></p>
+<p><a href="https://docs.microsoft.com/es-es/windows-hardware/manufacture/desktop/configure-uefigpt-based-hard-drive-partitions?redirectedfrom=MSDN">Fuente msdn Microsoft</a></p>
+<h3 id="2-disco-mbr">2. Disco MBR</h3>
+<p>En un disco duro <a href="https://es.wikipedia.org/wiki/Registro_de_arranque_principal"><strong><em>MBR/ms-dos</em></strong></a> se pueden configurar hasta 4 particiones primarias/extendidas como máximo. De las 4, solo una puede estar definida como activa al mismo tiempo. Esta partición activa será la que cargue el sistema operativo cuando se inicia el sistema informático.</p>
+<p>El primer sector de cada una de estas particiones se conoce como sector de arranque, y en dicho sector (512 bytes) se almacena un programa especial que es el encargado de arrancar el sistema operativo de dicha partición.</p>
+<p>En el primer sector del disco duro no se sitúa un sector de arranque, en su lugar se sitúa una tabla de particiones (Master Boot Record o MBR). Esta tabla de particiones incluye una tabla donde se definen las 4 particiones que pueden estar presentes en el disco duro y su tamaño y un pequeño programa que permite localizar la partición activa, leer su sector de arranque y usarlo para arrancar el sistema informático.</p>
+<p>Este MBR (Master Boot Record) está situado en el primer sector del disco duro, de modo que su tamaño es de 512 bytes. En esta capacidad se almacena lo siguiente por cada MBR:</p>
+<p><img alt="" src="../images/04-07.png" /></p>
+<p><em><strong>Figura 2.</strong> Contenido del MBR.</em></p>
+<p>Figura 5. Particiones GPT en GNU/Linux (6 particiones).</p>
+<p><strong>MBR</strong>: El Master Boot Recrod, es un registro de arranque principal, conocido también como registro de arranque maestro. Es el primer sector ("sector cero") de un dispositivo de almacenamiento de datos, como un disco duro. En ocasiones, se emplea para el arranque del Sistema Operativo con bootstrap, otras veces es usado para almacenar una tabla de particiones y, en ocasiones, se usa sólo para identificar un dispositivo de disco individual, aunque en algunas máquinas esto último no se usa y es ignorado.</p>
+<p>Vemos como existe un programa al principio conocido como programa <strong>MBR</strong> que ocupa 445 Bytes. Un programa MBR estándar leerá la tabla de particiones y escogerá de cuál de esas particiones va a arrancar el sistema operativo. No lo hará como podría parecer lógico de la primera partición, sino de la partición primaria que está marcada como activa. El MBR lee el primer sector de esa partición, y le cede el control de la CPU a ese programa (Boot Sector o Sector de Arranque).</p>
+<p>Hay que indicar que no existe un programa MBR estándar. En realidad, el código que se encuentra aquí, puede ser muy variado, aunque normalmente todos son compatibles. Podemos instalar programas MBR conocidos como gestores de arranque que amplían las posibilidades el gestor de arranque MBR instalado por defecto.</p>
+<p>Si se arranca desde un disco duro, se lee el primer sector (MBR) y este a su vez, lee un segundo sector (Boot Sector). Vemos también como existen 4 entradas para almacenar hasta 4 particiones, de aquí viene el límite de 4 particiones para un disco duro. También vemos como por cada partición se almacena su tipo con 16 bytes. En estos 16 bytes se almacena lo siguiente:</p>
+<p><img alt="" src="../images/04-08.png" /></p>
+<p><em><strong>Figura 3.</strong> Contenido de cada partición.</em></p>
+<ul>
+<li>Vemos como el 1er campo se usa para indicar si esta partición es la activa o no.</li>
+<li>El 2º y 3er campo se usan para indicar el cilindro, sector y cabeza donde comienza la partición.</li>
+<li>El 4º campo se usa para almacenar el tipo de la partición, aquí se indica que sistema operativo esta instalado en la partición, si dicha partición esta oculta o no, etc.</li>
+<li>El 5º y 6º campo se usan para indicar el cilindro, sector y cabeza donde termina la partición.</li>
+<li>El 7º campo indica la dirección del primer sector de la partición (el sector de arranque) para que el POST pueda pasarle el control. Este sector siempre es el 1o sector de la partición, pero aquí indicamos su valor director (no de sector) y no la combinación cilindro, sector y cabeza. Esto se hace para que el acceso al sector de arranque sea más rápido, y para evitar posibles errores en la carga del sistema.</li>
+<li>El 8º campo se usa para almacenar el número total de sectores que existen en la partición. Es un campo que se usa para comprobar que los datos de la partición son correctos.</li>
+</ul>
+<h3 id="3-disco-gpt">3. Disco GPT</h3>
+<p>Los <strong><em>discos GPT</em></strong> (GUID Partition Table) surgen para reemplazar al MBR y están asociados con los nuevos sistemas UEFI. Su nombre viene de que a cada partición se le asocia un único identificador global (GUID), un identificador aleatorio tan largo que cada partición en el mundo podría tener su ID único, ejemplo: UUID=e6494a9b-5fb6-4c35-ad4c-86e223040a70.</p>
+<p>A día de hoy, <strong>GPT</strong> no tiene ningún límite más allá que los que establezcan los propios sistemas operativos, tanto en tamaño como en número de particiones (por ejemplo, Windows tiene un límite de 128 particiones).</p>
+<p>Las ventajas que ofrecen respecto a MBR son las siguientes:</p>
+<ol>
+<li>No tiene la limitación de las 4 particiones primarias/extendidas que tienen los discos MBR. La limitación depende del sistema operativo.</li>
+<li>Admite particiones superiores a los 2TB.</li>
+<li>La fiabilidad de los discos GPT es mucho mayor que la de MBR. Mientas que en MBR la tabla de particiones se almacena solo en los primeros sectores del disco, GPT crea múltiples copias redundantes a lo largo de todo el disco de manera que, en caso de fallo, problema o error, la tabla de particiones se recupera automáticamente desde cualquiera de dichas copias, por lo que <strong><em>GPT tiene tolerancia a fallos</em></strong> al mantener copias de la tabla de particiones en el primer y último sector del disco.</li>
+</ol>
+<p><img alt="" src="../images/04-40.png" /></p>
+<p><em><strong>Figura 4.</strong> Comparativa MBR vs GPT.</em></p>
+<p>Los sistemas operativos Windows solo puede arrancar desde discos GPT en sus versiones de 64 bits (desde Vista en adelante). Los sistemas de 32 bits, aunque no pueden arrancar desde estos discos, sí que son capaces de leer y escribir en ellos sin problemas.</p>
+<p>Las distribuciones actuales de GNU/Linux también son compatibles con este tipo de discos, e incluso Apple ha empezado a utilizar GPT como tabla de particiones por defecto en lugar de su propia APT (Apple Partition Table).</p>
+<p><img alt="" src="../images/GPT-partitions.jpg" /></p>
+<p><em><strong>Figura 5.</strong> Particiones GPT en GNU/Linux (6 particiones).</em></p>
+<h2 id="225-gestores-de-arranque">2.2.5 Gestores de arranque</h2>
+<h3 id="1-introduccion_2">1. Introducción</h3>
+<p>Cuando se intenta cargar el sistema operativo desde un disco duro, lo realiza en dos fases:</p>
+<ol>
+<li>La primera fase consiste en cargar el programa que se ubica en la MBR o GPT del disco. Esta primera fase normalmente consiste en un menú para seleccionar la segunda fase del arranque o se pasa de forma automática a una de las particiones para efectuar la segunda fase.</li>
+<li>La segunda fase es la carga de un sistema operativo concreto en memoria para que tome el control de la máquina.</li>
+</ol>
+<p>En el caso del sistema operativo Linux existe un cargador de arranque bastante extendido que se denomina GRUB.</p>
+<p><strong><a href="https://es.wikipedia.org/wiki/GNU_GRUB">GRUB</a></strong> es un administrador o gestor de arranque múltiple, desarrollado por el proyecto GNU, derivado del GRand Unified Bootloader (GRUB; en español: Gran Gestor de Arranque Unificado), que se usa comúnmente para iniciar uno de dos o más sistemas operativos instalados en un mismo equipo.</p>
+<p>Puedes encontrar la documentación oficial de GRUB:</p>
+<ul>
+<li><a href="https://www.gnu.org/software/grub/grub-documentation.html">https://www.gnu.org/software/grub/grub-documentation.html</a></li>
+</ul>
+<p>En el siguiente <a href="https://wiki.archlinux.org/index.php/GRUB_%28Español%29">enlace</a>, también te puede ser de utilidad.</p>
+<p>El <strong>gestor de arranque de Windows</strong> es menos versátil y solo admite elegir entre varios sistemas de Microsoft, lo que lo hace una mala elección para las máquinas con varios sistemas operativos instalados. Para manejarlo, es necesario acceder a la consola de recuperación que se encuentra en los discos de instalación de los sistemas de Microsoft.</p>
+<h3 id="2-algunos-archivos-y-directorios-de-grub">2. Algunos archivos y directorios de GRUB</h3>
+<p>El <strong>archivo principal de GRUB</strong> es <strong>grub.cfg</strong> y lo encontramos en el directorio <strong>/boot/grub</strong>. En el propio fichero se indica que no se debe editar. Este fichero se genera de forma automática utilizando ficheros que se encuentran en el directorio <strong>/etc/grub.d</strong> y configuraciones del fichero<strong>/etc/default/grub</strong>.</p>
+<h3 id="algunos-comandos-utiles">Algunos comandos útiles</h3>
+<p>Puedes ver el contenido de los directorios anteriores con el comando ls. En una terminal dentro de Ubuntu, prueba a escribir lo siguiente (Verás que ahí se encuentra el fichero grub.cfg):</p>
+<p><strong>jc@jc-Latitude-E6430:~$</strong>ls /boot/grub</p>
+<p><img alt="" src="../images/boot-grub.png" /></p>
+<p>Si listas el directorio <strong>/etc/grub.d</strong>, verás que hay diversos ficheros. Mencionaremos el <strong>/etc/grub.d/30_os-prober</strong>, que detecta sistemas operativos instalados y para ellos crea un entrada en grub.cfg para poder seleccionarlos al arrancar.</p>
+<p>Y el fichero <strong>/etc/grub.d/40_custom</strong> se puede utilizar para añadir entradas en el menú de GRUB de forma manual.</p>
+<p><img alt="" src="../images/grub-d.png" /></p>
+<h3 id="variables-en-etcdefaultgrub">Variables en /etc/default/grub</h3>
+<p>A continuación, vamos a ver algunas variables que se encuentran en el fichero /etc/default/grub y que vamos a modificar para personalizar GRUB. Tras realizar modificaciones en las variables, para consolidar los cambios, hay que actualizar GRUB mediante el siguiente comando:</p>
+<p><strong>jc@jc-Latitude-E6430:~$</strong>sudo update-grub</p>
+<p>A continuación, hay que reiniciar el equipo (máquina virtual) para ver el resultado. Se pude reiniciar utilizando el comando:<br />
+<strong>jc@jc-Latitude-E6430:~$</strong>shutdown -r 0</p>
+<p>El comando <strong>shutdown</strong> sirve para apagar o reiniciar el equipo, según los parámetros que se utilicen. Con -r se indica reinicio, con 0 se indica que se desea que sea en el momento en que se pulse intro. Si no se pone 0, esperará un minuto para el reinicio.</p>
+<p>Algunas de las variables que se encuentran en el fichero /etc/default/grub y que se pueden modificar son las siguientes:</p>
+<ul>
+<li><strong>GRUB_DEFAULT</strong>="Ubuntu".  Es la entrada de menú que se selecciona por defecto. Puede ser también un número (empezando a contar desde 0 para la primera entrada de menú, por ejemplo, podríamos tener GRUB_DEFAULT="0") o puede ser la cadena especial ‘saved’. En este último caso, la entrada de menú por defecto será la guardada en GRUB_SAVEDEFAULT.</li>
+<li><strong>GRUB_HIDDEN_TIMEOUT="0"</strong> y <strong>GRUB_HIDDEN_TIMEOUT_QUIET="true"</strong>. Las dos variables anteriores podemos comentarlas (quiere decir poner delante de cada línea el símbolo # para que sean tratadas como un comentario por el programa, no como una asignación de valor a una variable) para no tener problemas con las distintas configuraciones que haremos de la variable siguiente, GRUB_TIMEOUT.</li>
+<li><strong>GRUB_TIMEOUT="10".</strong> Tiempo de espera (en segundos) antes de arrancar la entrada de menú por defecto, a menos que se haya pulsado alguna tecla. Si establecemos el valor en -1, espera indefinidamente hasta que pulsemos intro.</li>
+<li><strong>GRUB_CMDLINE_LINUX_DEFAULT="quiet".</strong> Con quiet, tras elegir el sistema, se ocultan los mensajes informativos al arrancar el sistema operativo.</li>
+<li><strong>GRUB_BACKGROUND.</strong>Sirve para especificar una imagen de fondo. Debe tratarse de un archivo que pueda ser leído por GRUB en el momento del arranque y debe acabar en .png, .tga, .jpg o .jpeg. La imagen será escalada si es necesario para adaptarse a la pantalla.</li>
+</ul>
+<p>En el siguiente <strong><a href="https://www.gnu.org/software/grub/manual/grub/grub.html#Simple-configuration">enlace</a></strong> encontraréis información detallada de estas y otras variables que se pueden utilizar en el fichero /etc/default/grub.</p>
+<p>Una vez se modifican las variables deseadas, para consolidar los cambios hay que ejecutar:</p>
+<p><strong>jc@jc-Latitude-E6430:~$</strong>sudo update-grub</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
