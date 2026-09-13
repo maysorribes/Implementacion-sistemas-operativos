@@ -1,0 +1,1364 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../iso-ut2.3-particionado-discos/">
+      
+      
+        <link rel="next" href="../iso-ut2.5-instalacion-multiples-so/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>2.4 Instalación de sistemas operativos - Implementación de Sistemas Operativos</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#24-instalacion-de-sistemas-operativos" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Implementación de Sistemas Operativos" class="md-header__button md-logo" aria-label="Implementación de Sistemas Operativos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Implementación de Sistemas Operativos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.4 Instalación de sistemas operativos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Implementación de Sistemas Operativos" class="md-nav__button md-logo" aria-label="Implementación de Sistemas Operativos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Implementación de Sistemas Operativos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT1. Introducción a los sistemas informáticos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT1. Introducción a los sistemas informáticos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.1-sistema-informatico-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.1 El sistema informático (hardware)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.2-componentes-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.2 Componentes software: el SO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.3-estructura-so-procesos-memoria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.3 Estructura del SO: procesos y memoria
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.4-estructura-so-es-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.4 Estructura del SO: E/S y archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT2. Instalación y primeros pasos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT2. Instalación y primeros pasos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.1-documentacion-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1 Documentación de los procesos de instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.2-proceso-arranque/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2 Proceso de arranque de un sistema operativo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.3-particionado-discos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.3 Particionado de discos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.4 Instalación de sistemas operativos
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.4 Instalación de sistemas operativos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#241-planificacion-de-la-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1 Planificación de la instalación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#242-configuracion-previa-de-la-biosuefi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2 Configuración previa de la BIOS/UEFI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#243-fases-de-instalacion-de-un-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3 Fases de instalación de un sistema operativo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#244-comprobacion-de-los-requisitos-tecnicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4 Comprobación de los requisitos técnicos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.4 Comprobación de los requisitos técnicos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#actividad-1-tabla-de-requisitos-minimos-y-comparativa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad 1. Tabla de requisitos mínimos y comparativa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#245-instalacion-de-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.5 Instalación de Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.5 Instalación de Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-particion-reservada-de-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Partición reservada de Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Partición reservada de Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-caracteristicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Características
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-evitar-la-particion-reservada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Evitar la partición reservada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-ventajas-y-desventajas-de-separar-las-particiones-de-arranque-y-de-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Ventajas y desventajas de separar las particiones de arranque y de sistema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-conclusiones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Conclusiones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#246-instalacion-de-gnulinux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.6 Instalación de GNU/Linux
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.6 Instalación de GNU/Linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-instalacion-de-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Instalación de Ubuntu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-particion-swap-en-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Partición swap en Linux
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Partición swap en Linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-formas-de-determinar-el-tamano-adecuado-de-la-particion-swap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Formas de determinar el tamaño adecuado de la partición swap
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.5-instalacion-multiples-so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.5 Instalación de múltiples sistemas operativos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#241-planificacion-de-la-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1 Planificación de la instalación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#242-configuracion-previa-de-la-biosuefi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2 Configuración previa de la BIOS/UEFI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#243-fases-de-instalacion-de-un-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3 Fases de instalación de un sistema operativo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#244-comprobacion-de-los-requisitos-tecnicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4 Comprobación de los requisitos técnicos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.4 Comprobación de los requisitos técnicos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#actividad-1-tabla-de-requisitos-minimos-y-comparativa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actividad 1. Tabla de requisitos mínimos y comparativa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#245-instalacion-de-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.5 Instalación de Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.5 Instalación de Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-particion-reservada-de-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Partición reservada de Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Partición reservada de Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-caracteristicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Características
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-evitar-la-particion-reservada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Evitar la partición reservada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-ventajas-y-desventajas-de-separar-las-particiones-de-arranque-y-de-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Ventajas y desventajas de separar las particiones de arranque y de sistema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-conclusiones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Conclusiones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#246-instalacion-de-gnulinux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.6 Instalación de GNU/Linux
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.6 Instalación de GNU/Linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-instalacion-de-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Instalación de Ubuntu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-particion-swap-en-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Partición swap en Linux
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Partición swap en Linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-formas-de-determinar-el-tamano-adecuado-de-la-particion-swap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Formas de determinar el tamaño adecuado de la partición swap
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="24-instalacion-de-sistemas-operativos">2.4 Instalación de sistemas operativos</h1>
+<p>En la actualidad existen tres sistemas operativos de relevancia en el mundillo de la informática personal: Microsoft Windows, GNU/Linux y Apple Mac OS X.</p>
+<p>El más extendido de todos es Microsoft Windows, aunque GNU/linux y Mac OS X han avanzado bastante en los últimos años.</p>
+<p>GNU/Linux destaca por ser un sistema libre, que puede ser usado sin necesidad de pagar ninguna licencia. Además, es un sistema tipo UNIX. UNIX es un sistema operativo creado a principios de los 70 que es un referente de los sistemas operativos en la historia de la informática. Además de GNU/Linux, Mac OS X es un heredero de UNIX también.</p>
+<h2 id="241-planificacion-de-la-instalacion">2.4.1 Planificación de la instalación</h2>
+<p>La instalación de todo sistema requiere una serie de pasos, es decir, hay que definir un plan de actuación. A continuación se define el plan mediante los siguientes puntos:</p>
+<ul>
+<li>Modificar la BIOS para arrancar desde el dispositivo donde tengamos el sistema a instalar (DVD o USB). En el caso de trabajar con máquina virtual, se carga la ISO en el DVD.</li>
+<li>Particionar adecuadamente el disco antes de la instalación (o desde el propio gestor de particiones del instalador, esta es la que se utilizará).</li>
+<li>Instalar los sistemas en el orden adecuado (para evitar sobre escrituras del gestor de arranque).</li>
+<li>Actualizar el sistema (parches, service pack, etc).</li>
+<li>Documentar el proceso de instalación, para ello, se hará uso de la hoja de cálculo en google y que permitirá almacenar y auditar toda la operativa dentro del proceso de instalación.</li>
+</ul>
+<h2 id="242-configuracion-previa-de-la-biosuefi">2.4.2 Configuración previa de la BIOS/UEFI</h2>
+<p>La <strong><em>BIOS</em></strong> es el sistema básico de entrada/salida donde se encuentran grabadas las rutinas <strong><em>POST</em></strong> (Power-On Self- Test, Autocomprobación diagnóstica de encendido). Si la BIOS no encuentra nada anormal (básicamente comprueba que no falten componentes básicos como el procesador, la memoria, el teclado, etc.), intenta arrancar desde el primer dispositivo de arranque. En caso de que no pueda arrancar desde ahí, prueba desde el segundo dispositivo, así hasta que pueda arrancar desde alguno (siguiendo el orden configurado en la BIOS). En caso de no poder arrancar desde ninguno de ellos, se muestra un mensaje de error al usuario.</p>
+<p>El acceso al menú de configuración de la <strong><em>BIOS</em></strong> es diferente en cada placa base, aunque suele ser habitual acceder a él presionado, durante el arranque, la tecla Supr, F1 ó F2.</p>
+<p><img alt="" src="../images/opcion-arranque-bios.png" /></p>
+<p><em><strong>Figura 1</strong> Opciones de arranque en la BIOS.</em></p>
+<p>Una vez dentro, tendremos que buscar la ubicación del orden de arranque. Para el caso de la BIOS Figura 1, el orden se encuentra dentro de la opción BIOS.</p>
+<p>Debido a que los sistemas operativos suelen estar en CD/DVD o USB, es necesario cambiar el orden de arranque.</p>
+<p>Las BIOS intenta arrancar siguiendo el orden indicado. Sin embargo, ese “intento” no es gratuito, lleva un tiempo. Es por ello que si generalmente vamos a arrancar desde el disco duro, resulta recomendable establecer éste como primer dispositivo de arranque para así ahorrar tiempo en el arranque del sistema operativo. Cuando nos haga falta arrancar desde otros dispositivos (CDROM, disquetera ó USB), ya entraremos en la BIOS y cambiaremos el orden.</p>
+<h2 id="243-fases-de-instalacion-de-un-sistema-operativo">2.4.3 Fases de instalación de un sistema operativo</h2>
+<p>A continuación, se enumeran las fases en una instalación de un sistema operativo:</p>
+<ol>
+<li>Preparar el equipo para arrancar desde DVD/USB u otro soporte booteable.</li>
+<li>Preparación del Disco Duro.</li>
+<li>Ejecutar el programa de instalación.</li>
+<li>Proporcionar el nombre y contraseña del usuario que será administrador del sistema.</li>
+<li>Seleccionar los componentes software opcionales que queremos instalar.</li>
+<li>Ajustar los parámetros de la red.</li>
+<li>Instalar el gestor de arranque.</li>
+<li>Realizar las actualizaciones de seguridad.</li>
+<li>Instalar los plugins del navegador.</li>
+<li>Instalar los Drivers necesarios para los dispositivos no reconocidos en la instalación.</li>
+</ol>
+<p>A continuación, se describe con detalle cada puno.</p>
+<p><strong>1. Preparar el equipo para arrancar desde CD/DVD/USB.</strong></p>
+<p>Si al introducir el CD/DVD/USB de instalación, no se ejecutase el programa de instalación, habrá que modificar la configuración de la BIOS, para escoger el CD/DVD/USB como primer dispositivo para el arranque.</p>
+<p>Esta operación depende del modelo de placa base/madre del equipo, por lo que de ser posible consultaremos la documentación del fabricante.</p>
+<p><strong>2. Preparación del Disco Duro.</strong></p>
+<p>Esta fase consiste en crear las particiones del tipo necesario para que nuestro Sistema Operativo pueda instalarse.</p>
+<p>En Windows los tipos de particiones que se emplean son FAT32 (Windows 95/98) y NTFS (Windows NT/2000 y XP). En Linux/UNIX, se aceptan muchos más tipos de particiones, siendo el sistema de ficheros más popular el EXT3/EXT4.</p>
+<p>Si queremos instalar un sistemas operativo en un disco donde ya haya otro sistema operativo instalado, Es muy importante hacer copia de seguridad de los datos importantes antes de proseguir la instalación, ya que existe un alto riesgo de perderlos <strong>TODOS</strong> por un error durante el proceso. Una vez hecho esto, tendremos dos opciones:</p>
+<ul>
+<li>Sustituir el sistema operativo anterior.</li>
+<li>Instalarlo permitiendo su coexistencia y selección durante el periodo de arranque del ordenador. Sistema Dual.</li>
+</ul>
+<p>Si elegimos la primera opción, suele ser buena idea borrar en el proceso de instalación las particiones antiguas y después crear las nuevas, realizando una comprobación completa de su estado para conocer si hay errores o defectos en el disco.</p>
+<p>En el caso de querer hacer una instalación dual, habrá que conseguir espacio suficiente para instalar el nuevo sistema operativo, normalmente restándoselo a las particiones existentes anteriormente para el primer sistema. Esta delicada tarea, suele hacerse con herramientas software especiales, como “Partition Magic” o la libre y gratuita bajo Linux GParted. En ambos casos, es muy recomendable realizar una sola modificación cada vez y llevarla a efecto, en lugar de programar varias encadenadas.</p>
+<p>Los programas instaladores de Linux, suelen incorporar herramientas que permiten dicha modificación. No ocurre así en los de Windows, que solo permiten borrar antiguas y crear nuevas.</p>
+<p>Suele ser muy interesante por motivos de seguridad, crear particiones independientes para guardar los datos de los usuarios (por ejemplo una unidad D: en Windows, o directorio /home en Linux).</p>
+<p><strong>3. Ejecutar el programa de instalación.</strong></p>
+<p>Para ello, normalmente bastará con introducir el CD de instalación y volver a encender el equipo con el dentro. Debemos estar atentos a los primeros instantes para leer un posible mensaje de proceder a la instalación y aceptarlo. En caso contrario, bastará con esperar sin hacer nada.</p>
+<p><strong>4. Proporcionar el nombre y contraseña del usuario que será administrador del sistema.</strong></p>
+<p>Todo sistema multiusuario que se precie, debe tener un responsable de su funcionamiento, mantenimiento y de otorgar permisos de uso del equipo y/o sus recursos a terceros. Es durante la fase de instalación durante la que se especifica la contraseña pare el mismo. En los sistemas UNIX, el nombre del administrador es siempre “root”. En sistemas como Windows o Ubuntu, esta labor la lleva el primer usuario creado, hasta que se especifique lo contrario.</p>
+<p><strong>5. Seleccionar los componentes software opcionales que queremos instalar.</strong></p>
+<p>Muchas distribuciones de Sistemas Operativos pueden contener software adicional (en ocasiones varios CD o DVDs) que puede ser instalado durante al instalación del mismo. Es habitual que se nos pregunte por qué selección de programas recomendada o personalizada queremos instalar. Una vez hecho esto, comienza la copia de todos los ficheros necesarios desde los soportes de instalación al disco duro del equipo.</p>
+<p><strong>6. Ajustar los parámetros de la red.</strong></p>
+<p>Si nuestro equipo va a ser utilizado en una red local o en Internet, habremos de configurar adecuadamente el dispositivo de comunicaciones (normalmente la tarjeta de red). Para ello, necesitaremos obtener la información pertinente del administrador de al red o del proveedor de servicios de Internet que tengamos contratado en su caso.</p>
+<p>Lo más común, (y por tanto la instalación por defecto) es que los equipos se configuren de modo que automáticamente consigan el ajuste necesario de la red desde otro equipo que los coordina a todos, mediante un protocolo denominado DHCP (Dinamyc Host Control Protocol). Si es así, no necesitamos hacer nada más.</p>
+<p>En caso contrario, deberemos obtener y anotar la información correspondiente para la tarjeta de red:</p>
+<ul>
+<li><strong>Dirección IP:</strong> el número que distingue nuestro ordenador en la red para comunicar.</li>
+<li><strong>Máscara de subred:</strong> un número que ayuda a distinguir si las direcciones que buscamos son de nuestra red local o externos.</li>
+<li><strong>Puerta de enlace predeterminada</strong>: la dirección IP del equipo (p.ej. Router) que nos da acceso a otras redes, como por ejemplo Internet.</li>
+<li><strong>Dirección de un servidor de DNS.:</strong> La dirección del equipo que puede informarnos de la dirección IP de otro que solo conocemos por su nombre de dominio. Hacen el trabajo de las “páginas blancas” de Internet.</li>
+</ul>
+<p><strong>7. Instalar el gestor de arranque.</strong></p>
+<p>Al instalar el sistema operativo, es necesario incluir en el sector de arranque del Disco Duro (llamado MBR o Master Boot Record), un pequeño programa que nos permite encontrar en qué parte del disco se encuentran los distintos sistemas operativos, y seleccionar uno para comenzar a trabajar cuando encendemos el equipo.</p>
+<p>En las instalaciones de Linux, el programa en cuestión suele ser GRUB (GRand Unified Bootloader).</p>
+<p>En Windows, tras su instalación, se destruye el cargador de arranque que estuviese antes, y solo quedará la posibilidad de acceder a dicho sistema operativo. Es por ello muy conveniente que de tener instalado Linux en nuestro ordenador además de Windows, dispongamos de un CD/DVD/USB de arranque que también tenga el GRUB en él para poder arreglar el destrozo que provocará la reinstalación de Windows cuando probablemente ocurra.</p>
+<p>Si tras instalar Linux, no podemos arrancar el Windows anteriormente instalado (caso poco probable), podremos reponer el de Windows con un disco de arranque de Windows introduciendo por teclado la orden: <strong>fdisk /mbr</strong></p>
+<p>Hay que asegurase de tener antes un CD/DVD/USB de arranque con GRUB configurado antes de usar fdisk, o no podrá volver a arrancar Linux después.</p>
+<p><strong>8. Realizar las actualizaciones de seguridad.</strong></p>
+<p>Probablemente, desde que se publicó la versión de nuestro Sistema Operativo hasta el momento de la instalación, se han publicado correcciones del mismo que pueden aplicarse mediante un proceso de actualización a través de Internet, o de discos de “Service Pack” que las contienen cuando ya son muy numerosas.</p>
+<p>De no llevarlas a cabo, es muy probable que en poco tiempo tengamos problemas causados por virus, intrusos a través de la red o fallos del propio Sistema Operativo desconocidos en el momento de su publicación.</p>
+<p><strong>9. Reiniciar el sistema.</strong></p>
+<p>Es la fase final de la instalación, y nos mostrará que el sistema está convenientemente instalado.</p>
+<p>Antes de hacerlo, debemos asegurarnos de que hemos retirado el CD/DVD/USB de instalación, o volveremos otra vez iniciar el proceso. Si es así, apagamos el equipo y sacamos inmediatamente el CD/DVD/USB en los primeros instantes del arranque.</p>
+<p><strong>10. Instalar los Drivers necesarios para los dispositivos no reconocidos en la instalación.</strong></p>
+<p>Es habitual que si se instala el sistema operativo, no nos funcione aún o al menos correctamente la impresora, el escáner, la “tarjeta de sonido” la tarjeta gráfica, la tarjeta sintonizadora de TV, etc.</p>
+<p>Para que puedan hacerlo, es necesario instalar en nuestro Sistema Operativo los <strong><em>DRIVERS</em></strong> de los mencionados dispositivos correspondientes a la versión de nuestro sistema operativo, y a ser posible actualizados.</p>
+<p>En muchos casos, el propio Sistema Operativo los instala, pero debido a la gran variedad de tipos de dispositivos y de fabricantes existentes en la actualidad, es imposible incluirlos todos.</p>
+<p>Para conseguir los drivers, recurrimos al disco de instalación del dispositivo o a la página WEB del fabricante del mismo (por ej.: HP, EPSON, Nvidia, ATI, CREATIVE, etc...), seleccionando los de nuestro Sistema Operativo y versión del mismo.</p>
+<p>En ocasiones suele ser necesario reiniciar el ordenador, sobre todo en entornos Windows.</p>
+<h2 id="244-comprobacion-de-los-requisitos-tecnicos">2.4.4 Comprobación de los requisitos técnicos</h2>
+<p>El primer paso para la instalación de un equipo de escritorio será la comprobación de que se cumplen tanto los requisitos hardware como software. En lo relativo al hardware, uno de los aspectos más importantes será el procesamiento, almacenamiento y comunicación.</p>
+<p>También hay que estudiar tanto la potencia necesaria como la compatibilidad con el sistema operativo y el resto de elementos que pretendemos instalar, aunque la situación será mucho más determinante al referirnos al servidor o servidores.</p>
+<p>En ocasiones, dispondremos de un equipamiento previo sobre el que, en el mejor de los casos, podremos realizar ciertas modificaciones y/o actualizaciones. En estos casos, deberemos ajustar las características de nuestra implantación a los recursos existentes. En otras situaciones, tendremos libertad para diseñar todos los aspectos de nuestra instalación, adquiriendo el material necesario para ponerla en práctica. Sea cual sea la situación que se produzca, determinará en gran medida el resto de las decisiones que tomemos.</p>
+<p>Por lo tanto, algunas de las preguntas que deberemos hacernos son las siguiente:</p>
+<ul>
+<li>¿Qué sistema operativo me ofrecerá mejor rendimiento en un equipo de escritorio?. Las mayoría de las veces, los ordenadores del lado cliente serán los que tengan una capacidad de cálculo más ajustada y, además, son los que más tardan en actualizarse o sustituirse dentro de la estructura de una empresa. Por ejemplo, dado un determinado ordenador, deberemos averiguar si un sistema operativo tendrá un mejor comportamiento que otro. Para ello, podremos comprobar sus requisitos mínimos y recomendados.</li>
+<li>¿Los sistemas operativos elegidos soportan todo el <em>hardware</em> necesario?, ¿disponen de los <em>drivers</em> adecuados? Es muy frecuente que algunos sistemas operativos, sobre todo los de software libre, no dispongan de todos los <em>drivers</em> necesarios para todos los modelos de impresoras, escáneres, u otros dispositivos que podamos necesitar en el presente o en el futuro. Por esto, la elección del sistema operativo puede verse condicionada por los dispositivos que ya tenemos o, al contrario, la adquisición de nuevos dispositivos estará supeditada al sistema operativo por el que nos hayamos decantado.</li>
+<li>¿Los costes arrojados por el diseño son asumibles para la empresa? Un error común es sobredimensionar todo el diseño para asegurarnos de que cumple con todas las necesidades presentes y futuras, pero esto nos puede llevar a plantear un coste excesivo. Por este motivo, debemos hacer el estudio con el máximo rigor y ofrecer un resultado ajustado a las necesidades reales.</li>
+</ul>
+<h3 id="actividad-1-tabla-de-requisitos-minimos-y-comparativa">Actividad 1. Tabla de requisitos mínimos y comparativa</h3>
+<p>La actividad trata de que se realice una tabla comparativa con los requisitos mínimos de Windows 10, Windows 11 y Ubuntu Desktop 22.04.1 LTS en sus versiones de 64 bits. Además, tendrás que describir las ventajas y desventajas que presentan las distribuciones de Windows y Ubuntu Desktop una respecto la otra. Respecto a los componentes con requerimientos mínimos y recomendados, se proponen buscar los siguientes:</p>
+<ul>
+<li>Procesador Mínimo.</li>
+<li>Procesador Recomendado.</li>
+<li>Memoria RAM Mínima y Recomendada.</li>
+<li>Nº de procesadores/núcleos.</li>
+<li>Espacio de disco mínimo y recomendado.</li>
+<li>Tarjeta gráfica mínima y recomendada.</li>
+<li>Unidad DVD.</li>
+<li>etcétera.</li>
+</ul>
+<p>Por último, tendrás que realizar una comparativa más exahustiva entre Windows 11 64 bits y Ubuntu Desktop 22.03.1 LTS 64 bits.</p>
+<p><strong>Windows vs Ubuntu.</strong></p>
+<p><img alt="" src="../images/01.jpg" /></p>
+<p><strong>Realizar una presentación en clase (Equipos de 3)</strong></p>
+<h2 id="245-instalacion-de-windows">2.4.5 Instalación de Windows</h2>
+<h3 id="1-introduccion">1. Introducción</h3>
+<p>La instalación de <strong><em>Windows</em></strong> es bastante sencilla. Lo primero que hay que tener en cuenta es que <strong><em>Windows 7, 8 y 10</em></strong> sólo puede instalarse sobre <strong><em>sistemas de ficheros NTFS</em></strong>. Dichas particiones pueden ser creadas y formateadas a través del propio instalador de Windows o bien se puede realizar con anterioridad haciendo uso de algunas de las herramientas ya vistas. El resto del proceso es totalmente guiado y muy fácil (se verá en las prácticas).</p>
+<p>Sin embargo, hay un detalle importante a tener en cuenta. <strong><em>Windows</em></strong>, después de su instalación, <strong><em>sobreescribe siempre el sector de arranque</em></strong> <strong><em>con la información necesaria para que el siguiente arranque se haga desde la partición donde acaba de ser instalado Windows</em></strong>. En caso de detectar más de un sistema operativo Windows, el instalador inserta un menú de arranque (parecido al de GRUB) que puede ser gestionado desde el último Windows instalado.</p>
+<p>No obstante, hay que tener en cuenta que el instalador de Windows sólo “ve” aquellos sistemas cuya versión sea igual o inferior a la que está siendo instalada.</p>
+<p>Si se quiere instalar Windows 7 y Windows 8, es importante primero instalar 7 y luego 8. En caso de hacerlo al contrario, Windows 7 no “vería” el sistema Windows 8 y sobrescribiría el sector de arranque sin insertar un menú, perdiendo el acceso a dicho sistema.</p>
+<p>Para instalar Windows 10, simplemente hay que tener en cuenta los siguientes aspectos:</p>
+<ul>
+<li>Número de particiones a usar (las que crea el sistema, la raíz, etc..).</li>
+<li>Datos del usuario  (Nombre, user, password).</li>
+</ul>
+<p>El resto de aspectos, los puedes visualizar en el siguiente vídeo donde se describe el proceso completo de la instalación de Windows 10. El vídeo no contempla todo el proceso, es decir, se han realizado pausas en momentos como: copia de ficheros masiva, descarga de ficheros, etc.., todo lo relacionado al progreso de acciones donde no hay interacción con el usuario.</p>
+<p><em><strong>Video 1.</strong> Instalación de Windows 10.</em></p>
+<h3 id="2-particion-reservada-de-windows"><strong>2. Partición reservada de Windows</strong></h3>
+<p>Cuando instalamos el Sistema Operativo, <strong><em>si el proceso detecta espacio sin asignar</em></strong> en lugar de una partición, se genera de forma automática una partición reservada para los ficheros de arranque del sistema, de tamaño <strong>100MB</strong> en Windows 7, <strong>500MB</strong> en Windows 10 y que se marcará como partición activa (esta opción es la que recomienda Microsoft).<br />
+Sin embargo, <strong><em>si el proceso detecta particiones existentes</em></strong>, se omite dicha partición reservada incluso aunque no esté. Lo que hace la instalación entonces, es almacenar en la partición existente que seleccionemos los ficheros de arranque y el resto de archivos del Sistema Operativo.</p>
+<h4 id="21-caracteristicas"><strong>2.1 Características</strong></h4>
+<p>La partición reservada para el sistema de <strong><em>100MB en Windows 7</em></strong> o <strong><em>500 MB en Windows 10</em></strong>, es una partición oculta que crea de forma automática Windows 7/8/10 y que tiene ciertas características  o funciones que hay que saber:</p>
+<ul>
+<li>Permite el uso de <a href="https://technet.microsoft.com/es-es/library/dd835565(v=ws.10).aspx"><strong>BitLocker</strong></a> (ver nota) con la partición del sistema.</li>
+<li>Permite crear un entorno aislado desde donde lanzar la recuperación del sistema (F8 durante el arranque del PC), aunque ésto último, salvo daño grave del sistema operativo, también se puede hacer sin necesidad de tener esa partición oculta, desde el DVD de instalación, o empleando software externo.</li>
+<li>Además contiene los ficheros de arranque de Windows (bootmgr, \Boot, etc.), los cuales, hasta ahora, se ubicaban en la raíz del sistema. <strong><img alt="" src="../images/5-6-01.png" /></strong><em><strong>Figura 1.</strong> Partición reservada.</em></li>
+</ul>
+<p><strong>BitLocker</strong> permite mantener a salvo todo, desde documentos hasta contraseñas, ya que cifra toda la unidad en la que Windows y sus datos residen. Una vez que se activa <strong>BitLocker</strong>, se cifran automáticamente todos los archivos almacenados en la unidad.</p>
+<h4 id="22-evitar-la-particion-reservada"><strong>2.2 Evitar la partición reservada</strong></h4>
+<p>Tenemos varias forma de evitar que se realice la partición reservada:</p>
+<ul>
+<li>Si el disco duro está sin particionar y el particionado se hace desde el DVD de <strong>Windows 10/11</strong> la partición se crea de manera automática pero si el disco duro se particiona antes de la instalación (P.ejemplo con GParted, Acronis, etc.) y no se modifica nada desde el DVD de instalación excepto formatear la partición en NTFS (operación que si es recomendable hacer desde el DVD del sistema), la partición reservada no se crea y <strong>Windows 10/11</strong> se instala alguna de las particiones que ya estaban creadas.</li>
+<li>Otra manera sería, desde el propio proceso de instalación, al llegar a la pantalla que nos habla de las particiones, hacer clic en <strong><em>"Opciones de unidad (avanzadas) para eliminar las particiones existentes y crear una nueva partición"</em></strong>. Al hacerlo veremos en la pantalla el mensaje siguiente: <em>"Para garantizar que todas las características de Windows funcionen correctamente, Windows puede crear particiones adicionales para los archivos de sistema."</em> A continuación se habrán creado  dos particiones, una de ellas la partición reservada de sistema de 100 MB (500MB 8/10) y otra la principal. El proceso consistiría en eliminar la principal (pasando a ser espacio no asignado) y extender la partición reservada de sistema de 100 MB. Extenderemos la partición de acuerdo al espacio libre del que disponemos. Por último se le da formato y una vez finalizado el formateo, la partición reservada original del sistema se transformará en una partición del sistema normal.</li>
+</ul>
+<h4 id="23-ventajas-y-desventajas-de-separar-las-particiones-de-arranque-y-de-sistema"><strong>2.3 Ventajas y desventajas de separar las particiones de arranque y de sistema</strong></h4>
+<p><strong>Ventajas</strong></p>
+<ul>
+<li>Tener una partición separada para los ficheros de arranque es beneficioso puesto que facilita la instalación de múltiples sistemas operativos de la familia Windows.</li>
+<li>Algunos virus y malware (aunque cada vez menos) suponen que el Sistema Operativo reside en la unidad C. Al tener los archivos del Sistema Operativo en otra partición, el código del virus fallará.</li>
+<li>Ciertas herramientas relacionadas con el almacenamiento, como <strong>Bitlocker</strong> requieren una configuración de particiones en la que la unidad de arranque esté separada de la unidad del sistema para poder cifrar correctamente el contenido de un volumen.</li>
+</ul>
+<p><strong>Inconvenientes</strong></p>
+<ul>
+<li>Si se desea crear una imagen del Sistema Operativo para poderla restaurar, será necesario hacer imagen de la partición reservada también puesto que al contener el arranque también es susceptible de dañarse. Este tipo de imágenes es muy habitual en configuraciones donde el usuario separa los datos del sistema en particiones separadas.</li>
+<li>Si se quiere hacer un arranque multi-sistema con gestores de arranque de terceros, no con el que incorpora el propio Windows -gestor que ya sabemos que es muy suyo y no se lleva bien con otros Sistema Operativo que no sean de la casa- por ejemplo Grub, puede que el sistema no arranque al no ser capaz de gestionar la partición reservada. A partir de <strong>Grub2</strong> ya es posible hacer un arranque multi-sistema (Linux-Windows) con esa partición reservada sin problemas.</li>
+</ul>
+<h4 id="24-conclusiones">2.4 Conclusiones</h4>
+<p>Aunque Microsoft recomienda dejar que Windows gestione la partición reservada podemos deducir que si no es necesario el uso del BitLocker con la partición de Windows puede evitarse su creación.</p>
+<p>Para finalizar,  se muestran algunos escenarios de posibles errores durante la instalación de Windows</p>
+<p><strong>Escenario 1.</strong> Se instala <strong>Windows 10 64 bits</strong> y la instalación lanza un mensaje diciendo que <em>"El sistema no puede instalarse porque el disco está en GPT y el hardware posiblemente no es capaz de arrancarlo".</em></p>
+<ul>
+<li><strong><em>Solución:</em></strong> En la ventana de seleccionar discos pulsar <strong>Shift+F10</strong> para forzar la consola del sistema, desde allí, introducir los siguientes comandos:</li>
+<li>diskpart</li>
+<li>select disk 0</li>
+<li>clean</li>
+<li>exit</li>
+</ul>
+<p>Los dos primeros comandos anteriores, eliminan cualquier partición y contenido del disco. Los dos últimos, provocan que se salga de la consola y actualizar para continuar la instalación.</p>
+<p><strong>Escenario 2.</strong> Comienza la instalación de <strong>Windows 10</strong> pero al terminar aparece un mensaje que indica que Windows no puede actualizar la configuración de arranque.</p>
+<ul>
+<li><strong>Solución:</strong> Las BIOS UEFI protegen el arranque o inicio del sistema impidiendo que se puedan hacer modificaciones. Es necesario entrar en la BIOS y quitar la protección de Seguridad de Inicio del sistema (desactivar el arranque seguro).</li>
+</ul>
+<p><strong>Escenario 3.</strong> Se deseainstalar <strong>Windows 10 64 bits</strong> en modo UEFI para mejorar las prestaciones ya que se dispone de un disco duro grande y se quiere usar GPT.</p>
+<ul>
+<li><strong>Solución:</strong> Antes de nada, si el equipo viene con Windows 8, es necesario saber si existen controladores disponibles para Windows 7, para ello debería consultar la web del fabricante. Si no es el caso, no deberíamos hacer <a href="ps://support.microsoft.com/es-es/help/2832566"><strong>downgrade</strong></a> al sistema porque algunos dispositivos podrían no funcionar de forma correcta. Si disponemos de drivers adecuados podemos proceder de la siguiente manera:</li>
+<li>Desactivar Secure Boot.</li>
+<li>Comprobar que la BIOS está en modo UEFI.</li>
+<li>Arrancar desde el lector en modo UEFI. Es necesario introducir el DVD (tiene que ser una imagen original de Microsoft, no modificaciones piratas), apagar la máquina con el DVD introducido en el lector y encenderla de nuevo. Al encenderlo debería quedar claro que el lector esta arrancando en modo UEFI o dar la posibilidad al usuario de hacerlo.</li>
+</ul>
+<p>Existe una forma de saber con seguridad si estamos arrancando en modo UEFI y consiste en que en la pantalla de bienvenida salgamos a la consola con Shift+F10 y ejecutemos <strong>notepad Windows\Panther\setupact.log</strong> para abrir un fichero que nos informará de si el entorno de arranque está en modo BIOS o UEFI.</p>
+<p>Las <strong>BIOS UEFI</strong> necesitan que el disco donde vamos a instalar sea GPT y además instalan una partición de arranque UEFI, por eso el disco tiene que estar vacío. Ya se ha visto este paso en el <strong>Escenario 1</strong>.<br />
+ Desde la misma pantalla de selección de disco pulsamos en actualizar y SIN seleccionar NADA (no seleccionamos el disco) continuamos con la instalación.<br />
+<strong><em>Se creará la partición UEFI</em></strong> y en el resto se instalará el Sistema Operativo. Más adelante podremos crear otras particiones desde el administrador de discos reduciendo el tamaño de la partición del sistema.</p>
+<h2 id="246-instalacion-de-gnulinux">2.4.6 Instalación de GNU/Linux</h2>
+<h3 id="1-instalacion-de-ubuntu">1. Instalación de Ubuntu</h3>
+<p>No es estrictamente necesario instalar una distribución Linux para comenzar a utilizarlo. Por ejemplo, Ubuntu (la distribución con la que se va a trabajar) puede descargarse en versión CD/DVD Live – USB Live, es decir, es posible arrancar el sistema operativo directamente desde el lector óptico o USB, y comenzar a trabajar con él. Sin embargo, si bien esta opción puede ser interesante para probar Linux (o para intentar rescatar un sistema), no resulta la más recomendable para un uso continuado ya que el arranque desde un medio óptico o USB resulta lento y además exige utilizar otra unidad para almacenar los datos y programas instalados.</p>
+<p>La instalación de Linux es un poco más compleja que la de Windows (aunque no mucho más). Hay que tener en cuenta que Linux trabaja con sistemas de ficheros EXT2, EXT3 y EXT4 (entre otros), y aunque el sistema EXT4 es el mejor, resulta más recomendable usar EXT3 si se desea acceder desde windows a la partición de Linux por las siguientes razones:</p>
+<ul>
+<li>Podemos instalar el driver necesario para poder acceder a particiones EXT2 y EXT3 desde Windows.</li>
+<li>Si no se quiere instalar el driver anterior, al menos se pueden instalar programas que permitan acceder a dichas particiones para copiar los datos que se necesiten.</li>
+<li>Algunas herramientas que realizan imágenes de disco aún no son compatibles con EXT4 (como el Norton Ghost) y pueden resultar útiles para crear imágenes de nuestro disco una vez se hayan instalados y configurados todos nuestros sistemas operativos (El volcado de una imagen sobre un disco puede costar 15 o 20 minutos nada más).</li>
+</ul>
+<p>Otro tema a tener en cuenta es que Linux necesita una partición especial denominada Linux-Swap (partición de intercambio) usada por el sistema cuando la memoria RAM se llena. Es recomendable que su tamaño sea, a ser posible, 1,5 veces el tamaño de la memoria RAM.</p>
+<p>Al igual que Windows, una vez finalizada la instalación, Linux sobreescribe el sector de arranque instalando GRUB. Sin embargo, Linux es más “flexible” y no sólo busca otros sistemas Linux instalados en el disco, si no que busca también sistemas Windows, configurando GRUB automáticamente para que el usuario decida qué sistema operativo desea arrancar.</p>
+<p>Debido a la razón anterior, resulta interesante pensar cuántos sistemas se quieren instalar sobre un mismo disco para elegir el orden adecuado de instalación. Es por ello que si se quiere instalar, por ejemplo, Ubuntu, Windows 10 y Windows 11 el orden deberá ser el que sigue:</p>
+<ol>
+<li>Windows 11.</li>
+<li>Windows 10.</li>
+<li>Ubuntu.</li>
+</ol>
+<p>Para instalar <a href="http://releases.ubuntu.com/16.04/">Ubuntu 16.04.5 LTS (Xenial Xerus)</a>, simplemente hay que tener en cuenta los siguientes aspectos:</p>
+<ul>
+<li>Número de particiones a usar (partición raíz y swap).</li>
+<li>Datos del usuario  (Nombre, user, password).</li>
+</ul>
+<p>El resto de aspectos, los puedes visualizar en el siguiente vídeo donde se describe el proceso completo de la instalación de Ubuntu Server. El vídeo no contempla todo el proceso, es decir, se han realizado pausas en momentos como: copia de ficheros masiva, descarga de ficheros, etcétera, todo lo relacionado al progreso de acciones donde no hay interacción con el usuario.</p>
+<p><em><strong>Vídeo 1.</strong> Instalación de Ubuntu 20.04 LTS Server.</em></p>
+<h3 id="2-particion-swap-en-linux">2. Partición swap en Linux</h3>
+<p>En los equipos actuales (memoria RAM &gt;=16Gbytes), una distribución Linux con un uso normal puede funcionar sin inconvenientes no estableciendo una partición swap. Pero hay ocasiones en los que tenerla es imprescindible y siempre es recomendable.</p>
+<p>Podemos establecer unos criterios para saber si necesitamos crear una partición swap o no en un sistema GNU/Linux, que también valdría para sistemas Windows.</p>
+<p>Se considera necesario crear una partición swap en estos casos:</p>
+<ol>
+<li>Si el equipo tiene 4GBytes o menos de memoria RAM. Aunque ya casi no quedan computadoras de escritorio o notebooks con esta cantidad de RAM, si es común en equipos originalmente diseñados para trabajar con la nube.</li>
+<li>Cuando se utilicen aplicaciones que necesitan de mucha memoria RAM como los editores de video.</li>
+<li>En caso de que deseemos habilitar el modo <strong>hibernación</strong> en nuestra computadora.</li>
+</ol>
+<p>Cuando se tiene memoria RAM suficiente (Más de 8 o 16 GB dependiendo del tipo de aplicaciones que se utilicen) es conveniente asignar un porcentaje del disco a la partición swap. Esto servirá para prevenir que un programa con mal funcionamiento consuma mayor memoria de lo necesario y bloquee el sistema, ejemplo, hace unos dos años (2017) usuarios de GNOME 3.26 reportaron que el consumo de memoria aumentaba exponencialmente cuando se hacia un cambio entre ventanas o se accedía al menú (actualmente el tema está corregido).</p>
+<h4 id="21-formas-de-determinar-el-tamano-adecuado-de-la-particion-swap">2.1. Formas de determinar el tamaño adecuado de la partición swap</h4>
+<p>No hay un criterio uniforme a la hora determinar cuanto espacio de disco asignar a la partición swap, aunque podemos aplicar los siguientes criterios:</p>
+<ul>
+<li>Si la memoria RAM es igual o menor a 2GB se asigna el doble de espacio en disco.</li>
+<li>En caso de que la memoria RAM sea mayor a 2 GB y menor a 5 GB sumamos 2 gb a la memoria RAM.</li>
+<li>Cuando la memoria RAM de la que disponemos es mayor a 5 GB asignamos un 20% del espacio en disco.</li>
+<li>Para utilizar sin problemas el modo hibernación, el tamaño de la partición swap debe ser igual al tamaño de la RAM más la raíz cuadrada del tamaño de la RAM.</li>
+</ul>
+<p>No hay ninguna combinación de hardware y software que sea igual a otra. Lo mejor es probar diferentes tamaños de espacio en disco para encontrar el que funcione mejor con nuestra RAM y aplicaciones.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

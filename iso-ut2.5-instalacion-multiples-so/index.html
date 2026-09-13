@@ -1,0 +1,1164 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../iso-ut2.4-instalacion-so/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>2.5 Instalación de múltiples sistemas operativos - Implementación de Sistemas Operativos</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#25-instalacion-de-multiples-sistemas-operativos" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Implementación de Sistemas Operativos" class="md-header__button md-logo" aria-label="Implementación de Sistemas Operativos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Implementación de Sistemas Operativos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.5 Instalación de múltiples sistemas operativos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Implementación de Sistemas Operativos" class="md-nav__button md-logo" aria-label="Implementación de Sistemas Operativos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Implementación de Sistemas Operativos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT1. Introducción a los sistemas informáticos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT1. Introducción a los sistemas informáticos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.1-sistema-informatico-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.1 El sistema informático (hardware)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.2-componentes-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.2 Componentes software: el SO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.3-estructura-so-procesos-memoria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.3 Estructura del SO: procesos y memoria
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.4-estructura-so-es-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.4 Estructura del SO: E/S y archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT2. Instalación y primeros pasos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT2. Instalación y primeros pasos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.1-documentacion-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1 Documentación de los procesos de instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.2-proceso-arranque/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2 Proceso de arranque de un sistema operativo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.3-particionado-discos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.3 Particionado de discos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.4-instalacion-so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.4 Instalación de sistemas operativos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.5 Instalación de múltiples sistemas operativos
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.5 Instalación de múltiples sistemas operativos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#251-orden-de-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.1 Orden de instalación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#252-personalizacion-del-menu-de-arranque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.2 Personalización del menú de arranque
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5.2 Personalización del menú de arranque">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-gestores-de-arranque-de-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Gestores de arranque de Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Gestores de arranque de Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-como-definir-el-sistema-operativo-en-la-configuracion-del-sistema-windows-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Cómo definir el Sistema Operativo en la configuración del sistema Windows 10.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-como-configurar-el-sistema-operativo-predefinido-usando-inicio-y-recuperacion-windows-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Cómo configurar el Sistema Operativo predefinido usando Inicio y recuperación Windows 10
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-como-configurar-el-sistema-operativo-predefinido-usando-el-arranque-de-windows-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Cómo configurar el Sistema Operativo predefinido usando el arranque de Windows 10
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-gestores-de-arranque-linux-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Gestores de arranque LINUX - Ubuntu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#251-orden-de-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.1 Orden de instalación
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#252-personalizacion-del-menu-de-arranque" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.2 Personalización del menú de arranque
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5.2 Personalización del menú de arranque">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Introducción
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-gestores-de-arranque-de-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Gestores de arranque de Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Gestores de arranque de Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-como-definir-el-sistema-operativo-en-la-configuracion-del-sistema-windows-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Cómo definir el Sistema Operativo en la configuración del sistema Windows 10.
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-como-configurar-el-sistema-operativo-predefinido-usando-inicio-y-recuperacion-windows-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Cómo configurar el Sistema Operativo predefinido usando Inicio y recuperación Windows 10
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-como-configurar-el-sistema-operativo-predefinido-usando-el-arranque-de-windows-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Cómo configurar el Sistema Operativo predefinido usando el arranque de Windows 10
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-gestores-de-arranque-linux-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Gestores de arranque LINUX - Ubuntu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="25-instalacion-de-multiples-sistemas-operativos">2.5 Instalación de múltiples sistemas operativos</h1>
+<p>Aunque lo más normal en un sistema informático es utilizar únicamente un sistema operativo, cada vez, son más los usuarios que optan por instalar dos o más sistemas operativos en su ordenador con diferentes fines según cada uno.</p>
+<p>Como la arquitectura informática actual está desarrollada para arrancar un sistema operativo a la vez debemos instalar un software que nos permita elegir qué sistema operativo queremos arrancar cada vez que encendamos el equipo. Ejemplos:</p>
+<ul>
+<li>Probar un nuevo Sistema Operativo en el PC sin quitar el que estamos utilizando, por ejemplo Windows 7 de 32 y 64 bits, Windows 10 y Ubuntu, etc.</li>
+<li>Empresas de desarrollo de software que realizan pruebas de sus productos sobre los diferentes sistemas operativos.</li>
+<li>Utilizar una herramienta software que solo funciona bajo un Sistema Operativo determinado.</li>
+</ul>
+<p>Este tipo de pruebas se pueden realizar mediante el uso de máquinas virtuales pero debido a las técnicas de emulación y virtualización utilizadas no llega a ser una prueba 100% fiable y podemos encontrarnos con sorpresas desagradables cuando trabajemos con la máquina real. Nosotros vamos a centrarnos en 3 grupos de sistemas operativos:</p>
+<ul>
+<li>Familias Microsoft 7 y 10.</li>
+<li>Familia Linux, en concreto la distribución Ubuntu y RedHat.</li>
+</ul>
+<p>Esta clasificación se ha realizado en función del sistema de arranque de las distintas familias.</p>
+<p>En este capítulo, se analizan las principales opciones que se tienen para configurar en el sistema un arranque dual donde elegir el sistema que se desea cargar al arrancar el PC.</p>
+<h2 id="251-orden-de-instalacion">2.5.1 Orden de instalación</h2>
+<p>Por regla general, el orden de instalación de los diferentes sistemas operativos debe ser el siguiente:</p>
+<ol>
+<li>Sistemas operativos de Microsoft antiguos.</li>
+<li>Sistemas operativos de Microsoft nuevos.</li>
+<li>Distribuciones Linux.</li>
+</ol>
+<p>Si no seguimos este orden, las instalaciones de los sistemas operativos machacaran el arranque de los anteriores, por lo que no tendremos acceso a iniciar dichos sistema. Esto se ha explicado anteriormente. Por ejemplo, si queremos instalar Windows 7, Windows 8 y Ubuntu, tenemos las siguientes posibilidades:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Opciones</strong></td>
+<td><strong>1ª Instalación</strong></td>
+<td><strong>2ª Instalación</strong></td>
+<td><strong>3ª Instalación</strong></td>
+</tr>
+<tr>
+<td><strong>A</strong></td>
+<td>Windows 7</td>
+<td>Windows 10</td>
+<td>Ubuntu</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>---</td>
+<td>---</td>
+<td>---</td>
+<td>---</td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>Windows 7</td>
+<td>Ubuntu</td>
+<td>Windows 10</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>---</td>
+<td>---</td>
+<td>---</td>
+<td>---</td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td>Windows 10</td>
+<td>Windows 7</td>
+<td>Ubuntu</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>---</td>
+<td>---</td>
+<td>---</td>
+<td>---</td>
+</tr>
+<tr>
+<td><strong>D</strong></td>
+<td>Windows 10</td>
+<td>Ubuntu</td>
+<td>Windows 7</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>---</td>
+<td>---</td>
+<td>---</td>
+<td>---</td>
+</tr>
+<tr>
+<td><strong>E</strong></td>
+<td>Ubuntu</td>
+<td>Windows 7</td>
+<td>Windows 10</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>---</td>
+<td>---</td>
+<td>---</td>
+<td>---</td>
+</tr>
+<tr>
+<td><strong>F</strong></td>
+<td>Ubuntu</td>
+<td>Windows 10</td>
+<td>Windows 7</td>
+</tr>
+</tbody>
+</table>
+<p>De todas estas opciones, la <strong>A</strong> sería la correcta, mientras que la <strong>F</strong> sería la que más complicaciones nos acarrearía, ya que el Windows 10 machacaría el arranque de Ubuntu y el Windows 7 machacaría el del Windows 8.</p>
+<h2 id="252-personalizacion-del-menu-de-arranque">2.5.2 Personalización del menú de arranque</h2>
+<h3 id="1-introduccion">1. Introducción</h3>
+<p>Una vez tenemos instalados los diversos sistemas operativos, al iniciar el PC nos aparecerá un menú proporcionado por los gestores de arranque con los diferentes sistemas operativos. Dichos menús se pueden personalizar y adaptar a las preferencias de los usuarios.</p>
+<p>Hay que tener en cuenta que el gestor de arranque que habrá que manipular será el del último Sistema Operativo Instalado. Normalmente se suele modificar el orden en el que aparecen, el que arrancará por defecto y el tiempo de espera predeterminado para que el usuario elija una opción.</p>
+<h3 id="2-gestores-de-arranque-de-windows">2. Gestores de arranque de Windows</h3>
+<p>Por lo general, Windows instala uno de los gestores de arranque en nuestro sistema, sin embargo, cuando únicamente tenemos un sistema operativo instalado este gestor no aparece en el arranque cargando automáticamente el sistema.</p>
+<p>Si vamos a instalar varios sistemas operativos <strong><em>Windows</em></strong> (por ejemplo Windows 10 y Windows 11) podemos aprovechar perfectamente uno de los gestores de arranque de Windows para poder elegir el sistema operativo que queremos arrancar por defecto en el arranque del sistema.</p>
+<p>Su instalación y configuración es muy sencilla, lo único que debemos hacer es asegurarnos de instalar en primer lugar el sistema operativo más antiguo (Windows 10 en este caso) y a continuación el más reciente (Windows 11) para que haya total compatibilidad entre ellos.</p>
+<p>Al instalar <strong><em>Windows 10/11</em></strong> el proceso de instalación detectará una partición previa con <strong><em>Windows 10</em></strong> y automáticamente añadirá una entrada al gestor de arranque de manera que al arrancar el sistema podremos elegir el que queremos cargar y utilizar.</p>
+<p><img alt="" src="../images/menu-W10-11.png" /></p>
+<p><em><strong>Figura 6.2.1</strong> Menú de arranque en Windows.</em></p>
+<p>En los siguientes puntos, se describen diversos métodos para definir con cuál Sistema Operativo iniciará por defecto el sistema.</p>
+<h4 id="21-como-definir-el-sistema-operativo-en-la-configuracion-del-sistema-windows-10"><strong>2.1. Cómo definir el Sistema Operativo en la configuración del sistema Windows 10.</strong></h4>
+<ul>
+<li><strong>Paso 1.</strong> Para realizar el cambio usando este proceso accederemos a la configuración del sistema y para ello contamos con dos opciones:  </li>
+<li>En el cuadro de búsqueda de Windows 10 ingresamos el termino<strong>msconfig</strong> y seleccionamos la opción <strong>Configuración del sistema.</strong></li>
+<li>Usando el comando Ejecutar ( <img alt="" src="../images/iconoWR.png" /><strong>+</strong> <strong>R</strong>) e ingresar <strong>msconfig</strong>, pulsamos <strong>Enter</strong> o <strong>Aceptar</strong>.</li>
+<li><strong>Paso 2.</strong>En la ventana desplegada vamos a la ficha <strong>Arranque</strong> y allí seleccionamos el nuevo sistema operativo que deseamos sea el predefinido y pulsamos en Aplicar:</li>
+</ul>
+<p><img alt="" src="../images/Figura_6.5.2.png" /></p>
+<p><em><strong>Figura 2.</strong> Menú de arranque en Windows.</em></p>
+<ul>
+<li><strong>Paso 3.</strong> Pulsamos en <strong>Aceptar</strong> y se desplegará la siguiente ventana. Allí pulsamos en <strong>Reiniciar</strong> para aplicar los cambios.</li>
+</ul>
+<p><a href="https://www.solvetic.com/uploads/monthly_04_2017/tutorials-9832-0-51563100-1491927927.png" title="3-reinicar-sistema.png - Tamaño: 5,17K"><img alt="" src="../images/Figura_6.2.3.png" /></a></p>
+<p><em><strong>Figura 3.</strong> Reiniciar el sistema.</em></p>
+<p>Es importante anotar que desde esta opción podemos definir parámetros adicionales como el tiempo que estarán disponibles los sistemas operativos en el inicio, establecer el tipo de arranque, etcétera.</p>
+<h4 id="22-como-configurar-el-sistema-operativo-predefinido-usando-inicio-y-recuperacion-windows-10">2.2. Cómo configurar el Sistema Operativo predefinido usando Inicio y recuperación Windows 10</h4>
+<p>Esta es otra de las opciones disponibles en Windows para configurar el sistema operativo predefinido.</p>
+<p><strong>Paso 1.</strong> Para acceder a Inicio y recuperación, se tienen las siguientes alternativas:</p>
+<ul>
+<li>A través de Ejecutar e ingresando <strong>sysdm.cpl</strong> y pulsando Enter.</li>
+<li>Usando la ruta<strong>Panel de control\ Sistema y seguridad\ Sistema</strong> y allí elegir la opción <strong>Configuración avanzada del sistema.</strong></li>
+</ul>
+<p><strong>Paso 2.</strong> En la ventana desplegada vamos a la pestaña <strong>Opciones avanzadas:</strong></p>
+<p><img alt="" src="../images/Figura_6.2.4.png" /></p>
+<p><em><strong>Figura 4</strong> Propiedades del sistema.</em></p>
+<p><strong>Paso 3.</strong> A continuación, hay que pulsar el botón <strong><em>Configuración</em></strong> ubicado en el campo <strong><em>Inicio y recuperación</em></strong> y veremos la siguiente ventana donde hay que definir el sistema operativo predeterminado desplegando las respectivas opciones. De la misma forma, es posible establecer determinadas configuraciones del arranque. Una vez definido pulsamos en Aceptar.</p>
+<p><img alt="" src="../images/Figura_6.2.5.png" /></p>
+<p><em><strong>Figura 5.</strong> Inicio y recuperación</em>.</p>
+<h4 id="23-como-configurar-el-sistema-operativo-predefinido-usando-el-arranque-de-windows-10"><strong>2.3.</strong> Cómo configurar el Sistema Operativo predefinido usando el arranque de Windows 10</h4>
+<p><strong>Paso 1.</strong>Para realizar este proceso, se ha de reiniciar el sistema en modo avanzado pulsando la tecla Shift y presionando Reiniciar, accederemos a la siguiente ventana:</p>
+<p><img alt="" src="../images/6.png" /></p>
+<p><em><strong>Figura 6.</strong> Elegir sistema operativo.</em></p>
+<p><strong>Paso 2.</strong>Allí se selecciona la opción <strong>Usar otro sistema operativo</strong> y veremos la siguiente ventana donde elegimos la opción <strong>Cambiar valores predeterminados</strong>:</p>
+<p><img alt="" src="../images/Figura_6.2.7.png" /></p>
+<p><em><strong>Figura 7.</strong> Elegir una opción.</em></p>
+<p><strong>Paso 3.</strong> Se desplegará lo siguiente:</p>
+<p><img alt="" src="../images/Figura_6.2.8.png" /></p>
+<p><em><strong>Figura 8.</strong>Opciones.</em></p>
+<p><strong>Paso 4.</strong>Allí pulsamos en la opción <strong>Elegir sistema operativo predeterminado</strong>. Para definir cuál será el sistema operativo por defecto. Allí pulsamos en la opción deseada y de esta forma ese será el sistema por defecto.</p>
+<p><img alt="" src="../images/9.png" /></p>
+<p><em><strong>Figura 9.</strong>Elegir sistema operativo predeterminado.</em></p>
+<h3 id="2-gestores-de-arranque-linux-ubuntu">2. Gestores de arranque LINUX - Ubuntu</h3>
+<p>Linux no cuenta con un gestor de arranque propio, sino que permite usar cualquier gestor de arranque que deseemos. El que se suele incluir actualmente en todas las versiones de Linux es el <strong>GRUB</strong>. El GRand Unified Bootloader (GRUB) es un gestor de arranque múltiple que se usa comúnmente para iniciar dos o más sistemas operativos instalados en un mismo ordenador. Otros gestores de arranque usados anteriormente en Linux son el syslinux y el lilo.</p>
+<p>El gestor de arranque <strong>GRUB</strong> (GRand Unifier Bootloader) viene preinstalado en la mayoría de las distribuciones de GNU/Linux modernas, entre ellas Debian, Ubuntu y sus derivadas.</p>
+<p>En la actualidad nos podemos encontrar con GRUB en sus versiones 1 y 2, que son algo distintas.</p>
+<p>A partir de la Ubuntu 9.10, se tiene disponible el <strong>GRUB2</strong>, que incorpora las siguientes mejoras:</p>
+<ul>
+<li><strong>Modo de rescate:</strong> permite acceder a una interfaz de comandos sin necesidad de reiniciar en caso de que sea imposible iniciar el sistema con la configuración existente.</li>
+<li><strong>Inicio gráfico:</strong> La primera generación de GRUB permite poner un fondo de pantalla a un menu de selección basado en texto. GRUB 2 es completamente gráfico. Hasta ahora se sabe que Ubuntu no incluirá un menú gráfico por omisión, pero no tardarán en aparecer los artistas de siempre.</li>
+<li><strong>Iniciar desde una imagen ISO:</strong> Permite iniciar el sistema desde una imagen ISO guardada en el disco. Con esta característica ya no será necesario grabar un CD/DVD o utilizar un disco USB para iniciar otro sistema operativo. Sólo bastará con guardar el archivo ISO en el disco duro y decirle a GRUB que inicie desde allí.</li>
+<li><strong>Scripting:</strong> GRUB 2 no sólo interpretará lineas de configuración de inicio, sino que también podrá ejecutar sencillos scripts.</li>
+</ul>
+<p>Para modificar el contenido del menú de arranque del GRUB es necesario que se arranque el sistema Linux (en nuestro caso, Ubuntu). Una vez dentro se puede cambiar el orden de arranque de manera gráfica o manualmente:</p>
+<p><strong><em>A) Manualmente</em></strong></p>
+<p><strong>GRUB2</strong></p>
+<p>El menú del GRUB puede modificarse también de manera manual ya que el contenido está escrito en el fichero de texto /boot/grub/grub.cfg aunque para editarlo necesitaremos permisos de administrador. Una vez abierta una consola (<em>Aplicaciones → Accesorios → Terminal</em>), la lista de comandos a ejecutar es la siguiente:</p>
+<ol>
+<li>cd /boot/grub (accedemos a la carpeta).</li>
+<li>cp <strong>grub.cfg</strong> grub.cfg.bak (hacemos una copia de seguridad del fichero de configuración de grub).</li>
+<li>sudo nano <strong><em>*grub</em>*.</strong>cfg**<em><em> (abrimos el fichero grub.cfg con el editor de textos </em>nano</em> y con permisos de administración).</li>
+<li>Se nos pedirá la contraseña y luego se abrirá el editor de texto.</li>
+</ol>
+<p><strong><em><img alt="" src="../images/grub-cfg.png" /></em></strong></p>
+<p><em><strong>Figura 10.</strong> Fichero grub.cfg.</em></p>
+<p>La parte que nos interesa es la línea que pone <strong><em>default 0</em></strong><strong>:</strong></p>
+<p>La opción <strong><em>timeout</em></strong> indica cuántos segundos deben pasar para que se arranque el sistema por defecto.</p>
+<p><img alt="" src="../images/timeout.png" /></p>
+<p>En cambio, <strong>default 0</strong> significa que el sistema operativo que se a arrancar es el primero indicado en la lista del final del documento (la numeración empieza en 0).</p>
+<p>Si queremos arrancar por defecto Windows, sólo tenemos que contar todas las entradas del menú en las que pone <strong>menuentry</strong> y cambiar el valor de default dicho número:</p>
+<p><img alt="" src="../images/menuentry.png" /></p>
+<p>Otra forma de hacerlo sin tener que abrir el fichero <strong><em>grub.cfg</em></strong>, es usando el comando grep, es decir, como primero debemos saber qué opciones tenemos, para ello en una terminal escribamos lo siguiente:</p>
+<pre><code>jc@jc-Latitude-E6430:~$grep menuentry /boot/grub/grub.cfg
+</code></pre>
+<p>Nos aparecerán nuestras opciones, algo así:</p>
+<p><img alt="" src="../images/grep-menu-entry.png" /></p>
+<p><em><strong>Figura 11.</strong> Entradas en grub.</em></p>
+<p>Como se puede observar, cada línea que empiece con “<strong>menuentry</strong>” es una opción. Cuando tenemos el número de entrada que deseamos establecer por defecto en el arranque, debemos editar otro archivo, en este caso debemos editar: <strong>/etc/default/grub</strong>. Para ello en una terminal escribamos lo siguiente:</p>
+<pre><code>jc@jc-Latitude-E6430:/$sudo nano /etc/default/grub
+</code></pre>
+<p><strong><img alt="" src="../images/default-grub.png" /></strong></p>
+<p><em><strong>Figura 12.</strong> Contenido del fichero grub en /etc/default.</em></p>
+<p>Como pueden ver en la imagen, se encuadra en rojo <strong>GRUB_DEFAULT=0</strong> que es la línea que indica la opción por la cual se accederá por default. O sea, supongamos que yo deseo que mi PC siempre entre por defecto por la tercera entrada (menuentry) entonces esa línea debería quedar: GRUB_DEFAULT=2</p>
+<p>Además en la línea siguiente dice: <strong>GRUB_TIMEOUT=0</strong>, esto se refiere al tiempo de espera, los segundos que Grub2 esperará antes de abrir la opción por defecto, o sea, son los segundos que tienen para usando las teclas de dirección Arriba y Abajo cambiar la opción por la que se accederá. Para este caso, 0 segundos indica que entre automáticamente sin esperar.</p>
+<p>Una vez cambiado esto, simplemente nos queda ejecutar en la terminal:</p>
+<pre><code>jc@jc-Latitude-E6430:/$sudo update-grub
+</code></pre>
+<p>Esto actualizará los cambios y los hará efectivos.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1608 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../iso-ut2.2-proceso-arranque/">
+      
+      
+        <link rel="next" href="../iso-ut2.4-instalacion-so/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>2.3 Particionado de discos - Implementación de Sistemas Operativos</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#23-particionado-de-discos" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Implementación de Sistemas Operativos" class="md-header__button md-logo" aria-label="Implementación de Sistemas Operativos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Implementación de Sistemas Operativos
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.3 Particionado de discos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Implementación de Sistemas Operativos" class="md-nav__button md-logo" aria-label="Implementación de Sistemas Operativos" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Implementación de Sistemas Operativos
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT1. Introducción a los sistemas informáticos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT1. Introducción a los sistemas informáticos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.1-sistema-informatico-hardware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.1 El sistema informático (hardware)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.2-componentes-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.2 Componentes software: el SO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.3-estructura-so-procesos-memoria/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.3 Estructura del SO: procesos y memoria
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut1.4-estructura-so-es-archivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1.4 Estructura del SO: E/S y archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT2. Instalación y primeros pasos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT2. Instalación y primeros pasos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.1-documentacion-instalacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1 Documentación de los procesos de instalación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.2-proceso-arranque/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2 Proceso de arranque de un sistema operativo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.3 Particionado de discos
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.3 Particionado de discos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#231-tipos-de-particiones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1 Tipos de particiones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.1 Tipos de particiones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-particiones-mbr-msdos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Particiones MBR (msdos)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Particiones MBR (msdos)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#12-estructura-del-mbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Estructura del MBR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-particiones-mbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Particiones MBR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-tipos-de-tablas-de-particiones-mas-usuales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Tipos de tablas de particiones más usuales:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-ejemplos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Ejemplos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-reparar-mbr-en-windows-1011" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Reparar MBR en Windows 10/11
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-particiones-gpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Particiones GPT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-como-saber-si-un-disco-tiene-una-tabla-de-particiones-gpt-o-mbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Cómo saber si un disco tiene una tabla de particiones GPT o MBR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-como-convertir-un-disco-mbr-a-gpt-y-viceversa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Cómo convertir un disco MBR a GPT y viceversa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-caso-practico-particionado-de-disco-gpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Caso práctico: Particionado de disco gpt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#232-sistemas-de-ficheros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2 Sistemas de ficheros
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.2 Sistemas de ficheros">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A) Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B) Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#233-gestores-de-particiones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.3 Gestores de particiones
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.4-instalacion-so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.4 Instalación de sistemas operativos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.5-instalacion-multiples-so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.5 Instalación de múltiples sistemas operativos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#231-tipos-de-particiones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1 Tipos de particiones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.1 Tipos de particiones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-particiones-mbr-msdos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Particiones MBR (msdos)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Particiones MBR (msdos)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#12-estructura-del-mbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Estructura del MBR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-particiones-mbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Particiones MBR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-tipos-de-tablas-de-particiones-mas-usuales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Tipos de tablas de particiones más usuales:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-ejemplos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Ejemplos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-reparar-mbr-en-windows-1011" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Reparar MBR en Windows 10/11
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-particiones-gpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Particiones GPT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-como-saber-si-un-disco-tiene-una-tabla-de-particiones-gpt-o-mbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Cómo saber si un disco tiene una tabla de particiones GPT o MBR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-como-convertir-un-disco-mbr-a-gpt-y-viceversa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Cómo convertir un disco MBR a GPT y viceversa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-caso-practico-particionado-de-disco-gpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Caso práctico: Particionado de disco gpt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#232-sistemas-de-ficheros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2 Sistemas de ficheros
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.2 Sistemas de ficheros">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A) Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B) Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#233-gestores-de-particiones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.3 Gestores de particiones
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="23-particionado-de-discos">2.3 Particionado de discos</h1>
+<p>Una partición de disco es una división lógica del espacio de almacenamiento. De esta manera, cada partición se vuelve independiente del resto y puede albergar diferentes cosas. Gracias a esta división, borrar el contenido de una partición no afectaría al contenido del resto de particiones. Es como si tuviéramos una zona de almacenaje (como un trastero) y, en lugar de apilar unas cajas encima de otras, colocáramos varias estanterías para organizar el espacio.</p>
+<p>El contenido de cada estantería podría ser distinto. Incluso si un día queremos modificar la organización de una estantería el resto de estanterías no se verían afectadas.</p>
+<p>Por lo dicho, es recomendable tener una partición por cada sistema operativo instalado (para Linux hará falta otra u otras adicionales que ya se verán más adelante) y una o varias particiones más para albergar datos.</p>
+<p>Por ejemplo, si quisiéramos instalar Windows y Linux en un disco duro una posible elección de particiones sería la siguiente:</p>
+<ul>
+<li>1 partición para Windows.</li>
+<li>2 particiones para Linux (una para el sistema y otra de intercambio/swwap).</li>
+<li>1 partición para nuestros documentos personales.</li>
+<li>1 partición para nuestros ficheros personales/privados.</li>
+</ul>
+<p>A las dos últimas particiones accederíamos desde Windows y Linux por lo que el sistema de ficheros tendría que ser compatible con los dos sistemas operativos. Un sistema de archivos compatible entre los sistemas Windows y Linux es <strong>NTFS</strong>.</p>
+<h2 id="231-tipos-de-particiones">2.3.1 Tipos de particiones</h2>
+<h3 id="1-particiones-mbr-msdos">1. Particiones MBR (msdos)</h3>
+<p>A la hora de dar formato a un disco duro, el estilo de tablas de particiones más utilizado en la actualidad en discos menores a 2Tbytes es <strong><em>MBR</em></strong>. Este estilo de formato lleva más de 30 años funcionando en la mayor parte de los Sistemas Operativos. Una de las principales limitaciones de este estilo de particiones es el tamaño máximo con el que puede trabajar: 2TBytes. Además, MBR solo puede trabajar con 4 particiones primarias, por lo que para crear más de 4, hay que recurrir a las particiones extendidas.</p>
+<p><strong>1.1 El MBR</strong></p>
+<p>El Registro de Arranque Principal (Master Boot Record) es el primer sector (los primeros 512 bytes) también conocido como Sector Cero de un dispositivo de almacenamiento de datos, habitualmente el disco duro. Almacena la información de arranque del disco duro, entre la que se encuentra la información necesaria para que la BIOS pueda proceder con la carga del Sistema Operativo (Tabla de particiones y Cargador de Arranque).</p>
+<p><img alt="" src="../images/3-1-001.png" /></p>
+<p><em><strong>Figura 1.</strong> Esquema de MBR.</em></p>
+<p>Generalmente en el caso de un PC con 2 o más discos duros, el MBR con la información de arranque del sistema o sistemas, se encuentra sobre el disco duro en el que se instaló el primer Sistema Operativo. Esto no significa que los demás discos duros no tengan MBR.</p>
+<h4 id="12-estructura-del-mbr">1.2 Estructura del MBR</h4>
+<ul>
+<li><strong>Tabla de Particiones:</strong> Es un conjunto de registros (tabla), en concreto 4 registros de 16 bytes ubicada al principio del MBR cuya función es definir las particiones primarias. Almacena información importante sobre las particiones: Formato, Tamaño, Sector de inicio y un Marcador que indica si es o no de arranque (sólo puede haber una partición de arranque).</li>
+<li><strong>Bootloader</strong>: Es un programa que contiene funcionalidades rudimentarias para: buscar unidades que puedan participar en el arranque, seleccionar la unidad adecuada y cargar un pequeño código desde dicha unidad. No es un Sistema Operativo, sino un cargador de arranque capaz de cargar el SO propiamente dicho y transferirle el control. En este sentido el BootLoader es independiente del Sistema Operativo.</li>
+</ul>
+<h4 id="13-particiones-mbr">1.3 Particiones MBR</h4>
+<p>Los <em>discos particionados con MBR</em> utilizan la BIOS estándar. Soportan particiones como máximo de 2TB, y pueden alojar un máximo de 4 particiones. Existen 3 tipos diferentes de particiones msdos (MBR):</p>
+<ul>
+<li><strong>Partición primaria</strong>. Son las divisiones primarias del disco. Estas son las particiones arrancables, es decir, desde las que al encender el ordenador arrancaría el Sistema Operativo que hubiera en esa partición primaria. Sólo puede haber una partición primaria activa a la vez y sólo puede haber cuatro como máximo de este tipo de particiones, o bien tres primarias y una extendida (tipo de tabla msdos1). En este tipo de particiones cualquier Sistema Operativo puede detectarlas y asignarlas una unidad siempre que sea compatible el sistema de archivos.</li>
+<li><strong>Partición extendida.</strong> Una partición extendida sin embargo, no forma ningún volumen, ni tiene un sector de arranque como tal. Una partición extendida en realidad es un contenedor de unidades lógicas. Se pueden crear tantas unidades lógicas en una partición extendida como se deseen. A términos prácticos, estas unidades lógicas se comportan como particiones primarias.</li>
+<li><strong>Partición lógica.</strong> Cada unidad lógica que se crea dentro de una unidad extendida forma su propio volumen, aunque no tiene un sector de arranque real, sino que usa su sector de arranque para controlar su tamaño entre otras cosas.</li>
+</ul>
+<p><img alt="" src="../images/3-1-002.gif" /></p>
+<p><em><strong>Figura 2.</strong> Esquema de particionado MBR.</em></p>
+<p><img alt="" src="../images/plato-hdd.png" /></p>
+<p><strong><em>Figura 3.</em></strong> <em>Estructura Lógica de un disco A-Pista. B-Sector Disco. C-Sector Pista. D-Cluster.</em></p>
+<p>De esta manera, <em>si dividimos un disco duro en una partición primaria</em> (un volumen) y una partición extendida (donde creamos 10 unidades lógicas, cada una con su propio volumen) formaremos un total de 11 volúmenes (11 letras de unidad) pero solo tendremos un sector de arranque usable como tal, el de la partición primaria.</p>
+<p>Aunque antiguamente sólo se utilizaban las particiones primarias para instalar en ella los sistemas operativos (Windows, Linux...) y las unidades o particiones lógicas sólo se utilizaban para datos (ya sean documentos, música...), en la actualidad los sistemas operativos como Windows o cualquier distribución Linux ya se pueden instalar en una unidad o partición lógica y, a continuación, es posible arrancarlos desde gestores de arranque.</p>
+<h4 id="14-tipos-de-tablas-de-particiones-mas-usuales"><strong>1.4 Tipos de tablas de particiones más usuales:</strong></h4>
+<ul>
+<li>msdos: limitado a 4 particiones primarias una de las cuales puede ser extendida.</li>
+<li>dvh: limitado a 16 particiones primarias, una de las cuales es extendida y se crea al crear la tabla.</li>
+<li>gpt: todas las particiones son primarias, límite muy alto (128) que depende del sistema operativo.</li>
+</ul>
+<p><img alt="" src="../images/04-09.png" /></p>
+<p><em><strong>Figura 4.</strong> Esquema de particiones primarias.</em></p>
+<p><em><img alt="" src="../images/04-10.png" /></em></p>
+<p><em><strong>Figura 5.</strong> Esquema de particiones primarias/extendidas.</em></p>
+<p>Un disco duro sólo puede tener un máximo de 4 particiones si la tabla de particiones es del tipo msdos o MBR. Si se desean gastar todas las particiones de la tabla de particiones sólo se tienen dos posibles configuraciones:</p>
+<ul>
+<li>4 particiones primarias.</li>
+<li>3 particiones primarias + 1 partición extendida.</li>
+</ul>
+<p>Pensemos que si creamos 4 particiones primarias y un día nos damos cuenta que necesitamos una partición adicional, no vale sólo con redimensionar el tamaño de las particiones para dejar un poco de “hueco”. Sería necesario borrar una de las particiones primarias para crear luego una extendida con dos particiones lógicas dentro. Siguiendo con el ejemplo anterior, las particiones anteriormente sugeridas podrían tener el siguiente tipo:</p>
+<ul>
+<li>1 partición primaria para Windows.</li>
+<li>1 partición primaria para Linux.</li>
+<li>partición extendida:</li>
+<li>1 partición lógica para Intercambio.</li>
+<li>1 partición lógica para Documentos.</li>
+<li>1 partición lógica para Varios.</li>
+</ul>
+<h4 id="15-ejemplos"><strong>1.5 Ejemplos</strong></h4>
+<p>Como se ha comentado anteriormente, el particionamiento de un disco duro da lugar a tres tipos de particiones: primarias, extendidas y lógicas. A continuación se muestran distintos escenarios posibles:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MBR</td>
+<td>Partición primaria 1</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MBR</td>
+<td>Partición primaria 1</td>
+<td>Espacio libre</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MBR</td>
+<td>Partición primaria 1</td>
+<td>Partición primaria 2</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MBR</td>
+<td>Partición primaria 1</td>
+<td>Partición primaria 2</td>
+<td>Espacio libre</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MBR</td>
+<td>Partición primaria 1</td>
+<td>Partición primaria 2</td>
+<td>Partición primaria 3</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MBR</td>
+<td>P. primaria 1</td>
+<td>P. primaria 2</td>
+<td>P. primaria 3</td>
+<td>Espacio libre</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MBR</td>
+<td>P. primaria 1</td>
+<td>P. primaria 2</td>
+<td>P. primaria 3</td>
+<td>P. primaria 4</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MBR</td>
+<td>P. primaria 1</td>
+<td>P. primaria 2</td>
+<td>P. primaria 3</td>
+<td>P. primaria 4</td>
+<td>Espacio libre</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MBR</td>
+<td>Partición primaria 1</td>
+<td>Partición extendida</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MBR</td>
+<td>Partición primaria 1</td>
+<td>Partición extendida</td>
+<td>Espacio libre</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MBR</td>
+<td>P. primaria 1</td>
+<td>P. primaria 2</td>
+<td>P. primaria 3</td>
+<td>P. extendida</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MBR</td>
+<td>P. primaria 1</td>
+<td>P. primaria 2</td>
+<td>P. primaria 3</td>
+<td>P. extendida</td>
+<td>Espacio libre</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MBR</td>
+<td>P. primaria 1</td>
+<td>P. primaria 2</td>
+<td>P. primaria 3</td>
+<td>P. extendida</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MBR</td>
+<td>P. prim. 1</td>
+<td>P. prim. 2</td>
+<td>P. prim. 3</td>
+<td>P. extendida</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>MBR:</strong> El Master Boot Recrod, es un registro de arranque principal, conocido también como registro de arranque maestro. Es el primer sector ("sector cero") de un dispositivo de almacenamiento de datos, como un disco duro. En ocasiones, se emplea para el arranque del Sistema Operativo con bootstrap, otras veces es usado para almacenar una tabla de particiones y, en ocasiones, se usa sólo para identificar un dispositivo de disco individual, aunque en algunas máquinas esto último no se usa y es ignorado.</p>
+<p>Solo el sector de arranque de una partición primaria es válido para arrancar el sistema operativo. El sector de arranque de la partición extendida solo contiene información sobre las unidades lógicas que se encuentran dentro de ella (tamaños, comienzos y finales, etc.).</p>
+<p>La tabla del MBR identifica la localización y tamaño de la partición extendida, pero no contiene información sobre las unidades lógicas creadas dentro de esta partición extendida. Ninguna de estas unidades lógicas pueden ser marcadas como activas, por lo que es posible que instalemos un sistema operativo en alguna de estas particiones lógicas, pero nunca podrá ser cargado directamente, ya que no podemos marcar esa partición como activa, y por lo tanto no podemos indicar que sea el volumen de arranque. (Para poder instalar sistemas operativos en estas unidades lógicas, tendremos que usar un programa conocido como gestor de arranque que veremos posteriormente, estos gestores de arranque suelen guardar los programas usados para cargar los sistemas operativos siempre en la partición activa del disco duro).</p>
+<p>Hemos visto como el <strong><em>MBR</em></strong> se divide en dos partes bien diferenciadas, el programa MBR que ocupa la mayor parte del MBR y la tabla de particiones vista anteriormente.</p>
+<p><img alt="" src="../images/04-11.png" /></p>
+<p><em><strong>Figura 6.</strong> Esquema de MBR y tabla de particiones.</em></p>
+<p>Existen diversos programas que nos permiten gestionar y retocar estos componentes del MBR. En sistemas Windows se tiene el comando <strong><em>FIXMBR</em></strong> que reinstala el programa del MBR, aunque este comando solo podemos usarlo desde la consola de recuperación. (Ya veremos cómo acceder a dicha consola en el siguiente tema).</p>
+<p>La <em>tabla de particiones</em>, puede ser gestionada por diversos programas que se incluyen en los sistemas operativos. En sistemas antiguos Windows, la utilidad encargada de esto es el <strong>FDISK</strong>. En la familia Windows más moderna (7, 8, 10, 2012 Server, etc..) es la consola del administrador de discos (<strong><em>diskmgmt.msc</em></strong>). Esta consola es la incluida oficialmente por la propia Microsoft, y existen multitud de programas de terceras compañías que permiten retocar esta tabla de particiones. (No es recomendable el uso de dichas herramientas pues pueden estropear la tabla, y suelen dar problemas a la larga). En la familia Windows 2012 Server, Windows 7,8 y 10 encontramos también una herramienta de línea de comandos que permite gestionar las particiones, <strong><em>diskpart.exe</em></strong>.</p>
+<p>Los sistemas GNU/Linux por su parte incluye varios programas de este tipo, como pueden ser fdisk, gdisk, qtparted, parted, etc.</p>
+<p><img alt="" src="../images/04-12.png" /></p>
+<p><em><strong>Figura 7.</strong> Administrador de discos de Windows.</em></p>
+<h3 id="2-reparar-mbr-en-windows-1011">2. <strong>Reparar MBR en Windows 10/11</strong></h3>
+<p>Por diversos motivos el MBR podría dañarse o corromperse debido a apagones, cuelgues, ciertos tipos de virus o gusanos, instalaciones inadecuadas del Sistema Operativo, mal uso de ciertas aplicaciones específicas relacionadas con el particionado, entre otros. Los daños en este sector provocan de inmediato que el Sistema Operativo no consiga arrancar mostrando ciertos mensajes característicos por pantalla del tipo:</p>
+<ul>
+<li>No se ha encontrado el sistema operativo.</li>
+<li>Falta <strong>BOOTMGR</strong> presione Ctrl + Alt + Del para reiniciar el sistema.</li>
+<li>Inserte un dispositivo de arranque.</li>
+</ul>
+<p>Una primera opción consiste en probar a arrancar la utilidad de recuperación del DVD de Windows y escoger la opción "Reparación de inicio". Sin embargo esta opción suele fallar bastante por lo que es recomendable realizar el proceso de forma manual utilizando desde la consola (Símbolo del sistema) el comando <strong>bootrec</strong> de la forma siguiente:</p>
+<p><img alt="" src="../images/3-1-004.jpg" /></p>
+<p><em><strong>Figura 8.</strong> Ventana Opciones de recuperación del sistema.</em></p>
+<p><img alt="" src="../images/3-1-005.gif" /><br />
+<em><strong>Figura 9.</strong> Consola del sistema.</em></p>
+<p>La unidad X representa una partición temporal que Windows crea para cargar las herramientas de recuperación y poder trabajar. Para finalizar, y por si ha sido dañado el gestor de arranque de Windows 7 se puede proceder a copiar manualmente el fichero bootmgr desde la unidad de DVD a la unidad donde esta la instalación de Windows.</p>
+<p><img alt="" src="../images/3-1-006.png" /></p>
+<p><em><strong>Figura 10.</strong> Errores en MBR o Boot Manager Windows.</em></p>
+<h3 id="3-particiones-gpt">3. Particiones GPT</h3>
+<p><strong>GPT</strong> (GUID Partition Table), es el nuevo estándar que está sustituyendo a MBR y que está asociado con los nuevos sistemas UEFI. Su nombre viene de que a cada partición se le asocia un único identificador global, GUID. A día de hoy, GPT no tiene ningún límite más allá que los que establezcan los propios Sistemas Operativos, tanto en tamaño como en número de particiones (por ejemplo, Windows tiene un límite de 128 particiones).</p>
+<p>A la hora de dar formato a un disco duro, el estilo de tablas de particiones más conocido es MBR (msdos). Este estilo de formato lleva más de 30 años funcionando en la mayor parte de sistemas operativos, sin embargo, con las últimas versiones de Windows, especialmente coincidiendo con el auge de los sistemas UEFI, MBR está siendo sustituido por un nuevo estilo de particiones, GPT, más fiable, moderno y listo para acabar con las principales limitaciones de la estructura MBR.</p>
+<p>Desde la aparición de Windows 8, Microsoft empezó a configurar GPT como tabla de particiones por defecto al dar un nuevo formato al disco. Poco a poco, GPT irá reemplazando a MBR como estilo de particiones por defecto. Ambos son dos formas diferentes de crear y gestionar las tablas de particiones de un disco duro.</p>
+<p><img alt="" src="../images/3-001.png" /></p>
+<p><em><strong>Figura 3.1.11</strong> Esquema tabla de partición GUID.</em></p>
+<p>La fiabilidad de los discos GPT es mucho mayor que la de MBR. Mientas que en esta segunda la tabla de particiones se almacena solo en los primeros sectores del disco, estando en problemas en caso de que se esta se pierde, corrompe o sobrescribe, GPT crea múltiples copias redundantes a lo largo de todo el disco de manera que, en caso de fallo, problema o error, la tabla de particiones se recupera automáticamente desde cualquiera de dichas copias.</p>
+<p><img alt="" src="../images/04-40.png" /></p>
+<p><em><strong>Figura 3.1.12.</strong> Tablas de particiones MBR vs GPT.</em></p>
+<p>En términos de compatibilidad, a la hora de crear o editar particiones, la herramienta de particionado debe ser compatible con este nuevo formato, de lo contrario, se activará una especie de protección para evitar que la herramienta incompatible confunda la tabla de particiones GPT con una MBR “sin formato” y se puedan sobrescribir las particiones.</p>
+<p>En cuanto a <em>sistemas operativos, Windows</em> solo puede arrancar desde discos GPT en sus versiones de 64 bits desde Vista en adelante. Los sistemas de 32 bits, aunque no pueden arrancar desde estos discos, sí que son capaces de leer y escribir en ellos sin problemas.</p>
+<p>Las <em>versiones actuales de Linux</em> también son compatibles con este tipo de discos, e incluso Apple ha empezado a utilizar GPT como tabla de particiones por defecto en lugar de su propia APT (Apple Partition Table).</p>
+<p><img alt="" src="../images/Tabla_de_particiones_GPT.png" /></p>
+<p><em><strong>Figura 3.1.13.</strong> Administrador de discos de Windows 7: Inicializar disco nuevo GPT.</em></p>
+<p><strong>Estructura</strong></p>
+<ul>
+<li><strong>Cabecera de tabla de particiones:</strong> Define los bloques de disco que pueden ser utilizados por el usuario y el número y tamaño de las entradas de partición que conforman la tabla de particiones. Contiene el GUID del disco y registra su propio tamaño y localización (siempre LBA 1), y el tamaño y la localización de la cabecera y tabla de la GPT secundarias (siempre en el último sector del disco).<br />
+  Entradas de partición: Contienen tipo, GUID de partición, comienzo y final de partición, nombre y otros atributos.</li>
+<li><strong>MBR heredado:</strong> Se ha mantenido un MBR al principio del disco para evitar que las herramientas antiguas de manejo de discos basados en MBR, que no reconocen GPT, se confundan y puedan estropear el disco. Este MBR de seguridad especifica, contiene una única entrada de partición que abarca toda la unidad GPT.</li>
+</ul>
+<p><strong>Observaciones</strong></p>
+<p>Mientas que en <strong>MBR</strong> la tabla de particiones se almacena en el primer sector del disco, con los consiguientes problemas en caso de que dicho sector se pierda, corrompa o sobrescriba, GPT crea múltiples copias redundantes a lo largo de todo el disco de manera que, en caso de fallo, problema o error, la tabla de particiones se recupera automáticamente desde cualquiera de dichas copias.</p>
+<p><strong>Referencias</strong></p>
+<ul>
+<li><a href="https://msdn.microsoft.com/es-es/library/dn336946.aspx">https://msdn.microsoft.com/es-es/library/dn336946.aspx</a></li>
+<li><a href="https://es.wikipedia.org/wiki/Tabla_de_particiones_GUID">Wikipedia</a></li>
+<li><a href="https://www.softzone.es/2016/03/25/mbr-gpt-estos-dos-estilos-particiones-discos/">Softzone</a></li>
+<li><a href="https://wiki.archlinux.org/index.php/Partitioning_(Espa%C3%B1ol)#GUID_Partition_Table">Wiki archLinux</a></li>
+</ul>
+<h3 id="4-como-saber-si-un-disco-tiene-una-tabla-de-particiones-gpt-o-mbr">4. Cómo saber si un disco tiene una tabla de particiones GPT o MBR</h3>
+<p>Existen varias formas de saber si un disco utiliza una u otra tabla de particiones. Para ello podemos utilizar el propio administrador de discos de Windows, una herramienta de particionado cualquiera (a ser posible, moderna) o, como vamos a ver a continuación, la herramienta <strong>diskpart</strong>.</p>
+<p>Abrimos una ventana de CMD, recomendablemente con permisos de administrador, y tecleamos en ella “diskpart“.</p>
+<p>Una vez cargue la herramienta y tendamos ya la línea de comandos de ella, simplemente ejecutamos “list disk” para ver una lista con todos los discos conectados a nuestro PC.</p>
+<p><img alt="" src="../images/04-41.png" /></p>
+<p><em><strong>Figura 3.1.14.</strong> Ejecución de diskpart.</em></p>
+<p>En esta lista, podemos ver una columna llamada GPT. Todos los discos que tengan un asterisco * en esta columna serán aquellos que utilicen esta nueva tabla de particiones.</p>
+<h3 id="5-como-convertir-un-disco-mbr-a-gpt-y-viceversa">5. Cómo convertir un disco MBR a GPT y viceversa</h3>
+<p>Es importante conocer que este proceso borrará todos los datos del disco duro, por lo que debemos hacer una copia de ellos si queremos pasar de un formato a otro.</p>
+<p>Aprovechando la herramienta “diskpart” que hemos visto en el punto anterior, es posible convertir un disco duro de MBR a GPT y al revés. Para ello, tras haber ejecutado “list disk”, anotaremos el número del disco que queremos convertir (Disk X) y teclearemos “select disk X” (donde X es el número del disco).</p>
+<p>A partir de ahora estamos trabajando con este disco en concreto.</p>
+<p>Tecleamos “<strong>clean</strong>” para borrar todos los datos de las particiones del disco y dejarlo como nuevo, recién salido de fábrica. Una vez finalice la limpieza tecleamos:</p>
+<ul>
+<li>Para convertir un disco de MBR a GPT: convert gpt</li>
+<li>Para convertir un disco de GPT a MBR: convert mbr</li>
+</ul>
+<p><img alt="" src="../images/04-42.png" /></p>
+<p><em><strong>Figura 3.1.15.</strong> Convertir disco de gpt a mbr.</em></p>
+<p>Una vez finalice el proceso de conversión de la tabla de particiones, el disco estará sin formato. Debemos utilizar la propia herramienta “diskpart” o cualquier otro administrador de particiones para crearlas de nuevo, al menos una de ellas, para que todo siga funcionando con normalidad.</p>
+<p>Existen herramientas de terceros para pasar de un tipo a otro sin perder los datos, al menor en teoría. Pese a ello, y a los riesgos que esto supone, os recomendamos hacer siempre una copia de seguridad de todos los datos del disco, por lo que pueda pasar.</p>
+<h3 id="6-caso-practico-particionado-de-disco-gpt">6. Caso práctico: Particionado de disco gpt</h3>
+<p>En el siguiente vídeo se describe el proceso de creación de una tabla de partiocines gpt en un disco para su posterior particionado e instalación de Windows 10.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=M_Dx5Jy2bMo&amp;t=13s">Vídeo 1. Crear tabla particiones en disco Gpt.</a></strong></p>
+<h2 id="232-sistemas-de-ficheros">2.3.2 Sistemas de ficheros</h2>
+<p>Antes de poder albergar información, las particiones que pueden albergar datos (las primarias y las lógicas) deben formatearse. Formatear es, en esencia, otorgar un nombre a la partición y elegir su sistema de ficheros. El objetivo de un sistema de ficheros es establecer los mecanismos de almacenamiento y búsqueda de los ficheros que van a ser albergados en dicha partición.</p>
+<p>Cada sistema operativo (S.O.) es compatible únicamente con una serie sistemas de ficheros. Si un Sistema Operativo se topa con un sistema de ficheros que no reconoce, éste será incapaz de acceder a su contenido.</p>
+<p>Pese a que existen más sistemas de ficheros, a continuación se verán los más importantes:</p>
+<h3 id="a-windows">A) Windows</h3>
+<p><strong>FAT16</strong> (File Allocation Table): Es muy antiguo. Utiliza 16 bits para direccionar la memoria lo que supone una serie de limitaciones:</p>
+<ul>
+<li>Los ficheros no pueden superar los 2 GiB.</li>
+<li>Sólo es capaz de almacenar 65.517 ficheros.</li>
+<li>Los discos no pueden superar los 2 GiB.</li>
+</ul>
+<p><strong>FAT32</strong>: Usado aún como formato para las tarjetas flash de cámaras y móviles. Utiliza 32 bits para direccionar la memoria con lo que tiene las siguientes limitaciones:</p>
+<ul>
+<li>Los ficheros no pueden superar los 4 GBytes.</li>
+<li>Las particiones sólo pueden albergar 268.435.437 ficheros.</li>
+<li>Los discos no pueden superar los 2 TBytes.</li>
+</ul>
+<p><strong>NTFS</strong> (NT File System): Se introdujo con la versión de Windows NT y está basado en el sistema de ficheros HPFS (High Performance File System) de IBM/Microsoft (usado en el sistema operativo OS/2). NTFS está pensado para trabajar con particiones y ficheros de gran tamaño. Esta es la razón de por qué es tan recomendable su uso hoy en día.</p>
+<ul>
+<li>Los ficheros no pueden superar los 16 TiB.</li>
+<li>Las particiones sólo podrán albergar hasta 4.294.967.295 ficheros.</li>
+<li>Los discos no pueden superar los 256 TiB.</li>
+</ul>
+<p><strong>NTFS</strong> es compatible con <strong>FAT32.</strong> De hecho, es perfectamente posibletransformar una partición FAT32 a NTFS sin riesgo de perder ningún dato, <strong>pero</strong> <strong>no al revés</strong>.</p>
+<h3 id="b-linux">B) Linux</h3>
+<p><strong>EXT2</strong> (second EXTended filesystem): Todos los formatos EXT son sistemas de ficheros para el kernel de Linux. EXT2 mejora el sistema FAT teniendo menos limitaciones:</p>
+<ul>
+<li>Archivos de tamaño máximo 2 TBytes.</li>
+<li>Máximo número de archivos: 1018.</li>
+<li>Discos de tamaño máximo 16 TBytes.</li>
+</ul>
+<p><strong>EXT3</strong> (third EXTended filesystem): Es una mejora del sistema EXT2 y es compatible con su antecesor. De hecho, las particiones EXT3 pueden ser montadas y usadas como particiones EXT2.</p>
+<ul>
+<li>Las limitaciones son muy similares a las de EXT2.</li>
+<li>Tiene la funcionalidad de journaling.</li>
+</ul>
+<p><strong>EXT4</strong> (fourth EXTended filesystem): Es el sucesor de EXT3 y proporciona una mejora significativa tanto en rendimiento como en limitaciones.</p>
+<ul>
+<li>Archivos de tamaño máximo 16 TBytes.</li>
+<li>Máximo número de archivos: 4 mil millones.</li>
+<li>Discos de tamaño máximo 1024 PBytes = 1 EBytes (260 bytes).</li>
+<li>Tiene la funcionalidad de journaling.</li>
+<li><strong>EXT4</strong> es, además, compatible con las versiones anteriores. Así, podemos montar una partición EXT2 o EXT3 como si fuera EXT4, pero no al revés.</li>
+</ul>
+<p><strong>Aunque Windows no soporta de manera nativa EXT2 ó EXT3, pueden</strong> instalarse drivers<a href="#sdfootnote1sym">1</a> para poder acceder a ese tipo de sistemas de archivos:</p>
+<p>http://www.fs-driver.org/download.html (driver para ver particiones EXT2 y EXT3)</p>
+<p>http://www.chrysocome.net/explore2fs (programa para acceder a particiones EXT2 y EXT3)<strong>.</strong></p>
+<p><strong>C) Mac</strong></p>
+<p><strong>HFS</strong> (Hierarchical FileSystem): Fue desarrollado por Apple para sus sistemas operativos Mac OS en el año 1985. Debido a su antigüedad, sufre limitaciones importantes:</p>
+<ul>
+<li>Archivos de tamaño máximo 2 GBytes.</li>
+<li>Máximo número de archivos: 65.535.</li>
+<li>Discos de tamaño máximo 2 TBytes.</li>
+</ul>
+<p><strong>HFS+</strong> (HFS Plus): Desarrollado por Apple para soportar archivos y discos de mayor tamaño.</p>
+<ul>
+<li>Archivos de tamaño máximo 8 EBytes.</li>
+<li>Máximo número de archivos: 4.294.967.295.</li>
+<li>Discos de tamaño máximo 8 EBytes.</li>
+</ul>
+<p><strong>Importante</strong><strong>:</strong> Linux soporta todos los sistemas de ficheros de Windows<strong>.</strong> Luego sideseamos que una partición sea accesible tanto desde Windows como desde Linux, es conveniente utilizar un sistema de ficheros de Windows (preferiblemente, NTFS).</p>
+<p><a href="#sdfootnote1anc">1</a>  Driver: Es la palabra ingles para referirnos a controlador.</p>
+<h2 id="233-gestores-de-particiones">2.3.3 Gestores de particiones</h2>
+<p>Existen una gran variedad de programas que permiten crear, editar y formatear particiones. De hecho, todo sistema operativo acaba incluyendo una herramienta para gestionar las particiones durante su instalación. A continuación se describen algunos de los gestores de particiones más conocidos:</p>
+<p><strong>a) Administrador de discos de Windows</strong></p>
+<p><img alt="" src="../images/04-12.png" /></p>
+<p><strong><em>*Figura 1.</em>* Administrador de discos de Windows.</strong></p>
+<p>Se abre haciendo: <strong><em>Inicio →</em>  <em>Panel de Control →</em>  <em>Herramientas administrativas</em> *→</strong><em> </em><strong>Administración de equipos</strong>.<em> Una vez dentro, se selecciona la opción </em>Administrador de discos<em> del árbol de opciones (a la izquierda):Es una herramienta bastante sencilla. Sólo sabe trabajar con los sistemas de ficheros de Windows y </em><em>NO permite redimensionar particiones</em>*. Si sólo trabajamos con Windows y no queremos demasiadas complicaciones es más que suficiente.</p>
+<p><strong>b) Partition magic</strong></p>
+<p>Fue uno de los gestores de particiones más conocidos hace algunos años. Originalmente fue creado por la compañía <em>PowerQuest Corporation</em> pero luego pasó a manos de <em>Symantec</em>. Funciona sobre la plataforma Windows.</p>
+<p>Mientras <strong><em>PartitionMagic</em></strong> estuvo en manos de <em>PowerQuest</em> fue actualizado regularmente, llegando hasta la versión 8. Sin embargo, desde que la compró <em>Symantec</em> no ha habido nuevas versiones, siendo la última versión la 8.05 (publicada en el 2004). Es más, <em>Symantec</em> ha dejado de fabricar y dar soporte a esta aplicación.</p>
+<p><strong><em>PartitionMagic</em></strong> es capaz de trabajar con particiones FAT16, FAT32, NTFS, EXT2 y EXT3, permitiendo realizar redimensionados de particiones, cambios en los tamaños de los clústeres (para los formatos de Windows) así como otras utilidades varias.</p>
+<p><strong>PartitionMagic</strong> es compatible con Windows NT, 98, ME, 2000 y XP, pero no funciona ni en Windows Vista ni en Windows 7. Podemos encontrar una versión de este programa dentro del CD de recuperación llamado <strong>Hirens Boot:</strong> <a href="http://www.hiren.info/pages/bootcd">http://www.hiren.info/pages/bootcd</a></p>
+<p><img alt="" src="../images/04-13.png" /></p>
+<p><strong><em>*Figura 2.</em>* Administrador de discos Partition Magic.</strong></p>
+<p>Pese a su antigüedad, sigue siendo una herramienta ampliamente usada debido a su facilidad de uso y opciones. No obstante, existen otras opciones, como el Acronis Disk Director, más modernas y las que se les sigue dando soporte técnico.</p>
+<p><strong>c) Acronis Disk Director</strong></p>
+<p>Es un programa comercial de la compañía Acronis y que funciona sobre Windows. Dispone de una suite que no sólo sirve para crear y editar particiones, si no que además nos permite recuperar particiones borradas, agregar un gestor de arranque o reparar discos dañados.</p>
+<p>Al igual que el <strong><em>PartitionMagic</em></strong>, podemos encontrar una versión de este programa dentro del CD de recuperación llamado Hirens Boot: http://www.hiren.info/pages/bootcd</p>
+<p><strong><img alt="" src="../images/04-14.png" /></strong></p>
+<p><strong><em>*</em>*Figura 3.</strong> Administrador de discos Acronis.****</p>
+<p><strong>d) GParted</strong></p>
+<p>Es el editor de particiones de Gnome<a href="#sdfootnote1sym">1</a>. Es un proyecto de código libre y en continuo desarrollo. Es sencillo de usar y permite realizar las acciones típicas sobre particiones: borrado, redimensionado, formateado, etc. <strong><em>Gparted</em></strong> soporta, además, un buen conjunto de sistemas de ficheros:</p>
+<ul>
+<li>EXT2, EXT3, EXT4 y linux-swap (la partición de intercambio).</li>
+<li>HFS y HFS+.</li>
+<li>FAT16, FAT32 y NTFS.</li>
+<li>Reiser4 y ReiserFS.</li>
+<li>FS, UFS y XFS.</li>
+</ul>
+<p>Para poder usarlo no es necesario tener instalada una distribución de Linux ya que puede ser usado desde un LiveCD o incluso LiveUSB: <a href="http://gparted.sourceforge.net/livecd.php">http://gparted.sourceforge.net/livecd.php</a></p>
+<p><img alt="" src="../images/04-15.png" /></p>
+<p><strong><em>*</em>*Figura 4.</strong> Administrador de discos gparted.****</p>
+<p><a href="#sdfootnote1anc">1</a> Gnome es una Interfaz de Usuario de Linux.</p>
+<p><strong>e) fdisk</strong></p>
+<p>Es el editor de particiones de linux/Unix. Es una aplicación para el particionado de discos por consola. Fdisksoporta, además, un buen conjunto de sistemas de ficheros:</p>
+<ul>
+<li>EXT2, EXT3, EXT4, linux-swap (la partición de intercambio), vfat, etc.</li>
+</ul>
+<p><img alt="" src="../images/fdisk.png" /></p>
+<p><em><strong>Figura 5.</strong> Administrador de discos con fdisk.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
