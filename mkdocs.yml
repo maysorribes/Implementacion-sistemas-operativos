@@ -13,6 +13,12 @@ nav:
       - "1.2 Componentes software: el SO": iso-ut1.2-componentes-software.md
       - "1.3 Estructura del SO: procesos y memoria": iso-ut1.3-estructura-so-procesos-memoria.md
       - "1.4 Estructura del SO: E/S y archivos": iso-ut1.4-estructura-so-es-archivos.md
+  - UT2. Instalación y primeros pasos:
+      - "2.1 Documentación de los procesos de instalación": iso-ut2.1-documentacion-instalacion.md
+      - "2.2 Proceso de arranque de un sistema operativo": iso-ut2.2-proceso-arranque.md
+      - "2.3 Particionado de discos": iso-ut2.3-particionado-discos.md
+      - "2.4 Instalación de sistemas operativos": iso-ut2.4-instalacion-so.md
+      - "2.5 Instalación de múltiples sistemas operativos": iso-ut2.5-instalacion-multiples-so.md
 
 extra_css:
   - assets/extra.css
