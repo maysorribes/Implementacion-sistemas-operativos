@@ -1050,7 +1050,7 @@
 <p>A las dos últimas particiones accederíamos desde Windows y Linux por lo que el sistema de ficheros tendría que ser compatible con los dos sistemas operativos. Un sistema de archivos compatible entre los sistemas Windows y Linux es <strong>NTFS</strong>.</p>
 <h2 id="231-tipos-de-particiones">2.3.1 Tipos de particiones</h2>
 <h3 id="1-particiones-mbr-msdos">1. Particiones MBR (msdos)</h3>
-<p>A la hora de dar formato a un disco duro, el estilo de tablas de particiones más utilizado en la actualidad en discos menores a 2Tbytes es <strong><em>MBR</em></strong>. Este estilo de formato lleva más de 30 años funcionando en la mayor parte de los Sistemas Operativos. Una de las principales limitaciones de este estilo de particiones es el tamaño máximo con el que puede trabajar: 2TBytes. Además, MBR solo puede trabajar con 4 particiones primarias, por lo que para crear más de 4, hay que recurrir a las particiones extendidas.</p>
+<p>A la hora de dar formato a un disco duro, el estilo de tablas de particiones en discos menores a 2Tbytes es <strong><em>MBR</em></strong>. Este estilo de formato lleva más de 30 años funcionando en la mayor parte de los Sistemas Operativos. Una de las principales limitaciones de este estilo de particiones es el tamaño máximo con el que puede trabajar: 2TBytes. Además, MBR solo puede trabajar con 4 particiones primarias, por lo que para crear más de 4, hay que recurrir a las particiones extendidas.</p>
 <p><strong>1.1 El MBR</strong></p>
 <p>El Registro de Arranque Principal (Master Boot Record) es el primer sector (los primeros 512 bytes) también conocido como Sector Cero de un dispositivo de almacenamiento de datos, habitualmente el disco duro. Almacena la información de arranque del disco duro, entre la que se encuentra la información necesaria para que la BIOS pueda proceder con la carga del Sistema Operativo (Tabla de particiones y Cargador de Arranque).</p>
 <p><img alt="" src="../images/3-1-001.png" /></p>
@@ -1398,7 +1398,6 @@
 <p><em><strong>Figura 10.</strong> Errores en MBR o Boot Manager Windows.</em></p>
 <h3 id="3-particiones-gpt">3. Particiones GPT</h3>
 <p><strong>GPT</strong> (GUID Partition Table), es el nuevo estándar que está sustituyendo a MBR y que está asociado con los nuevos sistemas UEFI. Su nombre viene de que a cada partición se le asocia un único identificador global, GUID. A día de hoy, GPT no tiene ningún límite más allá que los que establezcan los propios Sistemas Operativos, tanto en tamaño como en número de particiones (por ejemplo, Windows tiene un límite de 128 particiones).</p>
-<p>A la hora de dar formato a un disco duro, el estilo de tablas de particiones más conocido es MBR (msdos). Este estilo de formato lleva más de 30 años funcionando en la mayor parte de sistemas operativos, sin embargo, con las últimas versiones de Windows, especialmente coincidiendo con el auge de los sistemas UEFI, MBR está siendo sustituido por un nuevo estilo de particiones, GPT, más fiable, moderno y listo para acabar con las principales limitaciones de la estructura MBR.</p>
 <p>Desde la aparición de Windows 8, Microsoft empezó a configurar GPT como tabla de particiones por defecto al dar un nuevo formato al disco. Poco a poco, GPT irá reemplazando a MBR como estilo de particiones por defecto. Ambos son dos formas diferentes de crear y gestionar las tablas de particiones de un disco duro.</p>
 <p><img alt="" src="../images/3-001.png" /></p>
 <p><em><strong>Figura 3.1.11</strong> Esquema tabla de partición GUID.</em></p>
@@ -1444,7 +1443,7 @@
 <p><img alt="" src="../images/04-42.png" /></p>
 <p><em><strong>Figura 3.1.15.</strong> Convertir disco de gpt a mbr.</em></p>
 <p>Una vez finalice el proceso de conversión de la tabla de particiones, el disco estará sin formato. Debemos utilizar la propia herramienta “diskpart” o cualquier otro administrador de particiones para crearlas de nuevo, al menos una de ellas, para que todo siga funcionando con normalidad.</p>
-<p>Existen herramientas de terceros para pasar de un tipo a otro sin perder los datos, al menor en teoría. Pese a ello, y a los riesgos que esto supone, os recomendamos hacer siempre una copia de seguridad de todos los datos del disco, por lo que pueda pasar.</p>
+<p>Existen herramientas de terceros para pasar de un tipo a otro sin perder los datos, al menos en teoría. Pese a ello, y a los riesgos que esto supone, os recomendamos hacer siempre una copia de seguridad de todos los datos del disco, por lo que pueda pasar.</p>
 <h3 id="6-caso-practico-particionado-de-disco-gpt">6. Caso práctico: Particionado de disco gpt</h3>
 <p>En el siguiente vídeo se describe el proceso de creación de una tabla de partiocines gpt en un disco para su posterior particionado e instalación de Windows 10.</p>
 <p><strong><a href="https://www.youtube.com/watch?v=M_Dx5Jy2bMo&amp;t=13s">Vídeo 1. Crear tabla particiones en disco Gpt.</a></strong></p>
@@ -1471,7 +1470,7 @@
 <li>Las particiones sólo podrán albergar hasta 4.294.967.295 ficheros.</li>
 <li>Los discos no pueden superar los 256 TiB.</li>
 </ul>
-<p><strong>NTFS</strong> es compatible con <strong>FAT32.</strong> De hecho, es perfectamente posibletransformar una partición FAT32 a NTFS sin riesgo de perder ningún dato, <strong>pero</strong> <strong>no al revés</strong>.</p>
+<p><strong>NTFS</strong> es compatible con <strong>FAT32.</strong> De hecho, es perfectamente posible transformar una partición FAT32 a NTFS sin riesgo de perder ningún dato, <strong>pero</strong> <strong>no al revés</strong>.</p>
 <h3 id="b-linux">B) Linux</h3>
 <p><strong>EXT2</strong> (second EXTended filesystem): Todos los formatos EXT son sistemas de ficheros para el kernel de Linux. EXT2 mejora el sistema FAT teniendo menos limitaciones:</p>
 <ul>
@@ -1508,7 +1507,7 @@
 <li>Máximo número de archivos: 4.294.967.295.</li>
 <li>Discos de tamaño máximo 8 EBytes.</li>
 </ul>
-<p><strong>Importante</strong><strong>:</strong> Linux soporta todos los sistemas de ficheros de Windows<strong>.</strong> Luego sideseamos que una partición sea accesible tanto desde Windows como desde Linux, es conveniente utilizar un sistema de ficheros de Windows (preferiblemente, NTFS).</p>
+<p><strong>Importante</strong><strong>:</strong> Linux soporta todos los sistemas de ficheros de Windows<strong>.</strong> Luego si deseamos que una partición sea accesible tanto desde Windows como desde Linux, es conveniente utilizar un sistema de ficheros de Windows (preferiblemente, NTFS).</p>
 <p><a href="#sdfootnote1anc">1</a>  Driver: Es la palabra ingles para referirnos a controlador.</p>
 <h2 id="233-gestores-de-particiones">2.3.3 Gestores de particiones</h2>
 <p>Existen una gran variedad de programas que permiten crear, editar y formatear particiones. De hecho, todo sistema operativo acaba incluyendo una herramienta para gestionar las particiones durante su instalación. A continuación se describen algunos de los gestores de particiones más conocidos:</p>

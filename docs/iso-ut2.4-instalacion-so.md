@@ -69,9 +69,7 @@ Si queremos instalar un sistemas operativo en un disco donde ya haya otro sistem
 
 Si elegimos la primera opción, suele ser buena idea borrar en el proceso de instalación las particiones antiguas y después crear las nuevas, realizando una comprobación completa de su estado para conocer si hay errores o defectos en el disco.
 
-En el caso de querer hacer una instalación dual, habrá que conseguir espacio suficiente para instalar el nuevo sistema operativo, normalmente restándoselo a las particiones existentes anteriormente para el primer sistema. Esta delicada tarea, suele hacerse con herramientas software especiales, como “Partition Magic” o la libre y gratuita bajo Linux GParted. En ambos casos, es muy recomendable realizar una sola modificación cada vez y llevarla a efecto, en lugar de programar varias encadenadas.
-
-Los programas instaladores de Linux, suelen incorporar herramientas que permiten dicha modificación. No ocurre así en los de Windows, que solo permiten borrar antiguas y crear nuevas.
+En el caso de querer hacer una instalación dual, habrá que conseguir espacio suficiente para instalar el nuevo sistema operativo, normalmente restándoselo a las particiones existentes anteriormente para el primer sistema. Esta delicada tarea, suele hacerse con herramientas software especiales, como GParted. 
 
 Suele ser muy interesante por motivos de seguridad, crear particiones independientes para guardar los datos de los usuarios (por ejemplo una unidad D: en Windows, o directorio /home en Linux).
 
@@ -169,7 +167,6 @@ Por último, tendrás que realizar una comparativa más exahustiva entre Windows
 
 ![](images/01.jpg)
 
-**Realizar una presentación en clase (Equipos de 3)**
 
 ## 2.4.5 Instalación de Windows
 
@@ -248,19 +245,6 @@ Los dos primeros comandos anteriores, eliminan cualquier partición y contenido 
 **Escenario 2.** Comienza la instalación de **Windows 10** pero al terminar aparece un mensaje que indica que Windows no puede actualizar la configuración de arranque.
 
 * **Solución:** Las BIOS UEFI protegen el arranque o inicio del sistema impidiendo que se puedan hacer modificaciones. Es necesario entrar en la BIOS y quitar la protección de Seguridad de Inicio del sistema (desactivar el arranque seguro).
-
-**Escenario 3.** Se deseainstalar **Windows 10 64 bits** en modo UEFI para mejorar las prestaciones ya que se dispone de un disco duro grande y se quiere usar GPT.
-
-* **Solución:** Antes de nada, si el equipo viene con Windows 8, es necesario saber si existen controladores disponibles para Windows 7, para ello debería consultar la web del fabricante. Si no es el caso, no deberíamos hacer [**downgrade**](ps://support.microsoft.com/es-es/help/2832566) al sistema porque algunos dispositivos podrían no funcionar de forma correcta. Si disponemos de drivers adecuados podemos proceder de la siguiente manera:
-  + Desactivar Secure Boot.
-  + Comprobar que la BIOS está en modo UEFI.
-  + Arrancar desde el lector en modo UEFI. Es necesario introducir el DVD (tiene que ser una imagen original de Microsoft, no modificaciones piratas), apagar la máquina con el DVD introducido en el lector y encenderla de nuevo. Al encenderlo debería quedar claro que el lector esta arrancando en modo UEFI o dar la posibilidad al usuario de hacerlo.
-
-Existe una forma de saber con seguridad si estamos arrancando en modo UEFI y consiste en que en la pantalla de bienvenida salgamos a la consola con Shift+F10 y ejecutemos **notepad Windows\Panther\setupact.log** para abrir un fichero que nos informará de si el entorno de arranque está en modo BIOS o UEFI.
-
-Las **BIOS UEFI** necesitan que el disco donde vamos a instalar sea GPT y además instalan una partición de arranque UEFI, por eso el disco tiene que estar vacío. Ya se ha visto este paso en el **Escenario 1**.  
- Desde la misma pantalla de selección de disco pulsamos en actualizar y SIN seleccionar NADA (no seleccionamos el disco) continuamos con la instalación.  
-***Se creará la partición UEFI*** y en el resto se instalará el Sistema Operativo. Más adelante podremos crear otras particiones desde el administrador de discos reduciendo el tamaño de la partición del sistema.
 
 ## 2.4.6 Instalación de GNU/Linux
 
