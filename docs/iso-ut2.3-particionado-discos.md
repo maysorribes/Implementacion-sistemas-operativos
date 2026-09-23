@@ -20,7 +20,7 @@ A las dos últimas particiones accederíamos desde Windows y Linux por lo que el
 
 ### 1. Particiones MBR (msdos)
 
-A la hora de dar formato a un disco duro, el estilo de tablas de particiones más utilizado en la actualidad en discos menores a 2Tbytes es ***MBR***. Este estilo de formato lleva más de 30 años funcionando en la mayor parte de los Sistemas Operativos. Una de las principales limitaciones de este estilo de particiones es el tamaño máximo con el que puede trabajar: 2TBytes. Además, MBR solo puede trabajar con 4 particiones primarias, por lo que para crear más de 4, hay que recurrir a las particiones extendidas.
+A la hora de dar formato a un disco duro, el estilo de tablas de particiones en discos menores a 2Tbytes es ***MBR***. Este estilo de formato lleva más de 30 años funcionando en la mayor parte de los Sistemas Operativos. Una de las principales limitaciones de este estilo de particiones es el tamaño máximo con el que puede trabajar: 2TBytes. Además, MBR solo puede trabajar con 4 particiones primarias, por lo que para crear más de 4, hay que recurrir a las particiones extendidas.
 
 **1.1 El MBR**
 
@@ -194,8 +194,6 @@ La unidad X representa una partición temporal que Windows crea para cargar las 
 
 **GPT** (GUID Partition Table), es el nuevo estándar que está sustituyendo a MBR y que está asociado con los nuevos sistemas UEFI. Su nombre viene de que a cada partición se le asocia un único identificador global, GUID. A día de hoy, GPT no tiene ningún límite más allá que los que establezcan los propios Sistemas Operativos, tanto en tamaño como en número de particiones (por ejemplo, Windows tiene un límite de 128 particiones).
 
-A la hora de dar formato a un disco duro, el estilo de tablas de particiones más conocido es MBR (msdos). Este estilo de formato lleva más de 30 años funcionando en la mayor parte de sistemas operativos, sin embargo, con las últimas versiones de Windows, especialmente coincidiendo con el auge de los sistemas UEFI, MBR está siendo sustituido por un nuevo estilo de particiones, GPT, más fiable, moderno y listo para acabar con las principales limitaciones de la estructura MBR.
-
 Desde la aparición de Windows 8, Microsoft empezó a configurar GPT como tabla de particiones por defecto al dar un nuevo formato al disco. Poco a poco, GPT irá reemplazando a MBR como estilo de particiones por defecto. Ambos son dos formas diferentes de crear y gestionar las tablas de particiones de un disco duro.
 
 ![](images/3-001.png)
@@ -268,7 +266,7 @@ Tecleamos “**clean**” para borrar todos los datos de las particiones del dis
 
 Una vez finalice el proceso de conversión de la tabla de particiones, el disco estará sin formato. Debemos utilizar la propia herramienta “diskpart” o cualquier otro administrador de particiones para crearlas de nuevo, al menos una de ellas, para que todo siga funcionando con normalidad.
 
-Existen herramientas de terceros para pasar de un tipo a otro sin perder los datos, al menor en teoría. Pese a ello, y a los riesgos que esto supone, os recomendamos hacer siempre una copia de seguridad de todos los datos del disco, por lo que pueda pasar.
+Existen herramientas de terceros para pasar de un tipo a otro sin perder los datos, al menos en teoría. Pese a ello, y a los riesgos que esto supone, os recomendamos hacer siempre una copia de seguridad de todos los datos del disco, por lo que pueda pasar.
 
 ### 6. Caso práctico: Particionado de disco gpt
 
@@ -304,7 +302,7 @@ Pese a que existen más sistemas de ficheros, a continuación se verán los más
 * Las particiones sólo podrán albergar hasta 4.294.967.295 ficheros.
 * Los discos no pueden superar los 256 TiB.
 
-**NTFS** es compatible con **FAT32.** De hecho, es perfectamente posibletransformar una partición FAT32 a NTFS sin riesgo de perder ningún dato, **pero** **no al revés**.
+**NTFS** es compatible con **FAT32.** De hecho, es perfectamente posible transformar una partición FAT32 a NTFS sin riesgo de perder ningún dato, **pero** **no al revés**.
 
 ### B) Linux
 
@@ -347,7 +345,7 @@ http://www.chrysocome.net/explore2fs (programa para acceder a particiones EXT2 y
 * Máximo número de archivos: 4.294.967.295.
 * Discos de tamaño máximo 8 EBytes.
 
-**Importante****:** Linux soporta todos los sistemas de ficheros de Windows**.** Luego sideseamos que una partición sea accesible tanto desde Windows como desde Linux, es conveniente utilizar un sistema de ficheros de Windows (preferiblemente, NTFS).
+**Importante****:** Linux soporta todos los sistemas de ficheros de Windows**.** Luego si deseamos que una partición sea accesible tanto desde Windows como desde Linux, es conveniente utilizar un sistema de ficheros de Windows (preferiblemente, NTFS).
 
 [1](#sdfootnote1anc)  Driver: Es la palabra ingles para referirnos a controlador.
 
