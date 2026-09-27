@@ -1130,8 +1130,7 @@
 <li>Instalarlo permitiendo su coexistencia y selección durante el periodo de arranque del ordenador. Sistema Dual.</li>
 </ul>
 <p>Si elegimos la primera opción, suele ser buena idea borrar en el proceso de instalación las particiones antiguas y después crear las nuevas, realizando una comprobación completa de su estado para conocer si hay errores o defectos en el disco.</p>
-<p>En el caso de querer hacer una instalación dual, habrá que conseguir espacio suficiente para instalar el nuevo sistema operativo, normalmente restándoselo a las particiones existentes anteriormente para el primer sistema. Esta delicada tarea, suele hacerse con herramientas software especiales, como “Partition Magic” o la libre y gratuita bajo Linux GParted. En ambos casos, es muy recomendable realizar una sola modificación cada vez y llevarla a efecto, en lugar de programar varias encadenadas.</p>
-<p>Los programas instaladores de Linux, suelen incorporar herramientas que permiten dicha modificación. No ocurre así en los de Windows, que solo permiten borrar antiguas y crear nuevas.</p>
+<p>En el caso de querer hacer una instalación dual, habrá que conseguir espacio suficiente para instalar el nuevo sistema operativo, normalmente restándoselo a las particiones existentes anteriormente para el primer sistema. Esta delicada tarea, suele hacerse con herramientas software especiales, como GParted. </p>
 <p>Suele ser muy interesante por motivos de seguridad, crear particiones independientes para guardar los datos de los usuarios (por ejemplo una unidad D: en Windows, o directorio /home en Linux).</p>
 <p><strong>3. Ejecutar el programa de instalación.</strong></p>
 <p>Para ello, normalmente bastará con introducir el CD de instalación y volver a encender el equipo con el dentro. Debemos estar atentos a los primeros instantes para leer un posible mensaje de proceder a la instalación y aceptarlo. En caso contrario, bastará con esperar sin hacer nada.</p>
@@ -1192,7 +1191,6 @@
 <p>Por último, tendrás que realizar una comparativa más exahustiva entre Windows 11 64 bits y Ubuntu Desktop 22.03.1 LTS 64 bits.</p>
 <p><strong>Windows vs Ubuntu.</strong></p>
 <p><img alt="" src="../images/01.jpg" /></p>
-<p><strong>Realizar una presentación en clase (Equipos de 3)</strong></p>
 <h2 id="245-instalacion-de-windows">2.4.5 Instalación de Windows</h2>
 <h3 id="1-introduccion">1. Introducción</h3>
 <p>La instalación de <strong><em>Windows</em></strong> es bastante sencilla. Lo primero que hay que tener en cuenta es que <strong><em>Windows 7, 8 y 10</em></strong> sólo puede instalarse sobre <strong><em>sistemas de ficheros NTFS</em></strong>. Dichas particiones pueden ser creadas y formateadas a través del propio instalador de Windows o bien se puede realizar con anterioridad haciendo uso de algunas de las herramientas ya vistas. El resto del proceso es totalmente guiado y muy fácil (se verá en las prácticas).</p>
@@ -1252,17 +1250,6 @@ Sin embargo, <strong><em>si el proceso detecta particiones existentes</em></stro
 <ul>
 <li><strong>Solución:</strong> Las BIOS UEFI protegen el arranque o inicio del sistema impidiendo que se puedan hacer modificaciones. Es necesario entrar en la BIOS y quitar la protección de Seguridad de Inicio del sistema (desactivar el arranque seguro).</li>
 </ul>
-<p><strong>Escenario 3.</strong> Se deseainstalar <strong>Windows 10 64 bits</strong> en modo UEFI para mejorar las prestaciones ya que se dispone de un disco duro grande y se quiere usar GPT.</p>
-<ul>
-<li><strong>Solución:</strong> Antes de nada, si el equipo viene con Windows 8, es necesario saber si existen controladores disponibles para Windows 7, para ello debería consultar la web del fabricante. Si no es el caso, no deberíamos hacer <a href="ps://support.microsoft.com/es-es/help/2832566"><strong>downgrade</strong></a> al sistema porque algunos dispositivos podrían no funcionar de forma correcta. Si disponemos de drivers adecuados podemos proceder de la siguiente manera:</li>
-<li>Desactivar Secure Boot.</li>
-<li>Comprobar que la BIOS está en modo UEFI.</li>
-<li>Arrancar desde el lector en modo UEFI. Es necesario introducir el DVD (tiene que ser una imagen original de Microsoft, no modificaciones piratas), apagar la máquina con el DVD introducido en el lector y encenderla de nuevo. Al encenderlo debería quedar claro que el lector esta arrancando en modo UEFI o dar la posibilidad al usuario de hacerlo.</li>
-</ul>
-<p>Existe una forma de saber con seguridad si estamos arrancando en modo UEFI y consiste en que en la pantalla de bienvenida salgamos a la consola con Shift+F10 y ejecutemos <strong>notepad Windows\Panther\setupact.log</strong> para abrir un fichero que nos informará de si el entorno de arranque está en modo BIOS o UEFI.</p>
-<p>Las <strong>BIOS UEFI</strong> necesitan que el disco donde vamos a instalar sea GPT y además instalan una partición de arranque UEFI, por eso el disco tiene que estar vacío. Ya se ha visto este paso en el <strong>Escenario 1</strong>.<br />
- Desde la misma pantalla de selección de disco pulsamos en actualizar y SIN seleccionar NADA (no seleccionamos el disco) continuamos con la instalación.<br />
-<strong><em>Se creará la partición UEFI</em></strong> y en el resto se instalará el Sistema Operativo. Más adelante podremos crear otras particiones desde el administrador de discos reduciendo el tamaño de la partición del sistema.</p>
 <h2 id="246-instalacion-de-gnulinux">2.4.6 Instalación de GNU/Linux</h2>
 <h3 id="1-instalacion-de-ubuntu">1. Instalación de Ubuntu</h3>
 <p>No es estrictamente necesario instalar una distribución Linux para comenzar a utilizarlo. Por ejemplo, Ubuntu (la distribución con la que se va a trabajar) puede descargarse en versión CD/DVD Live – USB Live, es decir, es posible arrancar el sistema operativo directamente desde el lector óptico o USB, y comenzar a trabajar con él. Sin embargo, si bien esta opción puede ser interesante para probar Linux (o para intentar rescatar un sistema), no resulta la más recomendable para un uso continuado ya que el arranque desde un medio óptico o USB resulta lento y además exige utilizar otra unidad para almacenar los datos y programas instalados.</p>

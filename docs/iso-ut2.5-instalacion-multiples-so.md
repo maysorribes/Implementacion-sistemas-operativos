@@ -9,7 +9,7 @@ Como la arquitectura informática actual está desarrollada para arrancar un sis
 * Empresas de desarrollo de software que realizan pruebas de sus productos sobre los diferentes sistemas operativos.
 * Utilizar una herramienta software que solo funciona bajo un Sistema Operativo determinado.
 
-Este tipo de pruebas se pueden realizar mediante el uso de máquinas virtuales pero debido a las técnicas de emulación y virtualización utilizadas no llega a ser una prueba 100% fiable y podemos encontrarnos con sorpresas desagradables cuando trabajemos con la máquina real. Nosotros vamos a centrarnos en 3 grupos de sistemas operativos:
+Este tipo de pruebas se pueden realizar mediante el uso de máquinas virtuales pero debido a las técnicas de emulación y virtualización utilizadas no llega a ser una prueba 100% fiable y podemos encontrarnos con sorpresas desagradables cuando trabajemos con la máquina real. Nosotros vamos a centrarnos en 2 grandes familias de sistemas operativos:
 
 * Familias Microsoft 7 y 10.
 * Familia Linux, en concreto la distribución Ubuntu y RedHat.
@@ -26,29 +26,22 @@ Por regla general, el orden de instalación de los diferentes sistemas operativo
 2. Sistemas operativos de Microsoft nuevos.
 3. Distribuciones Linux.
 
-Si no seguimos este orden, las instalaciones de los sistemas operativos machacaran el arranque de los anteriores, por lo que no tendremos acceso a iniciar dichos sistema. Esto se ha explicado anteriormente. Por ejemplo, si queremos instalar Windows 7, Windows 8 y Ubuntu, tenemos las siguientes posibilidades:
+Si no seguimos este orden, las instalaciones de los sistemas operativos machacaran el arranque de los anteriores, por lo que no tendremos acceso a iniciar dichos sistema. Esto se ha explicado anteriormente. Por ejemplo, si queremos instalar Windows 7, Windows 10 y Ubuntu, tenemos las siguientes posibilidades:
 
-|  |  |  |  |
-| --- | --- | --- | --- |
 | **Opciones** | **1ª Instalación** | **2ª Instalación** | **3ª Instalación** |
+| --- | --- | --- | --- |
 | **A** | Windows 7 | Windows 10 | Ubuntu |
-|  |  |  |  |
-| --- | --- | --- | --- |
 | **B** | Windows 7 | Ubuntu | Windows 10 |
-|  |  |  |  |
-| --- | --- | --- | --- |
 | **C** | Windows 10 | Windows 7 | Ubuntu |
-|  |  |  |  |
-| --- | --- | --- | --- |
 | **D** | Windows 10 | Ubuntu | Windows 7 |
-|  |  |  |  |
-| --- | --- | --- | --- |
 | **E** | Ubuntu | Windows 7 | Windows 10 |
-|  |  |  |  |
-| --- | --- | --- | --- |
 | **F** | Ubuntu | Windows 10 | Windows 7 |
 
-De todas estas opciones, la **A** sería la correcta, mientras que la **F** sería la que más complicaciones nos acarrearía, ya que el Windows 10 machacaría el arranque de Ubuntu y el Windows 7 machacaría el del Windows 8.
+De todas estas opciones, la **A** sería la correcta, mientras que la **F** sería la que más complicaciones nos acarrearía, ya que el Windows 10 machacaría el arranque de Ubuntu y el Windows 7 machacaría el del Windows 10.
+
+El motivo es que el instalador de Windows no reconoce a los demás sistemas operativos y sobrescribe el gestor de arranque existente, mientras que GRUB (el gestor de arranque de Linux) detecta todos los sistemas instalados y los añade a su menú. Por eso Linux debe instalarse siempre en último lugar.
+
+> **Aclaración: equipos con UEFI.** Esta regla procede de los equipos con BIOS tradicional y arranque MBR, donde solo hay un gestor de arranque en el disco. En los equipos actuales con **UEFI**, cada sistema operativo guarda su propio cargador en la partición de sistema EFI (ESP) sin borrar los de los demás, por lo que el orden de instalación es menos crítico. Aun así, Windows suele colocarse en primer lugar en el orden de arranque del firmware y puede "ocultar" GRUB, así que instalar Linux al final sigue siendo la opción más segura.
 
 ## 2.5.2 Personalización del menú de arranque
 
@@ -66,18 +59,18 @@ Si vamos a instalar varios sistemas operativos ***Windows*** (por ejemplo Window
 
 Su instalación y configuración es muy sencilla, lo único que debemos hacer es asegurarnos de instalar en primer lugar el sistema operativo más antiguo (Windows 10 en este caso) y a continuación el más reciente (Windows 11) para que haya total compatibilidad entre ellos.
 
-Al instalar ***Windows 10/11*** el proceso de instalación detectará una partición previa con ***Windows 10*** y automáticamente añadirá una entrada al gestor de arranque de manera que al arrancar el sistema podremos elegir el que queremos cargar y utilizar.
+Al instalar ***Windows 11*** el proceso de instalación detectará una partición previa con ***Windows 10*** y automáticamente añadirá una entrada al gestor de arranque de manera que al arrancar el sistema podremos elegir el que queremos cargar y utilizar.
 
 ![](images/menu-W10-11.png)
 
-***Figura 6.2.1** Menú de arranque en Windows.*
+***Figura 1.** Menú de arranque en Windows.*
 
 En los siguientes puntos, se describen diversos métodos para definir con cuál Sistema Operativo iniciará por defecto el sistema.
 
 #### **2.1. Cómo definir el Sistema Operativo en la configuración del sistema Windows 10.**
 
 * **Paso 1.** Para realizar el cambio usando este proceso accederemos a la configuración del sistema y para ello contamos con dos opciones:  
-  + En el cuadro de búsqueda de Windows 10 ingresamos el termino**msconfig** y seleccionamos la opción **Configuración del sistema.**
+  + En el cuadro de búsqueda de Windows 10 ingresamos el termino **msconfig** y seleccionamos la opción **Configuración del sistema.**
   + Usando el comando Ejecutar ( ![](images/iconoWR.png)**+** **R**) e ingresar **msconfig**, pulsamos **Enter** o **Aceptar**.
 * **Paso 2.**En la ventana desplegada vamos a la ficha **Arranque** y allí seleccionamos el nuevo sistema operativo que deseamos sea el predefinido y pulsamos en Aplicar:
 
@@ -140,11 +133,11 @@ Esta es otra de las opciones disponibles en Windows para configurar el sistema o
 
 ***Figura 9.**Elegir sistema operativo predeterminado.*
 
-### 2. Gestores de arranque LINUX - Ubuntu
+### 3. Gestores de arranque LINUX - Ubuntu
 
 Linux no cuenta con un gestor de arranque propio, sino que permite usar cualquier gestor de arranque que deseemos. El que se suele incluir actualmente en todas las versiones de Linux es el **GRUB**. El GRand Unified Bootloader (GRUB) es un gestor de arranque múltiple que se usa comúnmente para iniciar dos o más sistemas operativos instalados en un mismo ordenador. Otros gestores de arranque usados anteriormente en Linux son el syslinux y el lilo.
 
-El gestor de arranque **GRUB** (GRand Unifier Bootloader) viene preinstalado en la mayoría de las distribuciones de GNU/Linux modernas, entre ellas Debian, Ubuntu y sus derivadas.
+El gestor de arranque **GRUB** (GRand Unified Bootloader) viene preinstalado en la mayoría de las distribuciones de GNU/Linux modernas, entre ellas Debian, Ubuntu y sus derivadas.
 
 En la actualidad nos podemos encontrar con GRUB en sus versiones 1 y 2, que son algo distintas.
 
@@ -161,10 +154,12 @@ Para modificar el contenido del menú de arranque del GRUB es necesario que se a
 
 **GRUB2**
 
-El menú del GRUB puede modificarse también de manera manual ya que el contenido está escrito en el fichero de texto /boot/grub/grub.cfg aunque para editarlo necesitaremos permisos de administrador. Una vez abierta una consola (*Aplicaciones → Accesorios → Terminal*), la lista de comandos a ejecutar es la siguiente:
+> **Aclaración importante:** el fichero `/boot/grub/grub.cfg` se **genera automáticamente**. Cada vez que se ejecuta `update-grub` o se actualiza el kernel, se vuelve a crear y **se pierden los cambios hechos a mano**. Por eso no se recomienda editarlo directamente: el método correcto es modificar `/etc/default/grub` (explicado más abajo) y ejecutar `sudo update-grub`. Se explica aquí porque es útil para entender cómo está organizado el menú.
+
+El menú del GRUB puede modificarse también de manera manual ya que el contenido está escrito en el fichero de texto /boot/grub/grub.cfg aunque para editarlo necesitaremos permisos de administrador. Una vez abierta una consola (con el atajo **Ctrl + Alt + T** o buscando *Terminal* en el menú de aplicaciones), la lista de comandos a ejecutar es la siguiente:
 
 1. cd /boot/grub (accedemos a la carpeta).
-2. cp **grub.cfg** grub.cfg.bak (hacemos una copia de seguridad del fichero de configuración de grub).
+2. sudo cp **grub.cfg** grub.cfg.bak (hacemos una copia de seguridad del fichero de configuración de grub).
 3. sudo nano ****grub**.**cfg**** (abrimos el fichero grub.cfg con el editor de textos *nano* y con permisos de administración).
 4. Se nos pedirá la contraseña y luego se abrirá el editor de texto.
 
@@ -172,13 +167,13 @@ El menú del GRUB puede modificarse también de manera manual ya que el contenid
 
 ***Figura 10.** Fichero grub.cfg.*
 
-La parte que nos interesa es la línea que pone ***default 0*****:**
+La parte que nos interesa es la línea que pone ***set default="0"*****:**
 
 La opción ***timeout*** indica cuántos segundos deben pasar para que se arranque el sistema por defecto.
 
 ![](images/timeout.png)
 
-En cambio, **default 0** significa que el sistema operativo que se a arrancar es el primero indicado en la lista del final del documento (la numeración empieza en 0).
+En cambio, **set default="0"** significa que el sistema operativo que se va a arrancar es el primero indicado en la lista del final del documento (la numeración empieza en 0).
 
 Si queremos arrancar por defecto Windows, sólo tenemos que contar todas las entradas del menú en las que pone **menuentry** y cambiar el valor de default dicho número:
 
@@ -207,6 +202,8 @@ jc@jc-Latitude-E6430:/$sudo nano /etc/default/grub
 ***Figura 12.** Contenido del fichero grub en /etc/default.*
 
 Como pueden ver en la imagen, se encuadra en rojo **GRUB\_DEFAULT=0** que es la línea que indica la opción por la cual se accederá por default. O sea, supongamos que yo deseo que mi PC siempre entre por defecto por la tercera entrada (menuentry) entonces esa línea debería quedar: GRUB\_DEFAULT=2
+
+> **Aclaración: submenús.** Al contar las entradas hay que tener en cuenta que los submenús (por ejemplo, *Opciones avanzadas para Ubuntu*) cuentan como **una sola entrada**, aunque dentro contengan varias opciones. Las líneas `menuentry` que aparecen dentro de un `submenu` en la salida de `grep` no se cuentan por separado. También es posible indicar el nombre exacto de la entrada en lugar del número, por ejemplo: `GRUB_DEFAULT="Windows Boot Manager (on /dev/sda1)"`.
 
 Además en la línea siguiente dice: **GRUB\_TIMEOUT=0**, esto se refiere al tiempo de espera, los segundos que Grub2 esperará antes de abrir la opción por defecto, o sea, son los segundos que tienen para usando las teclas de dirección Arriba y Abajo cambiar la opción por la que se accederá. Para este caso, 0 segundos indica que entre automáticamente sin esperar.
 
