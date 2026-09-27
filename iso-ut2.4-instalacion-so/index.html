@@ -1083,217 +1083,243 @@
 
 
 <h1 id="24-instalacion-de-sistemas-operativos">2.4 Instalación de sistemas operativos</h1>
-<p>En la actualidad existen tres sistemas operativos de relevancia en el mundillo de la informática personal: Microsoft Windows, GNU/Linux y Apple Mac OS X.</p>
-<p>El más extendido de todos es Microsoft Windows, aunque GNU/linux y Mac OS X han avanzado bastante en los últimos años.</p>
-<p>GNU/Linux destaca por ser un sistema libre, que puede ser usado sin necesidad de pagar ninguna licencia. Además, es un sistema tipo UNIX. UNIX es un sistema operativo creado a principios de los 70 que es un referente de los sistemas operativos en la historia de la informática. Además de GNU/Linux, Mac OS X es un heredero de UNIX también.</p>
+<p>En la actualidad existen tres sistemas operativos de relevancia en el mundo de la informática personal: Microsoft Windows, GNU/Linux y Apple macOS (llamado Mac OS X hasta 2016).</p>
+<p>El más extendido de todos es Microsoft Windows, aunque GNU/Linux y macOS han avanzado bastante en los últimos años.</p>
+<p>GNU/Linux destaca por ser un sistema libre, que puede usarse sin necesidad de pagar ninguna licencia. Además, es un sistema tipo UNIX. UNIX es un sistema operativo creado a finales de los años 60 (1969) en los laboratorios Bell, y es un referente en la historia de la informática. Además de GNU/Linux, macOS también es un heredero de UNIX.</p>
 <h2 id="241-planificacion-de-la-instalacion">2.4.1 Planificación de la instalación</h2>
 <p>La instalación de todo sistema requiere una serie de pasos, es decir, hay que definir un plan de actuación. A continuación se define el plan mediante los siguientes puntos:</p>
 <ul>
-<li>Modificar la BIOS para arrancar desde el dispositivo donde tengamos el sistema a instalar (DVD o USB). En el caso de trabajar con máquina virtual, se carga la ISO en el DVD.</li>
-<li>Particionar adecuadamente el disco antes de la instalación (o desde el propio gestor de particiones del instalador, esta es la que se utilizará).</li>
-<li>Instalar los sistemas en el orden adecuado (para evitar sobre escrituras del gestor de arranque).</li>
-<li>Actualizar el sistema (parches, service pack, etc).</li>
-<li>Documentar el proceso de instalación, para ello, se hará uso de la hoja de cálculo en google y que permitirá almacenar y auditar toda la operativa dentro del proceso de instalación.</li>
+<li>Configurar la BIOS/UEFI para arrancar desde el dispositivo donde tengamos el sistema a instalar (DVD o USB), o usar el menú de arranque del equipo. En el caso de trabajar con una máquina virtual, se carga la ISO en la unidad óptica virtual.</li>
+<li>Particionar adecuadamente el disco antes de la instalación, ya sea con una herramienta externa (como GParted) o con el gestor de particiones del propio instalador, que es la opción que se utilizará.</li>
+<li>Instalar los sistemas en el orden adecuado (para evitar sobrescrituras del gestor de arranque).</li>
+<li>Actualizar el sistema (actualizaciones de seguridad, parches y controladores).</li>
+<li>Documentar el proceso de instalación. Para ello, se hará uso de una hoja de cálculo de Google que permitirá almacenar y auditar toda la operativa del proceso de instalación.</li>
 </ul>
 <h2 id="242-configuracion-previa-de-la-biosuefi">2.4.2 Configuración previa de la BIOS/UEFI</h2>
-<p>La <strong><em>BIOS</em></strong> es el sistema básico de entrada/salida donde se encuentran grabadas las rutinas <strong><em>POST</em></strong> (Power-On Self- Test, Autocomprobación diagnóstica de encendido). Si la BIOS no encuentra nada anormal (básicamente comprueba que no falten componentes básicos como el procesador, la memoria, el teclado, etc.), intenta arrancar desde el primer dispositivo de arranque. En caso de que no pueda arrancar desde ahí, prueba desde el segundo dispositivo, así hasta que pueda arrancar desde alguno (siguiendo el orden configurado en la BIOS). En caso de no poder arrancar desde ninguno de ellos, se muestra un mensaje de error al usuario.</p>
-<p>El acceso al menú de configuración de la <strong><em>BIOS</em></strong> es diferente en cada placa base, aunque suele ser habitual acceder a él presionado, durante el arranque, la tecla Supr, F1 ó F2.</p>
+<p>La <strong><em>BIOS</em></strong> (Basic Input/Output System) es el sistema básico de entrada/salida donde se encuentran grabadas las rutinas <strong><em>POST</em></strong> (Power-On Self-Test, autocomprobación diagnóstica de encendido). Si la BIOS no encuentra nada anormal (básicamente comprueba que no falten componentes básicos como el procesador, la memoria, el teclado, etc.), intenta arrancar desde el primer dispositivo de arranque. En caso de que no pueda arrancar desde ahí, prueba desde el segundo dispositivo, y así hasta que pueda arrancar desde alguno (siguiendo el orden configurado en la BIOS). En caso de no poder arrancar desde ninguno de ellos, se muestra un mensaje de error al usuario.</p>
+<p>En los equipos actuales, la BIOS clásica ha sido sustituida por <strong><em>UEFI</em></strong> (Unified Extensible Firmware Interface), aunque se sigue llamando "BIOS" de forma coloquial. Sus diferencias principales son:</p>
+<ul>
+<li><strong>Tabla de particiones:</strong> la BIOS clásica utiliza discos <strong>MBR</strong> (máximo 4 particiones primarias y discos de hasta 2 TB), mientras que UEFI utiliza discos <strong>GPT</strong> (hasta 128 particiones y discos de mucho mayor tamaño).</li>
+<li><strong>Gestor de arranque:</strong> en BIOS, el gestor de arranque se graba en el primer sector del disco (MBR). En UEFI, se guarda como un archivo <code>.efi</code> en una partición especial llamada <strong>partición del sistema EFI (ESP)</strong>, formateada en FAT32.</li>
+<li><strong>Orden de arranque:</strong> en UEFI, el firmware guarda sus propias entradas de arranque (por ejemplo, "Windows Boot Manager" o "ubuntu"), y el orden se establece entre esas entradas.</li>
+<li><strong>Arranque seguro (Secure Boot):</strong> UEFI puede impedir que se ejecuten cargadores de arranque que no estén firmados digitalmente. Windows 11 exige un equipo compatible con Secure Boot.</li>
+<li><strong>Modo heredado (Legacy/CSM):</strong> muchos firmwares UEFI pueden emular una BIOS clásica para arrancar sistemas antiguos.</li>
+</ul>
+<p>Es importante tener en cuenta que <strong>todos los sistemas operativos de un equipo deben instalarse en el mismo modo</strong> (todos en BIOS o todos en UEFI). Si se mezclan, el gestor de arranque de uno no podrá arrancar al otro.</p>
+<p>El acceso al menú de configuración de la <strong><em>BIOS/UEFI</em></strong> es diferente en cada placa base, aunque suele ser habitual acceder a él presionando, durante el arranque, la tecla Supr, F1, F2 o F10. Muchos equipos disponen además de un <strong>menú de arranque</strong> (normalmente con F8, F11, F12 o Esc) que permite elegir el dispositivo de arranque una sola vez, sin cambiar la configuración.</p>
 <p><img alt="" src="../images/opcion-arranque-bios.png" /></p>
-<p><em><strong>Figura 1</strong> Opciones de arranque en la BIOS.</em></p>
-<p>Una vez dentro, tendremos que buscar la ubicación del orden de arranque. Para el caso de la BIOS Figura 1, el orden se encuentra dentro de la opción BIOS.</p>
-<p>Debido a que los sistemas operativos suelen estar en CD/DVD o USB, es necesario cambiar el orden de arranque.</p>
-<p>Las BIOS intenta arrancar siguiendo el orden indicado. Sin embargo, ese “intento” no es gratuito, lleva un tiempo. Es por ello que si generalmente vamos a arrancar desde el disco duro, resulta recomendable establecer éste como primer dispositivo de arranque para así ahorrar tiempo en el arranque del sistema operativo. Cuando nos haga falta arrancar desde otros dispositivos (CDROM, disquetera ó USB), ya entraremos en la BIOS y cambiaremos el orden.</p>
+<p><em><strong>Figura 1.</strong> Opciones de arranque en la BIOS.</em></p>
+<p>Una vez dentro, tendremos que buscar la ubicación del orden de arranque. En el caso de la BIOS de la Figura 1, el orden se encuentra dentro de la opción BIOS.</p>
+<p>Debido a que los sistemas operativos suelen distribuirse en DVD o USB, es necesario cambiar el orden de arranque (o usar el menú de arranque).</p>
+<p>La BIOS intenta arrancar siguiendo el orden indicado. Sin embargo, ese "intento" no es gratuito: lleva un tiempo. Por ello, si generalmente vamos a arrancar desde el disco duro, es recomendable establecerlo como primer dispositivo de arranque para ahorrar tiempo en el arranque del sistema operativo. Cuando haga falta arrancar desde otros dispositivos (DVD o USB), entraremos en la BIOS y cambiaremos el orden, o utilizaremos el menú de arranque.</p>
 <h2 id="243-fases-de-instalacion-de-un-sistema-operativo">2.4.3 Fases de instalación de un sistema operativo</h2>
-<p>A continuación, se enumeran las fases en una instalación de un sistema operativo:</p>
+<p>A continuación, se enumeran las fases de la instalación de un sistema operativo:</p>
 <ol>
-<li>Preparar el equipo para arrancar desde DVD/USB u otro soporte booteable.</li>
-<li>Preparación del Disco Duro.</li>
+<li>Preparar el equipo para arrancar desde DVD/USB u otro soporte arrancable.</li>
+<li>Preparar el disco duro.</li>
 <li>Ejecutar el programa de instalación.</li>
-<li>Proporcionar el nombre y contraseña del usuario que será administrador del sistema.</li>
+<li>Proporcionar el nombre y la contraseña del usuario que será administrador del sistema.</li>
 <li>Seleccionar los componentes software opcionales que queremos instalar.</li>
 <li>Ajustar los parámetros de la red.</li>
 <li>Instalar el gestor de arranque.</li>
+<li>Reiniciar el sistema.</li>
 <li>Realizar las actualizaciones de seguridad.</li>
-<li>Instalar los plugins del navegador.</li>
-<li>Instalar los Drivers necesarios para los dispositivos no reconocidos en la instalación.</li>
+<li>Instalar los drivers necesarios para los dispositivos no reconocidos en la instalación.</li>
 </ol>
-<p>A continuación, se describe con detalle cada puno.</p>
-<p><strong>1. Preparar el equipo para arrancar desde CD/DVD/USB.</strong></p>
-<p>Si al introducir el CD/DVD/USB de instalación, no se ejecutase el programa de instalación, habrá que modificar la configuración de la BIOS, para escoger el CD/DVD/USB como primer dispositivo para el arranque.</p>
-<p>Esta operación depende del modelo de placa base/madre del equipo, por lo que de ser posible consultaremos la documentación del fabricante.</p>
-<p><strong>2. Preparación del Disco Duro.</strong></p>
-<p>Esta fase consiste en crear las particiones del tipo necesario para que nuestro Sistema Operativo pueda instalarse.</p>
-<p>En Windows los tipos de particiones que se emplean son FAT32 (Windows 95/98) y NTFS (Windows NT/2000 y XP). En Linux/UNIX, se aceptan muchos más tipos de particiones, siendo el sistema de ficheros más popular el EXT3/EXT4.</p>
-<p>Si queremos instalar un sistemas operativo en un disco donde ya haya otro sistema operativo instalado, Es muy importante hacer copia de seguridad de los datos importantes antes de proseguir la instalación, ya que existe un alto riesgo de perderlos <strong>TODOS</strong> por un error durante el proceso. Una vez hecho esto, tendremos dos opciones:</p>
+<p>A continuación, se describe con detalle cada punto.</p>
+<p><strong>1. Preparar el equipo para arrancar desde DVD/USB.</strong></p>
+<p>Si al introducir el DVD/USB de instalación no se ejecutase el programa de instalación, habrá que modificar la configuración de la BIOS/UEFI para escoger el DVD/USB como primer dispositivo de arranque, o seleccionarlo desde el menú de arranque.</p>
+<p>Esta operación depende del modelo de placa base del equipo, por lo que, de ser posible, consultaremos la documentación del fabricante.</p>
+<p><strong>2. Preparar el disco duro.</strong></p>
+<p>Esta fase consiste en crear las particiones del tipo necesario para que nuestro sistema operativo pueda instalarse.</p>
+<p>Windows se instala sobre particiones <strong>NTFS</strong>, mientras que <strong>FAT32</strong> se utiliza para la partición del sistema EFI y para memorias USB, y <strong>exFAT</strong> para dispositivos extraíbles de gran capacidad. En Linux/UNIX se admiten muchos más sistemas de ficheros, siendo <strong>ext4</strong> el más utilizado (también existen Btrfs, XFS, etc.).</p>
+<p>Si queremos instalar un sistema operativo en un disco donde ya haya otro sistema operativo instalado, es muy importante hacer una copia de seguridad de los datos importantes antes de proseguir con la instalación, ya que existe un alto riesgo de perderlos <strong>TODOS</strong> por un error durante el proceso. Una vez hecho esto, tendremos dos opciones:</p>
 <ul>
 <li>Sustituir el sistema operativo anterior.</li>
-<li>Instalarlo permitiendo su coexistencia y selección durante el periodo de arranque del ordenador. Sistema Dual.</li>
+<li>Instalarlo permitiendo su coexistencia y selección durante el arranque del ordenador (sistema dual o <em>dual boot</em>).</li>
 </ul>
 <p>Si elegimos la primera opción, suele ser buena idea borrar en el proceso de instalación las particiones antiguas y después crear las nuevas, realizando una comprobación completa de su estado para conocer si hay errores o defectos en el disco.</p>
-<p>En el caso de querer hacer una instalación dual, habrá que conseguir espacio suficiente para instalar el nuevo sistema operativo, normalmente restándoselo a las particiones existentes anteriormente para el primer sistema. Esta delicada tarea, suele hacerse con herramientas software especiales, como GParted. </p>
-<p>Suele ser muy interesante por motivos de seguridad, crear particiones independientes para guardar los datos de los usuarios (por ejemplo una unidad D: en Windows, o directorio /home en Linux).</p>
+<p>En el caso de querer hacer una instalación dual, habrá que conseguir espacio suficiente para instalar el nuevo sistema operativo, normalmente restándoselo a las particiones que ya existían para el primer sistema. Esta delicada tarea suele hacerse con herramientas como GParted o con la opción "Reducir volumen" de la Administración de discos de Windows.</p>
+<p>Por motivos de seguridad, suele ser muy interesante crear particiones independientes para guardar los datos de los usuarios (por ejemplo, una unidad D: en Windows o el directorio /home en Linux).</p>
 <p><strong>3. Ejecutar el programa de instalación.</strong></p>
-<p>Para ello, normalmente bastará con introducir el CD de instalación y volver a encender el equipo con el dentro. Debemos estar atentos a los primeros instantes para leer un posible mensaje de proceder a la instalación y aceptarlo. En caso contrario, bastará con esperar sin hacer nada.</p>
-<p><strong>4. Proporcionar el nombre y contraseña del usuario que será administrador del sistema.</strong></p>
-<p>Todo sistema multiusuario que se precie, debe tener un responsable de su funcionamiento, mantenimiento y de otorgar permisos de uso del equipo y/o sus recursos a terceros. Es durante la fase de instalación durante la que se especifica la contraseña pare el mismo. En los sistemas UNIX, el nombre del administrador es siempre “root”. En sistemas como Windows o Ubuntu, esta labor la lleva el primer usuario creado, hasta que se especifique lo contrario.</p>
+<p>Para ello, normalmente bastará con introducir el DVD/USB de instalación y volver a encender el equipo con él dentro. Debemos estar atentos a los primeros instantes para leer un posible mensaje que pida pulsar una tecla para iniciar la instalación (por ejemplo, "Press any key to boot from CD or DVD" en Windows). En caso contrario, bastará con esperar sin hacer nada.</p>
+<p><strong>4. Proporcionar el nombre y la contraseña del usuario que será administrador del sistema.</strong></p>
+<p>Todo sistema multiusuario que se precie debe tener un responsable de su funcionamiento, de su mantenimiento y de otorgar permisos de uso del equipo y de sus recursos a terceros. Es durante la fase de instalación cuando se especifica la contraseña para el mismo. En los sistemas UNIX, el nombre del administrador es siempre "root". En Windows, esta labor la lleva el primer usuario creado. En Ubuntu, la cuenta root existe pero está bloqueada por defecto, y el primer usuario creado obtiene privilegios de administración mediante el comando <code>sudo</code>.</p>
 <p><strong>5. Seleccionar los componentes software opcionales que queremos instalar.</strong></p>
-<p>Muchas distribuciones de Sistemas Operativos pueden contener software adicional (en ocasiones varios CD o DVDs) que puede ser instalado durante al instalación del mismo. Es habitual que se nos pregunte por qué selección de programas recomendada o personalizada queremos instalar. Una vez hecho esto, comienza la copia de todos los ficheros necesarios desde los soportes de instalación al disco duro del equipo.</p>
+<p>Muchas distribuciones de sistemas operativos incluyen software adicional que puede instalarse durante la instalación del sistema. Es habitual que se nos pregunte si queremos una selección de programas recomendada o personalizada. Una vez hecho esto, comienza la copia de todos los ficheros necesarios desde el soporte de instalación al disco duro del equipo.</p>
 <p><strong>6. Ajustar los parámetros de la red.</strong></p>
-<p>Si nuestro equipo va a ser utilizado en una red local o en Internet, habremos de configurar adecuadamente el dispositivo de comunicaciones (normalmente la tarjeta de red). Para ello, necesitaremos obtener la información pertinente del administrador de al red o del proveedor de servicios de Internet que tengamos contratado en su caso.</p>
-<p>Lo más común, (y por tanto la instalación por defecto) es que los equipos se configuren de modo que automáticamente consigan el ajuste necesario de la red desde otro equipo que los coordina a todos, mediante un protocolo denominado DHCP (Dinamyc Host Control Protocol). Si es así, no necesitamos hacer nada más.</p>
+<p>Si nuestro equipo va a utilizarse en una red local o en Internet, habremos de configurar adecuadamente el dispositivo de comunicaciones (normalmente la tarjeta de red). Para ello, necesitaremos obtener la información pertinente del administrador de la red o del proveedor de servicios de Internet que tengamos contratado, en su caso.</p>
+<p>Lo más común (y por tanto la opción por defecto) es que los equipos se configuren de modo que obtengan automáticamente los ajustes de red desde otro equipo que los coordina a todos, mediante un protocolo denominado DHCP (Dynamic Host Configuration Protocol). Si es así, no necesitamos hacer nada más.</p>
 <p>En caso contrario, deberemos obtener y anotar la información correspondiente para la tarjeta de red:</p>
 <ul>
-<li><strong>Dirección IP:</strong> el número que distingue nuestro ordenador en la red para comunicar.</li>
-<li><strong>Máscara de subred:</strong> un número que ayuda a distinguir si las direcciones que buscamos son de nuestra red local o externos.</li>
-<li><strong>Puerta de enlace predeterminada</strong>: la dirección IP del equipo (p.ej. Router) que nos da acceso a otras redes, como por ejemplo Internet.</li>
-<li><strong>Dirección de un servidor de DNS.:</strong> La dirección del equipo que puede informarnos de la dirección IP de otro que solo conocemos por su nombre de dominio. Hacen el trabajo de las “páginas blancas” de Internet.</li>
+<li><strong>Dirección IP:</strong> el número que identifica a nuestro ordenador en la red para comunicarse.</li>
+<li><strong>Máscara de subred:</strong> un número que ayuda a distinguir si las direcciones que buscamos son de nuestra red local o externas.</li>
+<li><strong>Puerta de enlace predeterminada:</strong> la dirección IP del equipo (por ejemplo, el router) que nos da acceso a otras redes, como Internet.</li>
+<li><strong>Dirección de un servidor DNS:</strong> la dirección del equipo que puede informarnos de la dirección IP de otro que solo conocemos por su nombre de dominio. Hace el trabajo de las "páginas blancas" de Internet.</li>
 </ul>
 <p><strong>7. Instalar el gestor de arranque.</strong></p>
-<p>Al instalar el sistema operativo, es necesario incluir en el sector de arranque del Disco Duro (llamado MBR o Master Boot Record), un pequeño programa que nos permite encontrar en qué parte del disco se encuentran los distintos sistemas operativos, y seleccionar uno para comenzar a trabajar cuando encendemos el equipo.</p>
-<p>En las instalaciones de Linux, el programa en cuestión suele ser GRUB (GRand Unified Bootloader).</p>
-<p>En Windows, tras su instalación, se destruye el cargador de arranque que estuviese antes, y solo quedará la posibilidad de acceder a dicho sistema operativo. Es por ello muy conveniente que de tener instalado Linux en nuestro ordenador además de Windows, dispongamos de un CD/DVD/USB de arranque que también tenga el GRUB en él para poder arreglar el destrozo que provocará la reinstalación de Windows cuando probablemente ocurra.</p>
-<p>Si tras instalar Linux, no podemos arrancar el Windows anteriormente instalado (caso poco probable), podremos reponer el de Windows con un disco de arranque de Windows introduciendo por teclado la orden: <strong>fdisk /mbr</strong></p>
-<p>Hay que asegurase de tener antes un CD/DVD/USB de arranque con GRUB configurado antes de usar fdisk, o no podrá volver a arrancar Linux después.</p>
-<p><strong>8. Realizar las actualizaciones de seguridad.</strong></p>
-<p>Probablemente, desde que se publicó la versión de nuestro Sistema Operativo hasta el momento de la instalación, se han publicado correcciones del mismo que pueden aplicarse mediante un proceso de actualización a través de Internet, o de discos de “Service Pack” que las contienen cuando ya son muy numerosas.</p>
-<p>De no llevarlas a cabo, es muy probable que en poco tiempo tengamos problemas causados por virus, intrusos a través de la red o fallos del propio Sistema Operativo desconocidos en el momento de su publicación.</p>
-<p><strong>9. Reiniciar el sistema.</strong></p>
-<p>Es la fase final de la instalación, y nos mostrará que el sistema está convenientemente instalado.</p>
-<p>Antes de hacerlo, debemos asegurarnos de que hemos retirado el CD/DVD/USB de instalación, o volveremos otra vez iniciar el proceso. Si es así, apagamos el equipo y sacamos inmediatamente el CD/DVD/USB en los primeros instantes del arranque.</p>
-<p><strong>10. Instalar los Drivers necesarios para los dispositivos no reconocidos en la instalación.</strong></p>
-<p>Es habitual que si se instala el sistema operativo, no nos funcione aún o al menos correctamente la impresora, el escáner, la “tarjeta de sonido” la tarjeta gráfica, la tarjeta sintonizadora de TV, etc.</p>
-<p>Para que puedan hacerlo, es necesario instalar en nuestro Sistema Operativo los <strong><em>DRIVERS</em></strong> de los mencionados dispositivos correspondientes a la versión de nuestro sistema operativo, y a ser posible actualizados.</p>
-<p>En muchos casos, el propio Sistema Operativo los instala, pero debido a la gran variedad de tipos de dispositivos y de fabricantes existentes en la actualidad, es imposible incluirlos todos.</p>
-<p>Para conseguir los drivers, recurrimos al disco de instalación del dispositivo o a la página WEB del fabricante del mismo (por ej.: HP, EPSON, Nvidia, ATI, CREATIVE, etc...), seleccionando los de nuestro Sistema Operativo y versión del mismo.</p>
-<p>En ocasiones suele ser necesario reiniciar el ordenador, sobre todo en entornos Windows.</p>
-<h2 id="244-comprobacion-de-los-requisitos-tecnicos">2.4.4 Comprobación de los requisitos técnicos</h2>
-<p>El primer paso para la instalación de un equipo de escritorio será la comprobación de que se cumplen tanto los requisitos hardware como software. En lo relativo al hardware, uno de los aspectos más importantes será el procesamiento, almacenamiento y comunicación.</p>
-<p>También hay que estudiar tanto la potencia necesaria como la compatibilidad con el sistema operativo y el resto de elementos que pretendemos instalar, aunque la situación será mucho más determinante al referirnos al servidor o servidores.</p>
-<p>En ocasiones, dispondremos de un equipamiento previo sobre el que, en el mejor de los casos, podremos realizar ciertas modificaciones y/o actualizaciones. En estos casos, deberemos ajustar las características de nuestra implantación a los recursos existentes. En otras situaciones, tendremos libertad para diseñar todos los aspectos de nuestra instalación, adquiriendo el material necesario para ponerla en práctica. Sea cual sea la situación que se produzca, determinará en gran medida el resto de las decisiones que tomemos.</p>
-<p>Por lo tanto, algunas de las preguntas que deberemos hacernos son las siguiente:</p>
+<p>Al instalar el sistema operativo, es necesario instalar un pequeño programa, el <strong>gestor de arranque</strong>, que permite encontrar en qué parte del disco se encuentran los distintos sistemas operativos y seleccionar uno para comenzar a trabajar al encender el equipo. Dónde se instala depende del modo de arranque:</p>
 <ul>
-<li>¿Qué sistema operativo me ofrecerá mejor rendimiento en un equipo de escritorio?. Las mayoría de las veces, los ordenadores del lado cliente serán los que tengan una capacidad de cálculo más ajustada y, además, son los que más tardan en actualizarse o sustituirse dentro de la estructura de una empresa. Por ejemplo, dado un determinado ordenador, deberemos averiguar si un sistema operativo tendrá un mejor comportamiento que otro. Para ello, podremos comprobar sus requisitos mínimos y recomendados.</li>
-<li>¿Los sistemas operativos elegidos soportan todo el <em>hardware</em> necesario?, ¿disponen de los <em>drivers</em> adecuados? Es muy frecuente que algunos sistemas operativos, sobre todo los de software libre, no dispongan de todos los <em>drivers</em> necesarios para todos los modelos de impresoras, escáneres, u otros dispositivos que podamos necesitar en el presente o en el futuro. Por esto, la elección del sistema operativo puede verse condicionada por los dispositivos que ya tenemos o, al contrario, la adquisición de nuevos dispositivos estará supeditada al sistema operativo por el que nos hayamos decantado.</li>
-<li>¿Los costes arrojados por el diseño son asumibles para la empresa? Un error común es sobredimensionar todo el diseño para asegurarnos de que cumple con todas las necesidades presentes y futuras, pero esto nos puede llevar a plantear un coste excesivo. Por este motivo, debemos hacer el estudio con el máximo rigor y ofrecer un resultado ajustado a las necesidades reales.</li>
+<li>En equipos con <strong>BIOS</strong> (discos MBR), se graba en el sector de arranque del disco duro, llamado <strong>MBR</strong> (Master Boot Record).</li>
+<li>En equipos con <strong>UEFI</strong> (discos GPT), se guarda como un archivo dentro de la <strong>partición del sistema EFI</strong> y se registra como una entrada en el firmware.</li>
+</ul>
+<p>En las instalaciones de Linux, el programa en cuestión suele ser <strong>GRUB</strong> (GRand Unified Bootloader). En Windows es el <strong>Administrador de arranque de Windows</strong> (Windows Boot Manager).</p>
+<p>Windows, tras su instalación, sustituye el gestor de arranque que hubiera antes (en UEFI, se coloca el primero en el orden de arranque), y solo quedará la posibilidad de acceder a Windows. Por ello, si tenemos Linux instalado además de Windows, es muy conveniente disponer de un USB de arranque de Linux para poder reinstalar GRUB si Windows lo sobrescribe (por ejemplo, tras reinstalar Windows o tras algunas actualizaciones importantes).</p>
+<p>Si tras instalar Linux no pudiéramos arrancar el Windows anteriormente instalado (caso poco probable), podremos restaurar su gestor de arranque desde el entorno de recuperación del medio de instalación de Windows (Reparar el equipo &gt; Solucionar problemas &gt; Símbolo del sistema) con la orden <strong>bootrec /fixmbr</strong> (en BIOS/MBR) o <strong>bcdboot C:\Windows</strong> (en UEFI).</p>
+<p>Hay que asegurarse de tener antes un USB de arranque de Linux, ya que después de restaurar el gestor de arranque de Windows no se podrá volver a arrancar Linux hasta reinstalar GRUB.</p>
+<p><strong>8. Reiniciar el sistema.</strong></p>
+<p>Es la fase final de la instalación, y nos mostrará que el sistema está correctamente instalado.</p>
+<p>Antes de hacerlo, debemos asegurarnos de haber retirado el DVD/USB de instalación, o volveremos a iniciar el proceso de instalación. Muchos instaladores actuales piden retirar el medio antes de reiniciar. Si aun así se inicia de nuevo la instalación, apagamos el equipo, retiramos el DVD/USB y volvemos a encenderlo.</p>
+<p><strong>9. Realizar las actualizaciones de seguridad.</strong></p>
+<p>Probablemente, desde que se publicó la versión de nuestro sistema operativo hasta el momento de la instalación, se han publicado correcciones que pueden aplicarse mediante un proceso de actualización a través de Internet: Windows Update en Windows, o el gestor de actualizaciones (<code>sudo apt update &amp;&amp; sudo apt upgrade</code>) en Ubuntu. Antiguamente, cuando las correcciones eran muy numerosas, se agrupaban en discos de "Service Pack"; desde Windows 10 se distribuyen como actualizaciones acumulativas.</p>
+<p>De no llevarlas a cabo, es muy probable que en poco tiempo tengamos problemas causados por virus, intrusos a través de la red o fallos del propio sistema operativo desconocidos en el momento de su publicación.</p>
+<p><strong>10. Instalar los drivers necesarios para los dispositivos no reconocidos en la instalación.</strong></p>
+<p>Es habitual que, tras instalar el sistema operativo, no funcionen aún, o no lo hagan correctamente, la impresora, el escáner, la tarjeta de sonido, la tarjeta gráfica, etc.</p>
+<p>Para que funcionen, es necesario instalar en nuestro sistema operativo los <strong><em>drivers</em></strong> (controladores) de dichos dispositivos correspondientes a la versión de nuestro sistema operativo y, a ser posible, actualizados.</p>
+<p>En muchos casos, el propio sistema operativo los instala, pero debido a la gran variedad de tipos de dispositivos y de fabricantes existentes en la actualidad, es imposible incluirlos todos.</p>
+<p>Para conseguir los drivers, recurrimos al disco de instalación del dispositivo o a la página web de su fabricante (por ejemplo: HP, Epson, NVIDIA, AMD, Creative, etc.), seleccionando los de nuestro sistema operativo y su versión.</p>
+<p>En ocasiones es necesario reiniciar el ordenador, sobre todo en entornos Windows.</p>
+<h2 id="244-comprobacion-de-los-requisitos-tecnicos">2.4.4 Comprobación de los requisitos técnicos</h2>
+<p>El primer paso para la instalación de un equipo de escritorio será comprobar que se cumplen tanto los requisitos hardware como software. En lo relativo al hardware, los aspectos más importantes serán el procesamiento, el almacenamiento y la comunicación.</p>
+<p>También hay que estudiar tanto la potencia necesaria como la compatibilidad con el sistema operativo y el resto de elementos que pretendemos instalar, aunque esta cuestión será mucho más determinante al referirnos al servidor o servidores.</p>
+<p>En ocasiones, dispondremos de un equipamiento previo sobre el que, en el mejor de los casos, podremos realizar ciertas modificaciones o actualizaciones. En estos casos, deberemos ajustar las características de nuestra implantación a los recursos existentes. En otras situaciones, tendremos libertad para diseñar todos los aspectos de nuestra instalación, adquiriendo el material necesario para ponerla en práctica. Sea cual sea la situación que se produzca, determinará en gran medida el resto de las decisiones que tomemos.</p>
+<p>Por lo tanto, algunas de las preguntas que deberemos hacernos son las siguientes:</p>
+<ul>
+<li>¿Qué sistema operativo me ofrecerá mejor rendimiento en un equipo de escritorio? La mayoría de las veces, los ordenadores del lado cliente serán los que tengan una capacidad de cálculo más ajustada y, además, son los que más tardan en actualizarse o sustituirse dentro de la estructura de una empresa. Por ejemplo, dado un determinado ordenador, deberemos averiguar si un sistema operativo tendrá un mejor comportamiento que otro. Para ello, podremos comprobar sus requisitos mínimos y recomendados.</li>
+<li>¿Los sistemas operativos elegidos soportan todo el <em>hardware</em> necesario? ¿Disponen de los <em>drivers</em> adecuados? Es muy frecuente que algunos sistemas operativos, sobre todo los de software libre, no dispongan de todos los <em>drivers</em> necesarios para todos los modelos de impresoras, escáneres u otros dispositivos que podamos necesitar en el presente o en el futuro. Por esto, la elección del sistema operativo puede verse condicionada por los dispositivos que ya tenemos o, al contrario, la adquisición de nuevos dispositivos estará supeditada al sistema operativo por el que nos hayamos decantado.</li>
+<li>¿Los costes derivados del diseño son asumibles para la empresa? Un error común es sobredimensionar todo el diseño para asegurarnos de que cumple con todas las necesidades presentes y futuras, pero esto nos puede llevar a plantear un coste excesivo. Por este motivo, debemos hacer el estudio con el máximo rigor y ofrecer un resultado ajustado a las necesidades reales.</li>
 </ul>
 <h3 id="actividad-1-tabla-de-requisitos-minimos-y-comparativa">Actividad 1. Tabla de requisitos mínimos y comparativa</h3>
-<p>La actividad trata de que se realice una tabla comparativa con los requisitos mínimos de Windows 10, Windows 11 y Ubuntu Desktop 22.04.1 LTS en sus versiones de 64 bits. Además, tendrás que describir las ventajas y desventajas que presentan las distribuciones de Windows y Ubuntu Desktop una respecto la otra. Respecto a los componentes con requerimientos mínimos y recomendados, se proponen buscar los siguientes:</p>
+<p>La actividad trata de que se realice una tabla comparativa con los requisitos mínimos de Windows 10, Windows 11 y Ubuntu Desktop 22.04.1 LTS en sus versiones de 64 bits. Además, tendrás que describir las ventajas y desventajas que presentan Windows y Ubuntu Desktop uno respecto al otro. Respecto a los componentes con requisitos mínimos y recomendados, se propone buscar los siguientes:</p>
 <ul>
-<li>Procesador Mínimo.</li>
-<li>Procesador Recomendado.</li>
-<li>Memoria RAM Mínima y Recomendada.</li>
-<li>Nº de procesadores/núcleos.</li>
-<li>Espacio de disco mínimo y recomendado.</li>
+<li>Procesador mínimo.</li>
+<li>Procesador recomendado.</li>
+<li>Memoria RAM mínima y recomendada.</li>
+<li>N.º de procesadores/núcleos.</li>
+<li>Espacio en disco mínimo y recomendado.</li>
 <li>Tarjeta gráfica mínima y recomendada.</li>
 <li>Unidad DVD.</li>
-<li>etcétera.</li>
+<li>Etcétera.</li>
 </ul>
-<p>Por último, tendrás que realizar una comparativa más exahustiva entre Windows 11 64 bits y Ubuntu Desktop 22.03.1 LTS 64 bits.</p>
+<p>Por último, tendrás que realizar una comparativa más exhaustiva entre Windows 11 64 bits y Ubuntu Desktop 22.04.1 LTS 64 bits.</p>
 <p><strong>Windows vs Ubuntu.</strong></p>
 <p><img alt="" src="../images/01.jpg" /></p>
 <h2 id="245-instalacion-de-windows">2.4.5 Instalación de Windows</h2>
 <h3 id="1-introduccion">1. Introducción</h3>
-<p>La instalación de <strong><em>Windows</em></strong> es bastante sencilla. Lo primero que hay que tener en cuenta es que <strong><em>Windows 7, 8 y 10</em></strong> sólo puede instalarse sobre <strong><em>sistemas de ficheros NTFS</em></strong>. Dichas particiones pueden ser creadas y formateadas a través del propio instalador de Windows o bien se puede realizar con anterioridad haciendo uso de algunas de las herramientas ya vistas. El resto del proceso es totalmente guiado y muy fácil (se verá en las prácticas).</p>
-<p>Sin embargo, hay un detalle importante a tener en cuenta. <strong><em>Windows</em></strong>, después de su instalación, <strong><em>sobreescribe siempre el sector de arranque</em></strong> <strong><em>con la información necesaria para que el siguiente arranque se haga desde la partición donde acaba de ser instalado Windows</em></strong>. En caso de detectar más de un sistema operativo Windows, el instalador inserta un menú de arranque (parecido al de GRUB) que puede ser gestionado desde el último Windows instalado.</p>
-<p>No obstante, hay que tener en cuenta que el instalador de Windows sólo “ve” aquellos sistemas cuya versión sea igual o inferior a la que está siendo instalada.</p>
-<p>Si se quiere instalar Windows 7 y Windows 8, es importante primero instalar 7 y luego 8. En caso de hacerlo al contrario, Windows 7 no “vería” el sistema Windows 8 y sobrescribiría el sector de arranque sin insertar un menú, perdiendo el acceso a dicho sistema.</p>
-<p>Para instalar Windows 10, simplemente hay que tener en cuenta los siguientes aspectos:</p>
+<p>La instalación de <strong><em>Windows</em></strong> es bastante sencilla. Lo primero que hay que tener en cuenta es que <strong><em>Windows 7, 8, 10 y 11</em></strong> solo pueden instalarse sobre <strong><em>sistemas de ficheros NTFS</em></strong>. Dichas particiones pueden crearse y formatearse a través del propio instalador de Windows, o bien con anterioridad haciendo uso de alguna de las herramientas ya vistas. El resto del proceso es totalmente guiado y muy fácil (se verá en las prácticas).</p>
+<p>Además, <strong><em>Windows 11</em></strong> exige un equipo con <strong><em>UEFI compatible con Secure Boot, disco GPT y chip TPM 2.0</em></strong>, por lo que no puede instalarse en modo BIOS/MBR.</p>
+<p>Sin embargo, hay un detalle importante a tener en cuenta. <strong><em>Windows</em></strong>, después de su instalación, <strong><em>sobrescribe siempre el gestor de arranque</em></strong> <strong><em>con la información necesaria para que el siguiente arranque se haga desde la partición donde acaba de instalarse Windows</em></strong>. En caso de detectar más de un sistema operativo Windows, el instalador añade un menú de arranque (parecido al de GRUB) que puede gestionarse desde el último Windows instalado.</p>
+<p>No obstante, hay que tener en cuenta que el instalador de Windows solo "ve" aquellos sistemas Windows cuya versión sea igual o inferior a la que se está instalando.</p>
+<p>Si se quiere instalar Windows 7 y Windows 8, es importante instalar primero Windows 7 y luego Windows 8. En caso de hacerlo al contrario, Windows 7 no "vería" el sistema Windows 8 y sobrescribiría el sector de arranque sin insertar un menú, perdiendo el acceso a dicho sistema. Por el mismo motivo, si se instalan Windows 10 y Windows 11, se instalará primero Windows 10 y después Windows 11 (ambos en modo UEFI).</p>
+<p>Para instalar Windows 10/11, simplemente hay que tener en cuenta los siguientes aspectos:</p>
 <ul>
-<li>Número de particiones a usar (las que crea el sistema, la raíz, etc..).</li>
-<li>Datos del usuario  (Nombre, user, password).</li>
+<li>Número de particiones a usar (las que crea el sistema, la raíz, etc.).</li>
+<li>Datos del usuario (nombre, usuario y contraseña).</li>
 </ul>
-<p>El resto de aspectos, los puedes visualizar en el siguiente vídeo donde se describe el proceso completo de la instalación de Windows 10. El vídeo no contempla todo el proceso, es decir, se han realizado pausas en momentos como: copia de ficheros masiva, descarga de ficheros, etc.., todo lo relacionado al progreso de acciones donde no hay interacción con el usuario.</p>
+<p>El resto de aspectos los puedes visualizar en el siguiente vídeo, donde se describe el proceso completo de la instalación de Windows 10. El vídeo no contempla todo el proceso, es decir, se han realizado pausas en momentos como la copia masiva de ficheros, la descarga de ficheros, etc.; todo lo relacionado con el progreso de acciones donde no hay interacción con el usuario.</p>
 <p><a href="https://www.youtube.com/watch?v=LdhX7PLBlIk">▶ Ver vídeo: Instalación de Windows 10</a></p>
-<p><em><strong>Video 1.</strong> Instalación de Windows 10.</em></p>
+<p><em><strong>Vídeo 1.</strong> Instalación de Windows 10.</em></p>
 <h3 id="2-particion-reservada-de-windows"><strong>2. Partición reservada de Windows</strong></h3>
-<p>Cuando instalamos el Sistema Operativo, <strong><em>si el proceso detecta espacio sin asignar</em></strong> en lugar de una partición, se genera de forma automática una partición reservada para los ficheros de arranque del sistema, de tamaño <strong>100MB</strong> en Windows 7, <strong>500MB</strong> en Windows 10 y que se marcará como partición activa (esta opción es la que recomienda Microsoft).<br />
-Sin embargo, <strong><em>si el proceso detecta particiones existentes</em></strong>, se omite dicha partición reservada incluso aunque no esté. Lo que hace la instalación entonces, es almacenar en la partición existente que seleccionemos los ficheros de arranque y el resto de archivos del Sistema Operativo.</p>
+<p>Cuando instalamos Windows en modo <strong>BIOS (disco MBR)</strong>, <strong><em>si el proceso detecta espacio sin asignar</em></strong> en lugar de una partición, se genera de forma automática una partición reservada para los ficheros de arranque del sistema, de <strong>100 MB</strong> en Windows 7, <strong>350 MB</strong> en Windows 8 y <strong>500 MB</strong> en Windows 10, que se marcará como partición activa (esta es la opción que recomienda Microsoft). Además, Windows 10 crea una pequeña partición de recuperación.</p>
+<p>Sin embargo, <strong><em>si se instala sobre una partición ya existente</em></strong>, no se crea la partición reservada. En ese caso, la instalación almacena en la partición seleccionada tanto los ficheros de arranque como el resto de archivos del sistema operativo.</p>
+<p>Cuando se instala en modo <strong>UEFI (disco GPT)</strong>, como ocurre obligatoriamente en Windows 11, Windows crea estas particiones:</p>
+<ul>
+<li><strong>Partición del sistema EFI</strong> (unos 100 MB, FAT32): contiene los ficheros de arranque.</li>
+<li><strong>Partición reservada de Microsoft (MSR)</strong> (16 MB): no es visible y no tiene sistema de ficheros.</li>
+<li><strong>Partición principal de Windows</strong> (NTFS): la unidad C:.</li>
+<li><strong>Partición de recuperación</strong> (unos 500-800 MB, NTFS): contiene el entorno de recuperación de Windows (WinRE).</li>
+</ul>
 <h4 id="21-caracteristicas"><strong>2.1 Características</strong></h4>
-<p>La partición reservada para el sistema de <strong><em>100MB en Windows 7</em></strong> o <strong><em>500 MB en Windows 10</em></strong>, es una partición oculta que crea de forma automática Windows 7/8/10 y que tiene ciertas características  o funciones que hay que saber:</p>
+<p>La partición reservada para el sistema de <strong><em>100 MB en Windows 7</em></strong> o <strong><em>500 MB en Windows 10</em></strong> es una partición oculta que crea de forma automática Windows 7/8/10 en modo BIOS, y que tiene ciertas características o funciones que hay que conocer:</p>
 <ul>
 <li>Permite el uso de <a href="https://technet.microsoft.com/es-es/library/dd835565(v=ws.10).aspx"><strong>BitLocker</strong></a> (ver nota) con la partición del sistema.</li>
-<li>Permite crear un entorno aislado desde donde lanzar la recuperación del sistema (F8 durante el arranque del PC), aunque ésto último, salvo daño grave del sistema operativo, también se puede hacer sin necesidad de tener esa partición oculta, desde el DVD de instalación, o empleando software externo.</li>
-<li>Además contiene los ficheros de arranque de Windows (bootmgr, \Boot, etc.), los cuales, hasta ahora, se ubicaban en la raíz del sistema. <strong><img alt="" src="../images/5-6-01.png" /></strong><em><strong>Figura 1.</strong> Partición reservada.</em></li>
+<li>Permite crear un entorno aislado desde donde lanzar la recuperación del sistema, aunque esto último, salvo daño grave del sistema operativo, también se puede hacer sin necesidad de tener esa partición oculta, desde el DVD/USB de instalación o empleando software externo. En Windows 7 se accedía pulsando F8 durante el arranque; desde Windows 8, se accede manteniendo pulsada la tecla Mayús al elegir "Reiniciar", o de forma automática tras varios arranques fallidos.</li>
+<li>Además, contiene los ficheros de arranque de Windows (bootmgr, \Boot, etc.), que en versiones anteriores a Windows 7 se ubicaban en la raíz de la unidad del sistema.</li>
 </ul>
-<p><strong>BitLocker</strong> permite mantener a salvo todo, desde documentos hasta contraseñas, ya que cifra toda la unidad en la que Windows y sus datos residen. Una vez que se activa <strong>BitLocker</strong>, se cifran automáticamente todos los archivos almacenados en la unidad.</p>
+<p><img alt="" src="../images/5-6-01.png" /></p>
+<p><em><strong>Figura 2.</strong> Partición reservada.</em></p>
+<p><strong>Nota:</strong> <strong>BitLocker</strong> permite mantener a salvo todo, desde documentos hasta contraseñas, ya que cifra toda la unidad en la que residen Windows y sus datos. Una vez que se activa <strong>BitLocker</strong>, se cifran automáticamente todos los archivos almacenados en la unidad. Está disponible en las ediciones Pro, Enterprise y Education.</p>
 <h4 id="22-evitar-la-particion-reservada"><strong>2.2 Evitar la partición reservada</strong></h4>
-<p>Tenemos varias forma de evitar que se realice la partición reservada:</p>
+<p>Estas técnicas solo son aplicables a instalaciones en modo <strong>BIOS/MBR</strong>. En modo UEFI/GPT, la partición del sistema EFI es imprescindible para arrancar y no debe eliminarse.</p>
+<p>Tenemos varias formas de evitar que se cree la partición reservada:</p>
 <ul>
-<li>Si el disco duro está sin particionar y el particionado se hace desde el DVD de <strong>Windows 10/11</strong> la partición se crea de manera automática pero si el disco duro se particiona antes de la instalación (P.ejemplo con GParted, Acronis, etc.) y no se modifica nada desde el DVD de instalación excepto formatear la partición en NTFS (operación que si es recomendable hacer desde el DVD del sistema), la partición reservada no se crea y <strong>Windows 10/11</strong> se instala alguna de las particiones que ya estaban creadas.</li>
-<li>Otra manera sería, desde el propio proceso de instalación, al llegar a la pantalla que nos habla de las particiones, hacer clic en <strong><em>"Opciones de unidad (avanzadas) para eliminar las particiones existentes y crear una nueva partición"</em></strong>. Al hacerlo veremos en la pantalla el mensaje siguiente: <em>"Para garantizar que todas las características de Windows funcionen correctamente, Windows puede crear particiones adicionales para los archivos de sistema."</em> A continuación se habrán creado  dos particiones, una de ellas la partición reservada de sistema de 100 MB (500MB 8/10) y otra la principal. El proceso consistiría en eliminar la principal (pasando a ser espacio no asignado) y extender la partición reservada de sistema de 100 MB. Extenderemos la partición de acuerdo al espacio libre del que disponemos. Por último se le da formato y una vez finalizado el formateo, la partición reservada original del sistema se transformará en una partición del sistema normal.</li>
+<li>Si el disco duro está sin particionar y el particionado se hace desde el instalador de <strong>Windows 10</strong>, la partición se crea de manera automática. Pero si el disco duro se particiona antes de la instalación (por ejemplo, con GParted o Acronis) y no se modifica nada desde el instalador, salvo formatear la partición en NTFS (operación que sí es recomendable hacer desde el instalador del sistema), la partición reservada no se crea y <strong>Windows 10</strong> se instala en alguna de las particiones que ya estaban creadas.</li>
+<li>Otra manera sería, desde el propio proceso de instalación, al llegar a la pantalla de particiones, hacer clic en <strong><em>"Opciones de unidad (avanzadas)"</em></strong> para eliminar las particiones existentes y crear una nueva partición. Al hacerlo, veremos en pantalla el mensaje siguiente: <em>"Para garantizar que todas las características de Windows funcionen correctamente, Windows puede crear particiones adicionales para los archivos de sistema."</em> A continuación se habrán creado varias particiones: la partición reservada del sistema (100 MB en Windows 7, 350 MB en Windows 8, 500 MB en Windows 10) y la principal. El proceso consistiría en eliminar la principal (que pasará a ser espacio no asignado) y extender la partición reservada del sistema de acuerdo con el espacio libre del que dispongamos. Por último, se le da formato y, una vez finalizado, la partición reservada original se habrá transformado en una partición del sistema normal.</li>
 </ul>
 <h4 id="23-ventajas-y-desventajas-de-separar-las-particiones-de-arranque-y-de-sistema"><strong>2.3 Ventajas y desventajas de separar las particiones de arranque y de sistema</strong></h4>
 <p><strong>Ventajas</strong></p>
 <ul>
-<li>Tener una partición separada para los ficheros de arranque es beneficioso puesto que facilita la instalación de múltiples sistemas operativos de la familia Windows.</li>
-<li>Algunos virus y malware (aunque cada vez menos) suponen que el Sistema Operativo reside en la unidad C. Al tener los archivos del Sistema Operativo en otra partición, el código del virus fallará.</li>
-<li>Ciertas herramientas relacionadas con el almacenamiento, como <strong>Bitlocker</strong> requieren una configuración de particiones en la que la unidad de arranque esté separada de la unidad del sistema para poder cifrar correctamente el contenido de un volumen.</li>
+<li>Tener una partición separada para los ficheros de arranque es beneficioso, puesto que facilita la instalación de múltiples sistemas operativos de la familia Windows.</li>
+<li>Algunos virus y malware (aunque cada vez menos) suponen que el sistema operativo reside en la unidad C:. Al tener los archivos de arranque en otra partición, el código del virus fallará.</li>
+<li>Ciertas herramientas relacionadas con el almacenamiento, como <strong>BitLocker</strong>, requieren una configuración de particiones en la que la partición de arranque esté separada de la del sistema para poder cifrar correctamente el contenido de un volumen.</li>
 </ul>
 <p><strong>Inconvenientes</strong></p>
 <ul>
-<li>Si se desea crear una imagen del Sistema Operativo para poderla restaurar, será necesario hacer imagen de la partición reservada también puesto que al contener el arranque también es susceptible de dañarse. Este tipo de imágenes es muy habitual en configuraciones donde el usuario separa los datos del sistema en particiones separadas.</li>
-<li>Si se quiere hacer un arranque multi-sistema con gestores de arranque de terceros, no con el que incorpora el propio Windows -gestor que ya sabemos que es muy suyo y no se lleva bien con otros Sistema Operativo que no sean de la casa- por ejemplo Grub, puede que el sistema no arranque al no ser capaz de gestionar la partición reservada. A partir de <strong>Grub2</strong> ya es posible hacer un arranque multi-sistema (Linux-Windows) con esa partición reservada sin problemas.</li>
+<li>Si se desea crear una imagen del sistema operativo para poder restaurarla, será necesario hacer también una imagen de la partición reservada, puesto que, al contener el arranque, también es susceptible de dañarse. Este tipo de imágenes es muy habitual en configuraciones donde el usuario separa los datos del sistema en particiones distintas.</li>
+<li>Si se quiere hacer un arranque multisistema con gestores de arranque de terceros (no con el que incorpora el propio Windows, que no se lleva bien con otros sistemas operativos que no sean de Microsoft), como el antiguo GRUB (GRUB Legacy), puede que el sistema no arranque al no ser capaz de gestionar la partición reservada. A partir de <strong>GRUB 2</strong> ya es posible hacer un arranque multisistema (Linux-Windows) con esa partición reservada sin problemas.</li>
 </ul>
 <h4 id="24-conclusiones">2.4 Conclusiones</h4>
-<p>Aunque Microsoft recomienda dejar que Windows gestione la partición reservada podemos deducir que si no es necesario el uso del BitLocker con la partición de Windows puede evitarse su creación.</p>
-<p>Para finalizar,  se muestran algunos escenarios de posibles errores durante la instalación de Windows</p>
-<p><strong>Escenario 1.</strong> Se instala <strong>Windows 10 64 bits</strong> y la instalación lanza un mensaje diciendo que <em>"El sistema no puede instalarse porque el disco está en GPT y el hardware posiblemente no es capaz de arrancarlo".</em></p>
+<p>Aunque Microsoft recomienda dejar que Windows gestione la partición reservada, podemos deducir que, en instalaciones en modo BIOS/MBR, si no es necesario el uso de BitLocker con la partición de Windows, puede evitarse su creación. En modo UEFI/GPT, las particiones que crea Windows son necesarias y no deben eliminarse.</p>
+<p>Para finalizar, se muestran algunos escenarios de posibles errores durante la instalación de Windows.</p>
+<p><strong>Escenario 1.</strong> Se instala <strong>Windows 10 64 bits</strong> y la instalación lanza un mensaje diciendo que <em>"No se puede instalar Windows en este disco. El disco seleccionado tiene el estilo de partición GPT"</em>.</p>
 <ul>
-<li><strong><em>Solución:</em></strong> En la ventana de seleccionar discos pulsar <strong>Shift+F10</strong> para forzar la consola del sistema, desde allí, introducir los siguientes comandos:</li>
+<li><strong><em>Causa:</em></strong> el instalador se ha arrancado en modo BIOS (Legacy), pero el disco tiene tabla de particiones GPT, que requiere modo UEFI.</li>
+<li><strong><em>Solución recomendada:</em></strong> arrancar el instalador en modo UEFI (desde el menú de arranque, eligiendo la entrada "UEFI: ..." del DVD/USB). Así se podrá instalar sobre el disco GPT sin borrar nada.</li>
+<li><strong><em>Solución alternativa (borra todo el disco):</em></strong> en la ventana de selección de discos, pulsar <strong>Mayús+F10</strong> para abrir la consola del sistema e introducir los siguientes comandos:</li>
 <li>diskpart</li>
+<li>list disk</li>
 <li>select disk 0</li>
 <li>clean</li>
 <li>exit</li>
 </ul>
-<p>Los dos primeros comandos anteriores, eliminan cualquier partición y contenido del disco. Los dos últimos, provocan que se salga de la consola y actualizar para continuar la instalación.</p>
-<p><strong>Escenario 2.</strong> Comienza la instalación de <strong>Windows 10</strong> pero al terminar aparece un mensaje que indica que Windows no puede actualizar la configuración de arranque.</p>
+<p>El comando <strong>diskpart</strong> abre la herramienta de gestión de discos; <strong>list disk</strong> muestra los discos para comprobar cuál es el correcto; <strong>select disk 0</strong> selecciona el disco; <strong>clean</strong> elimina todas las particiones y su contenido; y <strong>exit</strong> sale de la herramienta. Después se cierra la consola y se pulsa "Actualizar" para continuar la instalación. Hay que tener en cuenta que <strong>se perderán todos los datos del disco</strong>.</p>
+<p><strong>Escenario 2.</strong> Comienza la instalación de <strong>Windows 10</strong> pero, al terminar, aparece un mensaje que indica que Windows no puede actualizar la configuración de arranque del equipo.</p>
 <ul>
-<li><strong>Solución:</strong> Las BIOS UEFI protegen el arranque o inicio del sistema impidiendo que se puedan hacer modificaciones. Es necesario entrar en la BIOS y quitar la protección de Seguridad de Inicio del sistema (desactivar el arranque seguro).</li>
+<li><strong>Solución:</strong> el firmware UEFI puede proteger el arranque del sistema impidiendo que se hagan modificaciones. Una posible solución es entrar en la configuración UEFI y desactivar temporalmente el arranque seguro (Secure Boot). También conviene comprobar que el instalador se ha arrancado en el mismo modo (UEFI o Legacy) que corresponde al disco. Una vez instalado, se recomienda volver a activar Secure Boot.</li>
 </ul>
 <h2 id="246-instalacion-de-gnulinux">2.4.6 Instalación de GNU/Linux</h2>
 <h3 id="1-instalacion-de-ubuntu">1. Instalación de Ubuntu</h3>
-<p>No es estrictamente necesario instalar una distribución Linux para comenzar a utilizarlo. Por ejemplo, Ubuntu (la distribución con la que se va a trabajar) puede descargarse en versión CD/DVD Live – USB Live, es decir, es posible arrancar el sistema operativo directamente desde el lector óptico o USB, y comenzar a trabajar con él. Sin embargo, si bien esta opción puede ser interesante para probar Linux (o para intentar rescatar un sistema), no resulta la más recomendable para un uso continuado ya que el arranque desde un medio óptico o USB resulta lento y además exige utilizar otra unidad para almacenar los datos y programas instalados.</p>
-<p>La instalación de Linux es un poco más compleja que la de Windows (aunque no mucho más). Hay que tener en cuenta que Linux trabaja con sistemas de ficheros EXT2, EXT3 y EXT4 (entre otros), y aunque el sistema EXT4 es el mejor, resulta más recomendable usar EXT3 si se desea acceder desde windows a la partición de Linux por las siguientes razones:</p>
+<p>No es estrictamente necesario instalar una distribución Linux para comenzar a utilizarla. Por ejemplo, Ubuntu (la distribución con la que se va a trabajar) puede descargarse en versión Live (DVD o USB), es decir, es posible arrancar el sistema operativo directamente desde el lector óptico o el USB y comenzar a trabajar con él. Sin embargo, aunque esta opción puede ser interesante para probar Linux (o para intentar rescatar un sistema), no es la más recomendable para un uso continuado, ya que el arranque desde un medio óptico o USB es lento y, además, los cambios y datos no se conservan salvo que se utilice otra unidad para almacenarlos.</p>
+<p>La instalación de Linux es un poco más compleja que la de Windows (aunque no mucho más). Hay que tener en cuenta que Linux trabaja con sistemas de ficheros ext2, ext3 y ext4 (entre otros). Actualmente, <strong>ext4</strong> es el sistema de ficheros recomendado y el que utiliza Ubuntu por defecto. Si se desea acceder a los datos desde Windows, hay que tener en cuenta lo siguiente:</p>
 <ul>
-<li>Podemos instalar el driver necesario para poder acceder a particiones EXT2 y EXT3 desde Windows.</li>
-<li>Si no se quiere instalar el driver anterior, al menos se pueden instalar programas que permitan acceder a dichas particiones para copiar los datos que se necesiten.</li>
-<li>Algunas herramientas que realizan imágenes de disco aún no son compatibles con EXT4 (como el Norton Ghost) y pueden resultar útiles para crear imágenes de nuestro disco una vez se hayan instalados y configurados todos nuestros sistemas operativos (El volcado de una imagen sobre un disco puede costar 15 o 20 minutos nada más).</li>
+<li>Windows no puede leer particiones ext4 de forma nativa. Para acceder a ellas, se puede utilizar WSL2 (Subsistema de Windows para Linux, con la orden <code>wsl --mount</code>) o programas de terceros que permiten leer estas particiones y copiar los datos que se necesiten.</li>
+<li>En cambio, Linux sí puede leer y escribir particiones NTFS. Por ello, si se quieren compartir datos entre ambos sistemas, lo más práctico es crear una partición de datos en NTFS o exFAT accesible desde los dos. Para que Linux pueda montar la partición de Windows, Windows debe estar completamente apagado (con el inicio rápido y la hibernación desactivados).</li>
+<li>Para crear imágenes de disco una vez instalados y configurados todos los sistemas operativos, pueden utilizarse herramientas como <strong>Clonezilla</strong>, compatibles con ext4 y NTFS (el volcado de una imagen sobre un disco puede costar solo 15 o 20 minutos).</li>
 </ul>
-<p>Otro tema a tener en cuenta es que Linux necesita una partición especial denominada Linux-Swap (partición de intercambio) usada por el sistema cuando la memoria RAM se llena. Es recomendable que su tamaño sea, a ser posible, 1,5 veces el tamaño de la memoria RAM.</p>
-<p>Al igual que Windows, una vez finalizada la instalación, Linux sobreescribe el sector de arranque instalando GRUB. Sin embargo, Linux es más “flexible” y no sólo busca otros sistemas Linux instalados en el disco, si no que busca también sistemas Windows, configurando GRUB automáticamente para que el usuario decida qué sistema operativo desea arrancar.</p>
-<p>Debido a la razón anterior, resulta interesante pensar cuántos sistemas se quieren instalar sobre un mismo disco para elegir el orden adecuado de instalación. Es por ello que si se quiere instalar, por ejemplo, Ubuntu, Windows 10 y Windows 11 el orden deberá ser el que sigue:</p>
+<p>Otro tema a tener en cuenta es el espacio de intercambio (<strong>swap</strong>), que el sistema utiliza cuando la memoria RAM se llena. Puede ser una partición especial (Linux-Swap) o un archivo; desde la versión 17.04, Ubuntu utiliza por defecto un <strong>archivo de intercambio</strong> (swapfile), por lo que no es obligatorio crear una partición. Los criterios para decidir su tamaño se explican en el apartado 2 de esta sección.</p>
+<p>Al igual que Windows, una vez finalizada la instalación, Linux instala su gestor de arranque, GRUB (en el MBR en modo BIOS, o en la partición del sistema EFI en modo UEFI). Sin embargo, Linux es más "flexible": GRUB no solo busca otros sistemas Linux instalados en el equipo, sino que también busca sistemas Windows, y los añade a su menú para que el usuario decida qué sistema operativo desea arrancar. Esta búsqueda la realiza la herramienta <strong>os-prober</strong>. En las versiones recientes de GRUB (2.06 en adelante) puede venir desactivada, y en ese caso hay que activarla añadiendo la línea <code>GRUB_DISABLE_OS_PROBER=false</code> al archivo <code>/etc/default/grub</code> y ejecutando <code>sudo update-grub</code>.</p>
+<p>Debido a lo anterior, es interesante pensar cuántos sistemas se quieren instalar en un mismo equipo para elegir el orden adecuado de instalación: primero los sistemas Windows, del más antiguo al más moderno, y en último lugar Linux. Por ejemplo, si se quiere instalar Ubuntu, Windows 10 y Windows 11, el orden deberá ser el siguiente (todos en modo UEFI, ya que Windows 11 lo exige):</p>
 <ol>
-<li>Windows 11.</li>
 <li>Windows 10.</li>
+<li>Windows 11.</li>
 <li>Ubuntu.</li>
 </ol>
-<p>Para instalar <a href="http://releases.ubuntu.com/16.04/">Ubuntu 16.04.5 LTS (Xenial Xerus)</a>, simplemente hay que tener en cuenta los siguientes aspectos:</p>
+<p>Para instalar <a href="https://releases.ubuntu.com/22.04/">Ubuntu 22.04 LTS (Jammy Jellyfish)</a>, o una versión LTS más reciente, simplemente hay que tener en cuenta los siguientes aspectos:</p>
 <ul>
-<li>Número de particiones a usar (partición raíz y swap).</li>
-<li>Datos del usuario  (Nombre, user, password).</li>
+<li>Número de particiones a usar: partición raíz (/), partición del sistema EFI en modo UEFI y, de forma opcional, /home y swap.</li>
+<li>Datos del usuario (nombre, usuario y contraseña).</li>
 </ul>
-<p>El resto de aspectos, los puedes visualizar en el siguiente vídeo donde se describe el proceso completo de la instalación de Ubuntu Server. El vídeo no contempla todo el proceso, es decir, se han realizado pausas en momentos como: copia de ficheros masiva, descarga de ficheros, etcétera, todo lo relacionado al progreso de acciones donde no hay interacción con el usuario.</p>
+<p>El resto de aspectos los puedes visualizar en el siguiente vídeo, donde se describe el proceso completo de la instalación de Ubuntu Server (el proceso de Ubuntu Desktop es similar, pero con instalador gráfico). El vídeo no contempla todo el proceso, es decir, se han realizado pausas en momentos como la copia masiva de ficheros, la descarga de ficheros, etcétera; todo lo relacionado con el progreso de acciones donde no hay interacción con el usuario.</p>
 <p><a href="https://www.youtube.com/watch?v=QEl11yiBSWY">▶ Ver vídeo: Instalación de Ubuntu 20.04 LTS Server</a></p>
-<p><em><strong>Vídeo 1.</strong> Instalación de Ubuntu 20.04 LTS Server.</em></p>
+<p><em><strong>Vídeo 2.</strong> Instalación de Ubuntu 20.04 LTS Server.</em></p>
 <h3 id="2-particion-swap-en-linux">2. Partición swap en Linux</h3>
-<p>En los equipos actuales (memoria RAM &gt;=16Gbytes), una distribución Linux con un uso normal puede funcionar sin inconvenientes no estableciendo una partición swap. Pero hay ocasiones en los que tenerla es imprescindible y siempre es recomendable.</p>
-<p>Podemos establecer unos criterios para saber si necesitamos crear una partición swap o no en un sistema GNU/Linux, que también valdría para sistemas Windows.</p>
-<p>Se considera necesario crear una partición swap en estos casos:</p>
+<p>En los equipos actuales (con 16 GB de RAM o más), una distribución Linux con un uso normal puede funcionar sin inconvenientes sin espacio swap. Pero hay ocasiones en las que tenerlo es imprescindible, y siempre es recomendable.</p>
+<p>Podemos establecer unos criterios para saber si necesitamos crear espacio swap en un sistema GNU/Linux (en Windows, el equivalente es el archivo de paginación, <code>pagefile.sys</code>, que el sistema gestiona automáticamente).</p>
+<p>Se considera necesario disponer de swap en estos casos:</p>
 <ol>
-<li>Si el equipo tiene 4GBytes o menos de memoria RAM. Aunque ya casi no quedan computadoras de escritorio o notebooks con esta cantidad de RAM, si es común en equipos originalmente diseñados para trabajar con la nube.</li>
-<li>Cuando se utilicen aplicaciones que necesitan de mucha memoria RAM como los editores de video.</li>
-<li>En caso de que deseemos habilitar el modo <strong>hibernación</strong> en nuestra computadora.</li>
+<li>Si el equipo tiene 4 GB de RAM o menos. Aunque ya casi no quedan ordenadores de escritorio o portátiles con esta cantidad de RAM, sí es común en equipos diseñados originalmente para trabajar con la nube.</li>
+<li>Cuando se utilicen aplicaciones que necesitan mucha memoria RAM, como los editores de vídeo.</li>
+<li>En caso de que deseemos habilitar el modo <strong>hibernación</strong> en nuestro equipo.</li>
 </ol>
-<p>Cuando se tiene memoria RAM suficiente (Más de 8 o 16 GB dependiendo del tipo de aplicaciones que se utilicen) es conveniente asignar un porcentaje del disco a la partición swap. Esto servirá para prevenir que un programa con mal funcionamiento consuma mayor memoria de lo necesario y bloquee el sistema, ejemplo, hace unos dos años (2017) usuarios de GNOME 3.26 reportaron que el consumo de memoria aumentaba exponencialmente cuando se hacia un cambio entre ventanas o se accedía al menú (actualmente el tema está corregido).</p>
+<p>Incluso cuando se tiene memoria RAM suficiente (más de 8 o 16 GB, dependiendo del tipo de aplicaciones que se utilicen), es conveniente disponer de algo de espacio swap. Esto servirá para evitar que un programa con mal funcionamiento consuma más memoria de la necesaria y bloquee el sistema. Por ejemplo, en 2017 usuarios de GNOME 3.26 informaron de que el consumo de memoria aumentaba de forma desmedida al cambiar entre ventanas o acceder al menú (actualmente el problema está corregido).</p>
 <h4 id="21-formas-de-determinar-el-tamano-adecuado-de-la-particion-swap">2.1. Formas de determinar el tamaño adecuado de la partición swap</h4>
-<p>No hay un criterio uniforme a la hora determinar cuanto espacio de disco asignar a la partición swap, aunque podemos aplicar los siguientes criterios:</p>
+<p>No hay un criterio uniforme a la hora de determinar cuánto espacio de disco asignar a la swap, aunque podemos aplicar los siguientes criterios, basados en las recomendaciones de Ubuntu:</p>
 <ul>
-<li>Si la memoria RAM es igual o menor a 2GB se asigna el doble de espacio en disco.</li>
-<li>En caso de que la memoria RAM sea mayor a 2 GB y menor a 5 GB sumamos 2 gb a la memoria RAM.</li>
-<li>Cuando la memoria RAM de la que disponemos es mayor a 5 GB asignamos un 20% del espacio en disco.</li>
-<li>Para utilizar sin problemas el modo hibernación, el tamaño de la partición swap debe ser igual al tamaño de la RAM más la raíz cuadrada del tamaño de la RAM.</li>
+<li>Si la memoria RAM es de 1 GB o menos, la swap debe ser como mínimo igual a la RAM y como máximo el doble.</li>
+<li>Si la memoria RAM es mayor de 1 GB, la swap debe ser como mínimo la raíz cuadrada del tamaño de la RAM (redondeada) y como máximo el doble de la RAM. Por ejemplo, con 16 GB de RAM, al menos 4 GB de swap.</li>
+<li>Para utilizar sin problemas el modo hibernación, el tamaño de la swap debe ser igual al tamaño de la RAM más la raíz cuadrada del tamaño de la RAM. Por ejemplo, con 16 GB de RAM, 20 GB de swap.</li>
 </ul>
-<p>No hay ninguna combinación de hardware y software que sea igual a otra. Lo mejor es probar diferentes tamaños de espacio en disco para encontrar el que funcione mejor con nuestra RAM y aplicaciones.</p>
+<p>No hay ninguna combinación de hardware y software igual a otra. Lo mejor es probar diferentes tamaños para encontrar el que funcione mejor con nuestra RAM y nuestras aplicaciones.</p>
 
 
 
